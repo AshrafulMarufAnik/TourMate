@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tour Mate"
+        android:textSize="30sp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.libizo.CustomEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            app:libIZO_clearIconTint="@color/color_blue"
+            app:libIZO_setBorderColor="@color/color_darkGrey"
+            app:libIZO_setBorderView="true"
+            app:libIZO_setClearIconVisible="true"
+            android:backgroundTint="@color/color_blue"
+            app:libIZO_setCornerRadius="5dp"
+            app:libIZO_setStrokeWidth="2dp"/>
+
+        <com.libizo.CustomEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            app:libIZO_clearIconTint="@color/color_blue"
+            app:libIZO_setBorderColor="@color/color_darkGrey"
+            app:libIZO_setBorderView="true"
+            app:libIZO_setClearIconVisible="true"
+            android:backgroundTint="@color/color_blue"
+            app:libIZO_setCornerRadius="5dp"
+            app:libIZO_setStrokeWidth="2dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="50dp"
+            android:background="@color/color_blue"
+            android:text="Log in"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:textColor="@color/color_white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dont Have Account? "
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="@string/sign_up"
+                android:onClick="goToSignUp"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:text="Next"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:onClick="goToHome"/>
+
+</LinearLayout>
