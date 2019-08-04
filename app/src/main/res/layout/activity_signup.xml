@@ -21,7 +21,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
@@ -32,6 +32,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
+            android:id="@+id/signUpNameET"
             android:hint="Name"
             android:inputType="text"
             app:libIZO_clearIconTint="@color/color_blue"
@@ -49,6 +50,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="Email"
+            android:id="@+id/signUpEmailET"
             android:inputType="textEmailAddress"
             app:libIZO_clearIconTint="@color/color_blue"
             app:libIZO_setBorderColor="@color/color_darkGrey"
@@ -65,6 +67,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="Location"
+            android:id="@+id/signUpLocationET"
             android:inputType="text"
             app:libIZO_clearIconTint="@color/color_blue"
             app:libIZO_setBorderColor="@color/color_darkGrey"
@@ -81,6 +84,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="Password"
+            android:id="@+id/signUpPasswordET"
             android:inputType="textPassword"
             app:libIZO_clearIconTint="@color/color_blue"
             app:libIZO_setBorderColor="@color/color_darkGrey"
@@ -93,17 +97,27 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="50dp"
-            android:background="@color/color_blue"
+            android:layout_margin="55dp"
+            android:background="#BE03A9F4"
+            android:textSize="17sp"
+            android:textAllCaps="false"
+            android:id="@+id/signUpBTN"
             android:text="Sign Up"
             android:textStyle="bold"
             android:padding="5dp"
             android:textColor="@color/color_white"/>
 
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/progressBar"
+            android:padding="2dp"
+            android:visibility="gone"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -124,16 +138,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:padding="10dp"
-        android:layout_margin="5dp"
-        android:onClick="goToLogIn"/>
 
 </LinearLayout>

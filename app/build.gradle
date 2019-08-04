@@ -28,6 +28,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:17.0.0'
     implementation 'com.google.firebase:firebase-database:17.0.0'
     implementation 'com.google.firebase:firebase-storage:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.libizo:customedittext:1.0.6' // custom edit text
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     implementation 'de.hdodenhof:circleimageview:3.0.0' // circular imageView

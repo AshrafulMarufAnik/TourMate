@@ -20,7 +20,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:id="@+id/loginEmailET"
             android:hint="Email"
             android:inputType="textEmailAddress"
             app:libIZO_clearIconTint="@color/color_blue"
@@ -46,6 +47,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:id="@+id/loginPasswordET"
             android:hint="Password"
             android:inputType="textPassword"
             app:libIZO_clearIconTint="@color/color_blue"
@@ -59,17 +61,141 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="50dp"
-            android:background="@color/color_blue"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="30dp"
+            android:background="#BE03A9F4"
+            android:textSize="17sp"
+            android:textAllCaps="false"
+            android:id="@+id/logInBTN"
             android:text="Log in"
             android:textStyle="bold"
-            android:padding="5dp"
             android:textColor="@color/color_white"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1.25"
+                android:layout_gravity="center_vertical"
+                android:background="@color/color_darkGrey">
+            </View>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:text="Or"
+                android:textSize="18sp"
+                android:textAlignment="center"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1.25"
+                android:layout_gravity="center_vertical"
+                android:background="@color/color_darkGrey">
+            </View>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="40dp"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="#E95D53"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="6dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:id="@+id/googleSignUpClick">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/googleIV"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/google"
+                        android:tint="@color/color_white"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/googleIV"
+                        android:layout_centerVertical="true"
+                        android:text="Continue with Google"
+                        android:textColor="@color/color_white"
+                        android:textSize="18sp"
+                        android:padding="3dp"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="#0E75C9"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="6dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:id="@+id/facebookSignUpClick">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/facebookIV"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/facebook"
+                        android:tint="@color/color_white"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/facebookIV"
+                        android:layout_centerVertical="true"
+                        android:text="Continue with Google"
+                        android:textColor="@color/color_white"
+                        android:textSize="18sp"
+                        android:padding="3dp"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -90,17 +216,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:text="Next"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:padding="10dp"
-        android:layout_margin="5dp"
-        android:onClick="goToHome"/>
 
 </LinearLayout>

@@ -1,6 +1,8 @@
 package com.anik.example.tourmate;
 
 import android.app.StatusBarManager;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -16,21 +18,34 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
+    private CheckInternetConnection checkInternetConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         init();
+
         replaceFragment(new HomeFragment());
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkConnectivity();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(checkInternetConnection);
+    }
+
     private void init() {
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
-
+        checkInternetConnection = new CheckInternetConnection();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
         fragmentTransaction.commit();
+    }
+
+    public void checkConnectivity(){
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(checkInternetConnection,intentFilter);
     }
 
 }

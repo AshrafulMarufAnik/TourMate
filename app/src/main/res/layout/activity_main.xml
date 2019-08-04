@@ -21,10 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/color_white"
-        android:paddingBottom="2dp"
-        android:outlineProvider="paddedBounds"
-        android:outlineAmbientShadowColor="@color/color_lightGrey"
-        android:outlineSpotShadowColor="@color/color_lightGrey"
+        android:paddingBottom="3dp"
+        android:outlineAmbientShadowColor="@color/color_darkGrey"
+        android:outlineSpotShadowColor="@color/color_darkGrey"
         android:background="@color/color_white"
         app:menu="@menu/bottom_nav_menu" />
 

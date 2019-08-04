@@ -7,20 +7,22 @@
     android:background="@color/color_white"
     tools:context=".NotificationFragment">
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="5dp"
-        app:cardUseCompatPadding="true"
-        app:cardBackgroundColor="@color/color_white">
+        android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/notificationRV">
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/color_white">
 
-        </androidx.recyclerview.widget.RecyclerView>
 
-    </androidx.cardview.widget.CardView>
+
+        </androidx.cardview.widget.CardView>
+
+    </ScrollView>
+
 
 </FrameLayout>

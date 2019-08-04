@@ -7,6 +7,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tour_history">Tour History</string>
-    <string name="sign_up"><b><u>Sign Up</u></b></string>
+    <string name="sign_up"><b><u>Sign Up with Email</u></b></string>
     <string name="log_in"><b><u>Log in</u></b></string>
 </resources>
