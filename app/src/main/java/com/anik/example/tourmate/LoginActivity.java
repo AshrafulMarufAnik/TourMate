@@ -228,17 +228,20 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
     }
 
     public void phoneLogInWithOTP(View view) {
-        PhoneNumberInputDialog phoneNumberInputDialog = new PhoneNumberInputDialog();
-        phoneNumberInputDialog.show(getSupportFragmentManager(),"phoneNumberInputDialog");
+        openDialog();
+    }
 
-        Intent intent = new Intent(LoginActivity.this,PhoneVerificationActivity.class);
-        intent.putExtra("phoneNumber",PhoneNumber);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+    private void openDialog() {
+        PhoneNumberInputDialog phoneNumberInputDialog = new PhoneNumberInputDialog();
+        phoneNumberInputDialog.show(getSupportFragmentManager(),"PhoneNumber Input Dialog");
     }
 
     @Override
     public void applyText(String phoneNumber) {
-        PhoneNumber = phoneNumber;
+        String number = phoneNumber;
+        Intent intent = new Intent(LoginActivity.this,PhoneVerificationActivity.class);
+        intent.putExtra("phoneNumber",number);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

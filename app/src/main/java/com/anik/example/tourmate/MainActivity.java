@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        checkConnectivity();
+        //checkConnectivity();
         fireBaseStateListener();
 
         replaceFragment(new HomeFragment());
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(checkInternetConnection);
+        //unregisterReceiver(checkInternetConnection);
         if(authStateListener!=null){
             FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
         }

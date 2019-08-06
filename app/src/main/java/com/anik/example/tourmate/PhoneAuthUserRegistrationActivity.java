@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
-    private EditText nameET,emailET,locationET;
+    private EditText nameET, emailET, locationET;
     private Button registerBTN;
     private String uid;
     private FirebaseAuth firebaseAuth;
@@ -35,12 +35,12 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phone_auth_user_registration);
         init();
 
-        uid = getIntent().getStringExtra("uid");
+        //uid = getIntent().getStringExtra("uid");
 
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(nameET.getText().toString().isEmpty() || emailET.getText().toString().isEmpty() || locationET.getText().toString().isEmpty()){
+                if (nameET.getText().toString().isEmpty() || emailET.getText().toString().isEmpty() || locationET.getText().toString().isEmpty()) {
                     Toast.makeText(PhoneAuthUserRegistrationActivity.this, "Fill uo fields", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -49,33 +49,29 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
                     String location = locationET.getText().toString();
 
                     String userID = firebaseUser.getUid();
-                    if(uid==userID){
-                        Map<String,Object> userMap = new HashMap<>();
-                        userMap.put("userID",userID);
-                        userMap.put("userName",name);
-                        userMap.put("userEmail",email);
-                        userMap.put("userLocation",location);
+                    Map<String, Object> userMap = new HashMap<>();
+                    userMap.put("userID", userID);
+                    userMap.put("userName", name);
+                    userMap.put("userEmail", email);
+                    userMap.put("userLocation", location);
 
-                        DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child("SignedInWithPhoneAuth").child(userID).child("user information");
-                        userRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(PhoneAuthUserRegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(PhoneAuthUserRegistrationActivity.this,MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(PhoneAuthUserRegistrationActivity.this,e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    else {
-                        Toast.makeText(PhoneAuthUserRegistrationActivity.this, "User mis-match", Toast.LENGTH_SHORT).show();
-                    }
+                    DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child("SignedInWithPhoneAuth").child(userID).child("user information");
+                    userRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(PhoneAuthUserRegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PhoneAuthUserRegistrationActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(PhoneAuthUserRegistrationActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 }
             }
         });

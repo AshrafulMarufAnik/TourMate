@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import java.util.zip.Inflater;
+
 public class PhoneNumberInputDialog extends AppCompatDialogFragment {
     private EditText phoneNumberET;
     private DialogListener dialogListener;
@@ -21,7 +23,6 @@ public class PhoneNumberInputDialog extends AppCompatDialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.phone_log_in_dialog_layout,null);
-        phoneNumberET = view.findViewById(R.id.phoneNumberET);
 
         builder.setView(view);
         builder.setTitle("Log in using phone");
@@ -35,10 +36,7 @@ public class PhoneNumberInputDialog extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(phoneNumberET.getText().toString().isEmpty()){
-                    Toast.makeText(getActivity(), "Enter Phone number", Toast.LENGTH_SHORT).show();
-                }
-                else if(phoneNumberET.getText().toString().length()<10){
-                    Toast.makeText(getActivity(), "Phone number should be 11-digit", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Enter Phone Number", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     String phoneNumber = phoneNumberET.getText().toString();
@@ -46,6 +44,8 @@ public class PhoneNumberInputDialog extends AppCompatDialogFragment {
                 }
             }
         });
+
+        phoneNumberET = view.findViewById(R.id.phoneNumberET);
 
         return builder.create();
     }

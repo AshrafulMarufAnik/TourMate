@@ -120,7 +120,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="90dp"
                 android:layout_weight="1"
                 app:cardUseCompatPadding="true"
                 app:cardBackgroundColor="#D1271B"
@@ -157,7 +157,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="90dp"
                 android:layout_weight="1"
                 app:cardUseCompatPadding="true"
                 app:cardBackgroundColor="#0E75C9"
