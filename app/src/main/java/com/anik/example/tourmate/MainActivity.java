@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     replaceFragment(new HomeFragment());
                     return true;
-                case R.id.navigation_tour_history:
-                    replaceFragment(new HistoryFragment());
-                    return true;
                 case R.id.navigation_notifications:
                     replaceFragment(new NotificationFragment());
                     return true;

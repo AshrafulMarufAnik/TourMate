@@ -76,6 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                 String userID = firebaseAuth.getCurrentUser().getUid();
                                 Map<String,Object> userMap = new HashMap<>();
+                                userMap.put("userID",userID);
                                 userMap.put("userName",name);
                                 userMap.put("userEmail",email);
                                 userMap.put("userLocation",location);

@@ -39,7 +39,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     private final int RC_SIGN_IN = 0;
     private CheckInternetConnection checkInternetConnection;
-    private RelativeLayout googleSignInClick, facebookSignInClick;
+    private RelativeLayout googleSignInClick;
     private EditText emailET, passwordET;
     private Button logInBTN;
     private GoogleSignInClient mGoogleSignInClient;
@@ -52,6 +52,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         init();
+
+        if(firebaseAuth.getCurrentUser()!=null && firebaseAuth.getCurrentUser().isEmailVerified()){
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            finish();
+        }
 
         googleSignInClick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,14 +120,16 @@ public class LoginActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                fireBaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                Log.w("Error", "Google sign in failed", e);
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        if(resultCode==RESULT_OK){
+            if (requestCode == RC_SIGN_IN) {
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                try {
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
+                    fireBaseAuthWithGoogle(account);
+                } catch (ApiException e) {
+                    Log.w("Error", "Google sign in failed", e);
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -144,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     private void handleUser(FirebaseUser user) {
@@ -197,7 +205,6 @@ public class LoginActivity extends AppCompatActivity {
     private void init() {
         checkInternetConnection = new CheckInternetConnection();
         googleSignInClick = findViewById(R.id.googleSignUpClick);
-        facebookSignInClick = findViewById(R.id.facebookSignUpClick);
         emailET = findViewById(R.id.loginEmailET);
         passwordET = findViewById(R.id.loginPasswordET);
         logInBTN = findViewById(R.id.logInBTN);
@@ -215,5 +222,9 @@ public class LoginActivity extends AppCompatActivity {
     public void checkConnectivity() {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(checkInternetConnection, intentFilter);
+    }
+
+    public void phoneLogInWithOTP(View view) {
+
     }
 }

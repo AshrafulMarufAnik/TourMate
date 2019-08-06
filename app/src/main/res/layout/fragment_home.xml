@@ -43,7 +43,6 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="5dp"
-                        android:tint="@color/color_lightGrey"
                         android:src="@drawable/add" />
 
                     <TextView
@@ -81,7 +80,6 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="5dp"
-                        android:tint="@color/color_lightGrey"
                         android:src="@drawable/profile" />
 
                     <TextView
@@ -93,6 +91,7 @@
 
 
                 </LinearLayout>
+
             </LinearLayout>
 
             <View
@@ -103,7 +102,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:id="@+id/openMapsClick"
+                android:id="@+id/openAllTourHistoryClick"
                 android:layout_weight="1">
 
                 <LinearLayout
@@ -118,20 +117,19 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="5dp"
-                        android:tint="@color/color_lightGrey"
-                        android:src="@drawable/maps" />
+                        android:src="@drawable/current_tour" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Maps"
+                        android:text="Tour History"
                         android:textAlignment="center"
                         android:textColor="@color/color_full_dark_grey" />
 
 
                 </LinearLayout>
-            </LinearLayout>
 
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -167,7 +165,6 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="5dp"
-                        android:tint="@color/color_lightGrey"
                         android:src="@drawable/gallery" />
 
                     <TextView
@@ -179,6 +176,7 @@
 
 
                 </LinearLayout>
+
             </LinearLayout>
 
             <View
@@ -204,7 +202,6 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="5dp"
-                        android:tint="@color/color_lightGrey"
                         android:src="@drawable/nearby" />
 
                     <TextView
@@ -241,7 +238,6 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginBottom="5dp"
-                        android:tint="@color/color_lightGrey"
                         android:src="@drawable/locator" />
 
                     <TextView
@@ -253,6 +249,7 @@
 
 
                 </LinearLayout>
+
             </LinearLayout>
 
 
@@ -262,14 +259,277 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/LL2"
+            android:id="@+id/view"
             android:background="@color/color_lightGrey"></View>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:id="@+id/weatherCardView"
+            android:layout_below="@id/view"
+            app:cardBackgroundColor="@color/color_white"
+            app:cardElevation="6dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:id="@+id/openWeatherInfoClick">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weather Info"
+                        android:layout_marginBottom="2dp"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Temp in C`"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Speed"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Humidity"
+                        android:layout_marginBottom="2dp"
+                        android:textStyle="bold"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/weather"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/LL2">
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/weatherCardView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/color_blue"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="5dp"
+                    app:cardMaxElevation="2dp"
+                    app:cardCornerRadius="7dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:id="@+id/currentTourClick">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:id="@+id/CIV1"
+                            app:civ_border_width="3dp"
+                            android:layout_margin="3dp"
+                            android:src="@drawable/current_tour"
+                            android:tint="@color/color_white"
+                            app:civ_border_color="@color/color_white"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/CIV1"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="2dp"
+                            android:text="Current Tour"
+                            android:textColor="@color/color_white"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/CIV1"
+                            android:id="@+id/location1"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Location"
+                            android:textAlignment="center"
+                            android:textColor="@color/color_white"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/location1"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Date"
+                            android:textAlignment="center"
+                            android:textColor="@color/color_white"/>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/color_green"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="5dp"
+                    app:cardMaxElevation="2dp"
+                    app:cardCornerRadius="7dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:id="@+id/upcomingToursClick">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:id="@+id/CIV2"
+                            app:civ_border_width="3dp"
+                            android:layout_margin="3dp"
+                            android:src="@drawable/upcoming_tour"
+                            android:tint="@color/color_white"
+                            app:civ_border_color="@color/color_white"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/CIV2"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="2dp"
+                            android:text="Next Tour"
+                            android:textColor="@color/color_white"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/CIV2"
+                            android:id="@+id/location"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Location"
+                            android:textAlignment="center"
+                            android:textColor="@color/color_white"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/location"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Date"
+                            android:textAlignment="center"
+                            android:textColor="@color/color_white"/>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/color_light_red"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="5dp"
+                    app:cardMaxElevation="2dp"
+                    app:cardCornerRadius="7dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:id="@+id/lastTourClick">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:id="@+id/CIV3"
+                            app:civ_border_width="3dp"
+                            android:layout_margin="3dp"
+                            android:src="@drawable/last_tour"
+                            android:tint="@color/color_white"
+                            app:civ_border_color="@color/color_white"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/CIV3"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="2dp"
+                            android:text="Last Tour"
+                            android:textColor="@color/color_white"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/CIV3"
+                            android:id="@+id/location3"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Location"
+                            android:textAlignment="center"
+                            android:textColor="@color/color_white"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/location3"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Date"
+                            android:textAlignment="center"
+                            android:textColor="@color/color_white"/>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -282,7 +542,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -291,6 +552,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="5dp"
+                        android:layout_centerVertical="true"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
 
@@ -316,238 +578,16 @@
                         android:id="@+id/profileImage"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_margin="8dp"
                         android:src="@drawable/user"
                         app:civ_border_width="2dp"
-                        app:civ_border_color="#807E7E"/>
+                        app:civ_border_color="@color/color_lightGrey"/>
 
 
                 </RelativeLayout>
 
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="3"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/color_blue"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="5dp"
-                    app:cardMaxElevation="2dp"
-                    app:cardCornerRadius="7dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/currentTourClick">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:id="@+id/CIV1"
-                            app:civ_border_width="3dp"
-                            android:layout_margin="4dp"
-                            android:src="@drawable/current_tour"
-                            android:tint="@color/color_white"
-                            app:civ_border_color="@color/color_white"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/CIV1"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="2dp"
-                            android:text="Current Tour"
-                            android:textColor="@color/color_white"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/CIV1"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:text="Location"
-                            android:textAlignment="center"
-                            android:textColor="@color/color_white"/>
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/color_green"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="5dp"
-                    app:cardMaxElevation="2dp"
-                    app:cardCornerRadius="7dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/upcomingToursClick">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:id="@+id/CIV2"
-                            app:civ_border_width="3dp"
-                            android:layout_margin="4dp"
-                            android:src="@drawable/upcoming_tour"
-                            android:tint="@color/color_white"
-                            app:civ_border_color="@color/color_white"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/CIV2"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="2dp"
-                            android:text="Upcoming Tour"
-                            android:textColor="@color/color_white"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/CIV2"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:text="Location"
-                            android:textAlignment="center"
-                            android:textColor="@color/color_white"/>
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/color_light_red"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="5dp"
-                    app:cardMaxElevation="2dp"
-                    app:cardCornerRadius="7dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/lastTourClick">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:id="@+id/CIV3"
-                            app:civ_border_width="3dp"
-                            android:layout_margin="4dp"
-                            android:src="@drawable/last_tour"
-                            android:tint="@color/color_white"
-                            app:civ_border_color="@color/color_white"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/CIV3"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="2dp"
-                            android:text="Last Tour"
-                            android:textColor="@color/color_white"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/CIV3"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:text="Location"
-                            android:textAlignment="center"
-                            android:textColor="@color/color_white"/>
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-
-
-            </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                app:cardBackgroundColor="@color/color_white"
-                app:cardElevation="6dp"
-                app:cardUseCompatPadding="true">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/weatherInfoL"
-                        android:layout_margin="8dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Weather Info"
-                            android:layout_marginBottom="2dp"
-                            android:textStyle="bold"
-                            android:textSize="16sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Temp in C`"
-                            android:textSize="12sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Speed"
-                            android:textSize="12sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Humidity"
-                            android:layout_marginBottom="2dp"
-                            android:textStyle="bold"
-                            android:textSize="12sp"/>
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/weather"/>
-
-                </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
