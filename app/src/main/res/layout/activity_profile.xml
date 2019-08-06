@@ -266,4 +266,19 @@
 
     </HorizontalScrollView>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/custom_button_design"
+        android:text="Log out"
+        android:textSize="17sp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/color_blue"
+        android:onClick="logOut"/>
+
 </LinearLayout>

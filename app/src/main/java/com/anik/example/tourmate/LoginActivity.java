@@ -36,7 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements PhoneNumberInputDialog.DialogListener {
     private final int RC_SIGN_IN = 0;
     private CheckInternetConnection checkInternetConnection;
     private RelativeLayout googleSignInClick;
@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
+    private String PhoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         init();
 
-        if(firebaseAuth.getCurrentUser()!=null && firebaseAuth.getCurrentUser().isEmailVerified()){
+        if(firebaseAuth.getCurrentUser()!=null){
             startActivity(new Intent(LoginActivity.this,MainActivity.class));
             finish();
         }
@@ -79,7 +80,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (emailET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Enter Email & Password", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else {
                     String email = emailET.getText().toString();
                     String password = passwordET.getText().toString();
                     logInWithEmailPassword(email, password);
@@ -89,13 +91,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void logInWithEmailPassword(String email, String password) {
+
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     if(firebaseAuth.getCurrentUser().isEmailVerified()){
                         Toast.makeText(LoginActivity.this, "Log in Successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                         finish();
                     }
                     else {
@@ -187,9 +190,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        checkConnectivity();
+        //checkConnectivity();
 
-        if (firebaseUser!=null && firebaseUser.isEmailVerified()) {
+        if (firebaseUser!=null) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -199,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(checkInternetConnection);
+        //unregisterReceiver(checkInternetConnection);
     }
 
     private void init() {
@@ -225,6 +228,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void phoneLogInWithOTP(View view) {
+        PhoneNumberInputDialog phoneNumberInputDialog = new PhoneNumberInputDialog();
+        phoneNumberInputDialog.show(getSupportFragmentManager(),"phoneNumberInputDialog");
 
+        Intent intent = new Intent(LoginActivity.this,PhoneVerificationActivity.class);
+        intent.putExtra("phoneNumber",PhoneNumber);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void applyText(String phoneNumber) {
+        PhoneNumber = phoneNumber;
     }
 }

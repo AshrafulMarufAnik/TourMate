@@ -39,7 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         init();
-        checkConnectivity();
+        //checkConnectivity();
 
         signUpBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
                                             intent.putExtra("email",email);
                                             intent.putExtra("password",password);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                             finish();
                                         }
@@ -113,15 +113,13 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        checkConnectivity();
+        //checkConnectivity();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
-        unregisterReceiver(checkInternetConnection);
+        //unregisterReceiver(checkInternetConnection);
     }
 
     private void init() {

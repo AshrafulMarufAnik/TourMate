@@ -249,14 +249,14 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_margin="70dp"
         android:id="@+id/saveNewTourBTN"
         android:text="Save"
         android:textAllCaps="false"
         android:textSize="17sp"
         android:textStyle="bold"
         android:padding="5dp"
-        android:textColor="@color/color_white"
-        android:background="@color/color_light_green"/>
+        android:textColor="@color/color_blue"
+        android:background="@drawable/custom_button_design"/>
 
 </LinearLayout>

@@ -32,7 +32,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/signUpNameET"
+            android:id="@+id/phoneAuthUserNameET"
             android:hint="Name"
             android:inputType="text"
             app:libIZO_clearIconTint="@color/color_blue"
@@ -50,7 +50,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="Email"
-            android:id="@+id/signUpEmailET"
+            android:id="@+id/phoneAuthUserEmailET"
             android:inputType="textEmailAddress"
             app:libIZO_clearIconTint="@color/color_blue"
             app:libIZO_setBorderColor="@color/color_darkGrey"
@@ -67,25 +67,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="Location"
-            android:id="@+id/signUpLocationET"
+            android:id="@+id/phoneAuthUserLocationET"
             android:inputType="text"
-            app:libIZO_clearIconTint="@color/color_blue"
-            app:libIZO_setBorderColor="@color/color_darkGrey"
-            app:libIZO_setBorderView="true"
-            app:libIZO_setClearIconVisible="true"
-            android:backgroundTint="@color/color_blue"
-            app:libIZO_setCornerRadius="5dp"
-            app:libIZO_setStrokeWidth="2dp"/>
-
-        <com.libizo.CustomEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="Password"
-            android:id="@+id/signUpPasswordET"
-            android:inputType="textPassword"
             app:libIZO_clearIconTint="@color/color_blue"
             app:libIZO_setBorderColor="@color/color_darkGrey"
             app:libIZO_setBorderView="true"
@@ -103,8 +86,8 @@
             android:elevation="5dp"
             android:textSize="17sp"
             android:textAllCaps="false"
-            android:id="@+id/signUpBTN"
-            android:text="Sign Up"
+            android:id="@+id/phoneAuthUserRegBTN"
+            android:text="Register"
             android:textStyle="bold"
             android:padding="5dp"
             android:textColor="@color/color_blue"/>
@@ -112,32 +95,9 @@
         <ProgressBar
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/progressBar"
+            android:id="@+id/phoneAuthUserProgressBar"
             android:padding="2dp"
             android:visibility="gone"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Already Have Account? "
-                android:textAlignment="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="@string/log_in"
-                android:onClick="goToLogIn"
-                android:textAlignment="center"/>
-
-        </LinearLayout>
 
     </LinearLayout>
 
