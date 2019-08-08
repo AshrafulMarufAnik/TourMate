@@ -24,7 +24,7 @@ import java.util.Map;
 public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
     private EditText nameET, emailET, locationET;
     private Button registerBTN;
-    private String uid;
+    private String uid,number;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private FirebaseUser firebaseUser;
@@ -35,7 +35,7 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phone_auth_user_registration);
         init();
 
-        //uid = getIntent().getStringExtra("uid");
+        number = getIntent().getStringExtra("phoneNumber") ;
 
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,15 +47,16 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
                     String name = nameET.getText().toString();
                     String email = emailET.getText().toString();
                     String location = locationET.getText().toString();
-
                     String userID = firebaseUser.getUid();
+
                     Map<String, Object> userMap = new HashMap<>();
                     userMap.put("userID", userID);
+                    userMap.put("userPhoneNumber", number);
                     userMap.put("userName", name);
                     userMap.put("userEmail", email);
                     userMap.put("userLocation", location);
 
-                    DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child("SignedInWithPhoneAuth").child(userID).child("user information");
+                    DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child("Signed In With PhoneAuth").child(userID).child("user information");
                     userRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -71,7 +72,6 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
                             Toast.makeText(PhoneAuthUserRegistrationActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-
                 }
             }
         });

@@ -54,19 +54,11 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         setContentView(R.layout.activity_login);
         init();
 
-        if(firebaseAuth.getCurrentUser()!=null){
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        if (firebaseUser!=null && firebaseUser.isEmailVerified()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
             finish();
         }
-
-        googleSignInClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-                mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
-                googleSignIn();
-            }
-        });
 
         if(getIntent().getExtras()!=null){
             String email = getIntent().getStringExtra("email");
@@ -88,6 +80,15 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
                 }
             }
         });
+
+        googleSignInClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+                mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
+                googleSignIn();
+            }
+        });
     }
 
     private void logInWithEmailPassword(String email, String password) {
@@ -95,10 +96,10 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if(task.isComplete()){
                     if(firebaseAuth.getCurrentUser().isEmailVerified()){
                         Toast.makeText(LoginActivity.this, "Log in Successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                         finish();
                     }
                     else {
@@ -191,12 +192,6 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
     protected void onStart() {
         super.onStart();
         //checkConnectivity();
-
-        if (firebaseUser!=null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
     }
 
     @Override
@@ -241,7 +236,6 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         String number = phoneNumber;
         Intent intent = new Intent(LoginActivity.this,PhoneVerificationActivity.class);
         intent.putExtra("phoneNumber",number);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }

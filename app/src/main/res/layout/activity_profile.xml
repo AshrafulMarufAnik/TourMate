@@ -8,277 +8,296 @@
     android:background="@color/color_white"
     tools:context=".ProfileActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_back_black_24dp"
-        android:onClick="goBack"
-        android:padding="5dp"
-        android:tint="@color/color_darkGrey"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="14dp"
-            android:tint="#686565"
-            android:src="@drawable/ic_edit_black_24dp"/>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profileImageCIV"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:elevation="6dp"
-            android:src="@drawable/user"
-            android:layout_centerHorizontal="true"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/color_lightGrey"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:layout_marginTop="50dp"
-            android:id="@+id/coverImageIV"
-            android:src="@drawable/sample_image"
-            android:tint="@color/color_lightGrey"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_centerHorizontal="true"
-            android:scaleType="fitXY"/>
-
-    </RelativeLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/color_white"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="5dp"
-        android:layout_below="@id/coverImageIV">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:text="Name"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:text="Email"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:text="Location"/>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="@color/color_blue"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="5dp"
-            app:cardMaxElevation="2dp"
-            app:cardCornerRadius="7dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:onClick="goBack"
+            android:padding="2dp"
+            android:tint="@color/color_darkGrey"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/CIV1"
-                    app:civ_border_width="3dp"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/current_tour"
-                    android:tint="@color/color_white"
-                    app:civ_border_color="@color/color_white"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/CIV1"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Total Tours"
-                    android:textColor="@color/color_white"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/CIV1"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:text="Total Tour Expenses"
-                    android:textColor="@color/color_white"/>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="@color/color_green"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="5dp"
-            app:cardMaxElevation="2dp"
-            app:cardCornerRadius="7dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/CIV2"
-                    app:civ_border_width="3dp"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/upcoming_tour"
-                    android:tint="@color/color_white"
-                    app:civ_border_color="@color/color_white"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/CIV2"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="2dp"
-                    android:text="Favourite Places"
-                    android:textColor="@color/color_white"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/CIV2"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:text="Total Added"
-                    android:textColor="@color/color_white"/>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="5dp"
-        android:id="@+id/imageCollectionSV"
-        android:paddingTop="@dimen/cardview_compat_inset_shadow">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="110dp"
-                android:scaleType="fitXY"
-                android:layout_margin="8dp"
-                android:baseline="@dimen/activity_horizontal_margin"
-                android:src="@drawable/sample_image"
-                android:elevation="5dp"
-                android:tint="@color/color_lightGrey"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="14dp"
+                android:tint="#686565"
+                android:src="@drawable/ic_edit_black_24dp"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileImageCIV"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:elevation="6dp"
+                android:src="@drawable/user"
+                android:layout_centerHorizontal="true"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/color_lightGrey"/>
+
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="110dp"
-                android:scaleType="fitXY"
-                android:layout_margin="8dp"
-                android:baseline="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="50dp"
+                android:id="@+id/coverImageIV"
                 android:src="@drawable/sample_image"
-                android:elevation="5dp"
-                android:tint="@color/color_lightGrey"/>
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="110dp"
-                android:scaleType="fitXY"
-                android:layout_margin="8dp"
-                android:baseline="@dimen/activity_horizontal_margin"
-                android:src="@drawable/sample_image"
-                android:elevation="5dp"
-                android:tint="@color/color_lightGrey"/>
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="110dp"
-                android:scaleType="fitXY"
-                android:layout_margin="8dp"
-                android:baseline="@dimen/activity_horizontal_margin"
-                android:src="@drawable/sample_image"
-                android:elevation="5dp"
-                android:tint="@color/color_lightGrey"/>
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="110dp"
-                android:scaleType="fitXY"
-                android:layout_margin="8dp"
-                android:baseline="@dimen/activity_horizontal_margin"
-                android:src="@drawable/sample_image"
-                android:elevation="5dp"
-                android:tint="@color/color_lightGrey"/>
+                android:tint="@color/color_lightGrey"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"/>
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/color_white"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="5dp"
+            android:layout_below="@id/coverImageIV">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="Name"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="Email"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="Location"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:weightSum="2"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/color_blue"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="7dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/CIV1"
+                        app:civ_border_width="3dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/current_tour"
+                        android:tint="@color/color_white"
+                        app:civ_border_color="@color/color_white"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/CIV1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="4dp"
+                        android:text="Total Tours"
+                        android:textColor="@color/color_white"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/CIV1"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="5dp"
+                        android:text="Total Tour Expenses"
+                        android:textAlignment="center"
+                        android:textColor="@color/color_white"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/color_green"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="7dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/CIV2"
+                        app:civ_border_width="3dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/upcoming_tour"
+                        android:tint="@color/color_white"
+                        app:civ_border_color="@color/color_white"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/CIV2"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="2dp"
+                        android:text="Favourite Places"
+                        android:textColor="@color/color_white"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/CIV2"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="5dp"
+                        android:text="Total Added"
+                        android:textAlignment="center"
+                        android:textColor="@color/color_white"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
-    </HorizontalScrollView>
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/imageCollectionHSV"
+            android:paddingTop="@dimen/cardview_compat_inset_shadow">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/custom_button_design"
-        android:text="Log out"
-        android:textSize="17sp"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/color_blue"
-        android:onClick="logOut"/>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_margin="8dp"
+                    android:baseline="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/sample_image"
+                    android:elevation="5dp"
+                    android:tint="@color/color_lightGrey"/>
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_margin="8dp"
+                    android:baseline="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/sample_image"
+                    android:elevation="5dp"
+                    android:tint="@color/color_lightGrey"/>
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_margin="8dp"
+                    android:baseline="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/sample_image"
+                    android:elevation="5dp"
+                    android:tint="@color/color_lightGrey"/>
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_margin="8dp"
+                    android:baseline="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/sample_image"
+                    android:elevation="5dp"
+                    android:tint="@color/color_lightGrey"/>
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_margin="8dp"
+                    android:baseline="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/sample_image"
+                    android:elevation="5dp"
+                    android:tint="@color/color_lightGrey"/>
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_margin="8dp"
+                    android:baseline="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/sample_image"
+                    android:elevation="5dp"
+                    android:tint="@color/color_lightGrey"/>
+
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="125dp"
+            android:layout_marginRight="125dp"
+            android:layout_marginBottom="20dp"
+            android:elevation="2dp"
+            android:background="@drawable/custom_button_design"
+            android:text="Log out"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/color_blue"
+            android:onClick="logOut"/>
+
+    </LinearLayout>
 
 </LinearLayout>

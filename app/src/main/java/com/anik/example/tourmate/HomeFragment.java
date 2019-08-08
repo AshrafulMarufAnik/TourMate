@@ -4,12 +4,16 @@ package com.anik.example.tourmate;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,8 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class HomeFragment extends Fragment {
     private View view;
     private LinearLayout addTourClick, profileClick, tourHistoryClick, galleryClick, nearbyClick, circleLocatorClick;
+    private Button logOutBTN;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private FirebaseAuth.AuthStateListener authStateListener;
     private DatabaseReference databaseReference;
     private String userID;
 
@@ -32,9 +38,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         init();
-        if(firebaseUser!=null && firebaseUser.isEmailVerified()){
-            userID = firebaseUser.getUid();
-        }
+        fireBaseStateListener();
 
 
         addTourClick.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +73,46 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        logOutBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.signOut();
+            }
+        });
+
         return view;
+    }
+
+    private void fireBaseStateListener(){
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user!=null && user.isEmailVerified()){
+                    Log.d("Signed in","user ID: "+user.getUid());
+                }
+                else {
+                    Toast.makeText(getContext(), "Signed Out", Toast.LENGTH_SHORT).show();
+                    Intent intent =  new Intent(getContext(),LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(authStateListener!=null){
+            FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
+        }
     }
 
     private void init() {
@@ -79,6 +122,7 @@ public class HomeFragment extends Fragment {
         galleryClick = view.findViewById(R.id.openGalleryClick);
         nearbyClick = view.findViewById(R.id.openNearbyClick);
         circleLocatorClick = view.findViewById(R.id.openCircleLocatorClick);
+        logOutBTN = view.findViewById(R.id.logOutBTN);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

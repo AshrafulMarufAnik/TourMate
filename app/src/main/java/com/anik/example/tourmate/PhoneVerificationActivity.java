@@ -90,9 +90,8 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    String uid = firebaseAuth.getCurrentUser().getUid();
                     Intent intent = new Intent(PhoneVerificationActivity.this,PhoneAuthUserRegistrationActivity.class);
-                    intent.putExtra("uid",uid);
+                    intent.putExtra("phoneNumber",phoneNumber);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
