@@ -89,7 +89,7 @@ public class AddTourActivity extends AppCompatActivity {
                     final String tourID = tourInfoRef.push().getKey();
 
                     Tour newTour = new Tour(tourID,name,location,returnDate,date,time,budget);
-                    tourInfoRef.child(tourID).child("Tour Basic Info").setValue(newTour).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    tourInfoRef.child(tourID).setValue(newTour).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){

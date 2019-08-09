@@ -1,80 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/color_white"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="3dp">
+    android:elevation="3dp"
+    android:background="@drawable/custom_tour_item_layout_design"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    android:layout_marginBottom="8dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/color_blue"
-        android:id="@+id/LL1">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="7dp"
-            android:src="@drawable/last_tour"
-            app:civ_border_width="3dp"
-            app:civ_border_color="@color/color_white"/>
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="7dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/custom_tour_item_layout_second"
+            android:backgroundTint="#1782D8"
+            android:id="@+id/LL1">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tour Name"
-                android:textSize="16sp"
-                android:textColor="@color/color_white"
-                android:textStyle="bold"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="7dp"
+                android:src="@drawable/last_tour"
+                app:civ_border_width="3dp"
+                app:civ_border_color="@color/color_white"/>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tour Location"
-                android:textColor="@color/color_white"
-                android:textStyle="normal"/>
+                android:layout_height="match_parent"
+                android:layout_margin="7dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tour Name"
+                    android:id="@+id/itemTourNameTV"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_white"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tour Location"
+                    android:id="@+id/itemTourLocationTV"
+                    android:textColor="@color/color_white"
+                    android:textStyle="normal"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="9dp"
-        android:layout_below="@id/LL1">
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start date"/>
+            android:orientation="vertical"
+            android:layout_margin="9dp"
+            android:id="@+id/LL2"
+            android:layout_below="@id/LL1">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Start date"
+                android:padding="1dp"
+                android:id="@+id/itemTourStartDateTV"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="End date"
+                android:id="@+id/itemTourEndDateTV"
+                android:padding="1dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Expense"
+                android:padding="1dp"
+                android:id="@+id/itemTourTotalExpenseTV"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="End date"/>
+            android:layout_below="@id/LL2"
+            android:weightSum="3"
+            android:layout_margin="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Total Expense"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_margin="3dp"
+                android:id="@+id/itemDetailsClick"
+                android:background="@drawable/custom_cardview_layout_design">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tour Members names"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Details"
+                    android:textStyle="bold"
+                    android:padding="3dp"
+                    android:layout_marginBottom="1dp"
+                    android:textAlignment="center"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-</RelativeLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_margin="3dp"
+                android:id="@+id/itemUpdateClick"
+                android:background="@drawable/custom_cardview_layout_design">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update"
+                    android:textStyle="bold"
+                    android:padding="3dp"
+                    android:layout_marginBottom="1dp"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_margin="3dp"
+                android:id="@+id/itemDeleteClick"
+                android:background="@drawable/custom_cardview_layout_design">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete"
+                    android:textStyle="bold"
+                    android:padding="3dp"
+                    android:layout_marginBottom="1dp"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

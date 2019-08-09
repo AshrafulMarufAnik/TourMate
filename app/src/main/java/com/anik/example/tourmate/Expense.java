@@ -2,7 +2,7 @@ package com.anik.example.tourmate;
 
 public class Expense {
     private String expenseType,expenseNote,expenseDate,expenseTime;
-    private double expenseAmount;
+    private double expenseAmount,totalExpenseAmount;
 
     public Expense() {
     }
@@ -20,6 +20,15 @@ public class Expense {
         this.expenseDate = expenseDate;
         this.expenseTime = expenseTime;
         this.expenseAmount = expenseAmount;
+    }
+
+    public Expense(String expenseType, String expenseNote, String expenseDate, String expenseTime, double expenseAmount, double totalExpenseAmount) {
+        this.expenseType = expenseType;
+        this.expenseNote = expenseNote;
+        this.expenseDate = expenseDate;
+        this.expenseTime = expenseTime;
+        this.expenseAmount = expenseAmount;
+        this.totalExpenseAmount = totalExpenseAmount;
     }
 
     public String getExpenseType() {
@@ -40,5 +49,9 @@ public class Expense {
 
     public double getExpenseAmount() {
         return expenseAmount;
+    }
+
+    public double getTotalExpenseAmount() {
+        return totalExpenseAmount;
     }
 }

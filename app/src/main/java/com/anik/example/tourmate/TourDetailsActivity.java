@@ -60,7 +60,7 @@ public class TourDetailsActivity extends AppCompatActivity {
     }
 
     private void getTourDetailsFromDB() {
-        DatabaseReference tourRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID).child("Tour Basic Info");
+        DatabaseReference tourRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID);
         tourRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -98,7 +98,8 @@ public class TourDetailsActivity extends AppCompatActivity {
 
     }
 
-    public void goToMainActivity(View view) {
-        startActivity(new Intent(TourDetailsActivity.this,MainActivity.class));
+    public void goBack(View view) {
+        startActivity(new Intent(TourDetailsActivity.this,TourHistoryActivity.class));
+        finish();
     }
 }

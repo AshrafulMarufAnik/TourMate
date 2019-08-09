@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="15dp"
-            android:onClick="goToMainActivity"
+            android:onClick="goBack"
             android:padding="2dp"
             android:src="@drawable/ic_arrow_back_black_24dp"
             android:tint="@color/color_white" />
@@ -61,14 +61,17 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1.25"
             android:background="@drawable/custom_cardview_layout_design"
-            android:gravity="center"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:layout_margin="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="19dp"
+                android:layout_gravity="start"
+                android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
@@ -105,7 +108,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:layout_margin="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="19dp"
+                android:layout_gravity="start"
+                android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
@@ -154,7 +161,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:layout_margin="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="19dp"
+                android:layout_gravity="start"
+                android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
@@ -191,7 +202,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:layout_margin="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="27dp"
+                android:layout_gravity="start"
+                android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
