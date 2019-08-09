@@ -77,11 +77,12 @@ public class SignUpActivity extends AppCompatActivity {
                                 String userID = firebaseAuth.getCurrentUser().getUid();
                                 Map<String,Object> userMap = new HashMap<>();
                                 userMap.put("userID",userID);
+                                userMap.put("loggedInWith", "Email,Password");
                                 userMap.put("userName",name);
                                 userMap.put("userEmail",email);
                                 userMap.put("userLocation",location);
 
-                                DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child("SignedInWithEmailPassword").child(userID).child("user information");
+                                DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child(userID).child("user information");
                                 userRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

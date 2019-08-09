@@ -167,11 +167,12 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         //image storing to storage remaining
 
         Map<String, Object> userMap = new HashMap<>();
-        userMap.put("googleUserID", personId);
+        userMap.put("userID", personId);
+        userMap.put("loggedInWith", "Google");
         userMap.put("googleUserName", personName);
         userMap.put("googleUserEmail", personEmail);
 
-        DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child("SignedInWithGoogle").child(personId).child("user information");
+        DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child(personId).child("user information");
         userRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

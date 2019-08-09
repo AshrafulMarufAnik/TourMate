@@ -51,12 +51,13 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
 
                     Map<String, Object> userMap = new HashMap<>();
                     userMap.put("userID", userID);
+                    userMap.put("loggedInWith", "Phone");
                     userMap.put("userPhoneNumber", number);
                     userMap.put("userName", name);
                     userMap.put("userEmail", email);
                     userMap.put("userLocation", location);
 
-                    DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child("Signed In With PhoneAuth").child(userID).child("user information");
+                    DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child(userID).child("user information");
                     userRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
