@@ -47,7 +47,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -56,98 +59,72 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="1.15"
+            android:layout_weight="1.25"
             android:background="@drawable/custom_cardview_layout_design"
-            android:elevation="3dp"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="3dp">
+                android:padding="2dp"
+                android:layout_margin="3dp"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:padding="2dp"
+                    android:text="Tour Location"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:text="Tour Location"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/detailsTourLocationTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="Bandarban,chittagong" />
 
-                    <TextView
-                        android:id="@+id/detailsTourLocationTV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:text="Bandarban,chittagong" />
+            </LinearLayout>
 
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/custom_button_design">
-
-            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_weight=".85"
+            android:layout_weight=".75"
             android:background="@drawable/custom_cardview_layout_design"
-            android:elevation="3dp"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="3dp">
+                android:padding="2dp"
+                android:layout_margin="3dp"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:padding="2dp"
+                    android:text="Tour Budget"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:text="Tour Budget"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/detailsTourBudgetTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="10000 tk." />
 
-                    <TextView
-                        android:id="@+id/detailsTourBudgetTV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:text="8000 tk" />
+            </LinearLayout>
 
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/custom_button_design">
-
-            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -156,8 +133,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -165,128 +144,99 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="1dp"
             android:layout_marginRight="5dp"
             android:layout_weight=".75"
             android:background="@drawable/custom_cardview_layout_design"
-            android:elevation="3dp"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="3dp">
+                android:padding="2dp"
+                android:layout_margin="3dp"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:padding="2dp"
+                    android:text="Tour Expense"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:text="Tour Expense"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/detailsTourTotalExpenseTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="5000 tk" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:text="1500 tk" />
+            </LinearLayout>
 
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/custom_button_design">
-
-            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="1dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_weight="1.25"
             android:background="@drawable/custom_cardview_layout_design"
-            android:elevation="3dp"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="3dp">
+                android:padding="2dp"
+                android:layout_margin="3dp"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:padding="2dp"
+                    android:text="Approx. Return Date"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:text="Approx. Return Date"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/detailsTourReturnDateTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="dd/MM/yyyy" />
 
-                    <TextView
-                        android:id="@+id/detailsTourReturnDateTV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:text="dd/MM/yyy" />
+            </LinearLayout>
 
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/custom_button_design">
-
-            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
         android:weightSum="3">
 
         <LinearLayout
+            android:id="@+id/viewRoutesClick"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/viewRoutesClick"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_margin="6dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/details_route"/>
+                android:layout_margin="6dp"
+                android:src="@drawable/details_route" />
 
 
             <TextView
@@ -300,18 +250,18 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/viewExpensesClick"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/viewExpensesClick"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_margin="6dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/details_expenses"/>
+                android:layout_margin="6dp"
+                android:src="@drawable/details_expenses" />
 
 
             <TextView
@@ -325,18 +275,18 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/viewCirclesClick"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/viewCirclesClick"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_margin="6dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/details_circles"/>
+                android:layout_margin="6dp"
+                android:src="@drawable/details_circles" />
 
 
             <TextView
@@ -349,6 +299,83 @@
 
         </LinearLayout>
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/viewTourMomentsClick"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_cardview_layout_design"
+            android:backgroundTint="#A84CAF50"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:padding="2dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_image_black_24dp"
+                android:tint="@color/color_white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Tour moments"
+                android:textAlignment="textStart"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/addTourMomentsClick"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_cardview_layout_design"
+            android:backgroundTint="@color/color_light_red"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:padding="2dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_camera_alt_black_24dp"
+                android:tint="@color/color_white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add new moment"
+                android:textStyle="bold"
+                android:textColor="@color/color_white" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

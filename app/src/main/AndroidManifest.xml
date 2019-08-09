@@ -13,12 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PhoneAuthUserRegistrationActivity"
-            android:theme="@style/CustomAppTheme"></activity>
-        <activity android:name=".PhoneVerificationActivity"
-            android:theme="@style/CustomAppTheme"/>
-        <activity android:name=".NearbyPlacesActivity"
-            android:theme="@style/CustomAppTheme"/>
+        <activity android:name=".ExpenseListActivity"></activity>
+        <activity android:name=".RoutePointsActivity" />
+        <activity
+            android:name=".PhoneAuthUserRegistrationActivity"
+            android:theme="@style/CustomAppTheme" />
+        <activity
+            android:name=".PhoneVerificationActivity"
+            android:theme="@style/CustomAppTheme" />
+        <activity
+            android:name=".NearbyPlacesActivity"
+            android:theme="@style/CustomAppTheme" />
         <activity
             android:name=".TourHistoryActivity"
             android:theme="@style/CustomAppTheme" />

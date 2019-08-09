@@ -86,7 +86,7 @@ public class AddTourActivity extends AppCompatActivity {
                     final String uid = firebaseAuth.getCurrentUser().getUid();
 
                     DatabaseReference tourInfoRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information");
-                    String tourID = tourInfoRef.push().getKey();
+                    final String tourID = tourInfoRef.push().getKey();
 
                     Tour newTour = new Tour(tourID,name,location,returnDate,date,time,budget);
                     tourInfoRef.child(tourID).child("Tour Basic Info").setValue(newTour).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -95,6 +95,7 @@ public class AddTourActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Toast.makeText(AddTourActivity.this, "New Tour added", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(AddTourActivity.this,TourDetailsActivity.class);
+                                intent.putExtra("tourID",tourID);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 finish();

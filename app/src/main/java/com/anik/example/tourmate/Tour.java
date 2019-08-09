@@ -6,6 +6,7 @@ public class Tour {
     private String tourID,tourName,tourLocation,tourReturnDate,tourDate,tourTime;
     private double tourBudget;
     private ArrayList<Route> routeList;
+    private ArrayList<Expense> expenseList;
 
     public Tour() {
     }
@@ -40,6 +41,18 @@ public class Tour {
         this.routeList = routeList;
     }
 
+    public Tour(String tourID, String tourName, String tourLocation, String tourReturnDate, String tourDate, String tourTime, double tourBudget, ArrayList<Route> routeList, ArrayList<Expense> expenseList) {
+        this.tourID = tourID;
+        this.tourName = tourName;
+        this.tourLocation = tourLocation;
+        this.tourReturnDate = tourReturnDate;
+        this.tourDate = tourDate;
+        this.tourTime = tourTime;
+        this.tourBudget = tourBudget;
+        this.routeList = routeList;
+        this.expenseList = expenseList;
+    }
+
     public String getTourID() {
         return tourID;
     }
@@ -70,5 +83,9 @@ public class Tour {
 
     public ArrayList<Route> getRouteList() {
         return routeList;
+    }
+
+    public ArrayList<Expense> getExpenseList() {
+        return expenseList;
     }
 }
