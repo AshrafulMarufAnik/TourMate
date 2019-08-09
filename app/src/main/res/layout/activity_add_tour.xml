@@ -4,17 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:background="@color/color_white"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".AddTourActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="2dp"
+        android:layout_gravity="start"
+        android:tint="@color/color_darkGrey"
+        android:onClick="goBack"
+        android:src="@drawable/ic_arrow_back_black_24dp"/>
 
     <TextView
         android:id="@+id/a1TV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="40dp"
         android:padding="8dp"
         android:text="Add New Tour"

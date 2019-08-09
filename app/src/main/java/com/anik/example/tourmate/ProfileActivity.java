@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void goBack(View view) {
-        onBackPressed();
+        startActivity(new Intent(ProfileActivity.this,MainActivity.class));
         finish();
     }
 

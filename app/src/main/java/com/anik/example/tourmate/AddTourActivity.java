@@ -178,4 +178,9 @@ public class AddTourActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
     }
+
+    public void goBack(View view) {
+        startActivity(new Intent(AddTourActivity.this,MainActivity.class));
+        finish();
+    }
 }

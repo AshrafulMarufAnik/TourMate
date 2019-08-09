@@ -7,4 +7,40 @@
     android:background="@color/color_white"
     tools:context=".RoutePointsActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Route Points"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:id="@+id/rpTV"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rpTV"
+            android:id="@+id/routePointsListRV">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="9dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_add_black_24dp"
+            android:tint="@color/color_white"
+            android:id="@+id/addRoutesFABTN"/>
+
+
+    </RelativeLayout>
+
 </LinearLayout>

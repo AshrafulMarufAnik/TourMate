@@ -13,8 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExpenseListActivity"></activity>
-        <activity android:name=".RoutePointsActivity" />
+        <activity android:name=".ExpenseListActivity"
+            android:theme="@style/CustomAppTheme"></activity>
+        <activity android:name=".RoutePointsActivity"
+            android:theme="@style/CustomAppTheme"/>
         <activity
             android:name=".PhoneAuthUserRegistrationActivity"
             android:theme="@style/CustomAppTheme" />
