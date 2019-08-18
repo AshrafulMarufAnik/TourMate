@@ -7,14 +7,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
+    private TextView nameTV,emailTV,locationTV;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+    private DatabaseReference databaseReference;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +31,42 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         init();
+        uid = firebaseAuth.getCurrentUser().getUid();
         fireBaseStateListener();
+
+        getUserInfoFromDB();
+    }
+
+    private void getUserInfoFromDB() {
+        DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child(uid).child("user information");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    User currentUser = dataSnapshot.getValue(User.class);
+                    nameTV.setText(currentUser.getUserName());
+                    emailTV.setText(currentUser.getUserEmail());
+                    // location and image works
+                }
+                else {
+                    Toast.makeText(ProfileActivity.this, "No User Data", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(ProfileActivity.this,databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void init() {
+        nameTV = findViewById(R.id.userNameTV);
+        emailTV = findViewById(R.id.userEmailTV);
+        locationTV = findViewById(R.id.userLocationTV);
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     public void goBack(View view) {

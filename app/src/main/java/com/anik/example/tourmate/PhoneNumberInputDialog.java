@@ -26,6 +26,7 @@ public class PhoneNumberInputDialog extends AppCompatDialogFragment {
 
         builder.setView(view);
         builder.setTitle("Log in using phone");
+        builder.setCancelable(false);
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

@@ -76,7 +76,7 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String uid = firebaseAuth.getCurrentUser().getUid();
                         DatabaseReference tourRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information");
-
+                        ////////////////
                         Toast.makeText(context, "Can't Delete at this moment", Toast.LENGTH_SHORT).show();
                         //notifyDataSetChanged();
                     }

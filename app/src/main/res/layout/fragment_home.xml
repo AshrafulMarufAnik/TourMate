@@ -329,7 +329,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="2dp"
             android:layout_below="@id/weatherCardView">
@@ -594,6 +594,7 @@
                         android:background="@drawable/custom_button_design"
                         android:layout_toRightOf="@id/profileLL"
                         android:text="Log out"
+                        android:textSize="12sp"
                         android:textAlignment="center"
                         android:elevation="2dp"
                         android:textColor="#83000000"

@@ -15,9 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Expense List"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="5dp"
             android:padding="5dp"
             android:id="@+id/elTV"/>
 
@@ -25,20 +27,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/elTV"
+            android:layout_marginTop="2dp"
             android:id="@+id/expenseListRV">
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.github.clans.fab.FloatingActionMenu
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="9dp"
-            android:padding="5dp"
-            android:src="@drawable/ic_add_black_24dp"
-            android:tint="@color/color_white"
-            android:id="@+id/addExpenseFABTN"/>
+            android:layout_margin="15dp"
+            android:id="@+id/addExpenseFAM"
+            app:menu_showShadow="true"
+            app:menu_fab_label=""
+            app:menu_openDirection="up"
+            app:menu_backgroundColor="@android:color/transparent"
+            app:menu_labels_colorNormal="@color/color_white"
+            app:menu_labels_textColor="#696666">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_label="Add new Expense"
+                app:fab_size="mini"
+                android:src="@drawable/ic_list_black_24dp"
+                android:tint="@color/color_white"
+                android:id="@+id/addExpenseFABTN"/>
+
+        </com.github.clans.fab.FloatingActionMenu>
 
 
     </RelativeLayout>

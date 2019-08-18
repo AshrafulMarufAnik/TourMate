@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
-    android:orientation="vertical"
     tools:context=".TourHistoryActivity">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_arrow_back_black_24dp"
-        android:padding="2dp"
-        android:layout_margin="2dp"
+        android:padding="1dp"
+        android:layout_margin="1dp"
         android:tint="@color/color_darkGrey"
         android:onClick="goBack"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:textSize="16sp"
+        android:id="@+id/tv"
         android:textAlignment="center"
         android:text="Tour History"
         android:textStyle="bold"
+        android:layout_margin="11dp"
         android:padding="3dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:id="@+id/tourHistoryRV">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-</LinearLayout>
+</RelativeLayout>

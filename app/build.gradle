@@ -33,6 +33,7 @@ dependencies {
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     implementation 'de.hdodenhof:circleimageview:3.0.0' // circular imageView
     implementation 'com.google.android.material:material:1.0.0' // recyclerView
+    implementation 'com.github.clans:fab:1.6.4' //floating action menu
     implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'

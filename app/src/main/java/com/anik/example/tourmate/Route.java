@@ -3,6 +3,7 @@ package com.anik.example.tourmate;
 public class Route {
     private String routePointName;
     private String routeDetails;
+    private String routeID;
 
     public Route() {
     }
@@ -11,9 +12,19 @@ public class Route {
         this.routePointName = routePointName;
     }
 
-    public Route(String routePointName, String routeDetails) {
+    public Route(String routePointName, String routeID) {
+        this.routePointName = routePointName;
+        this.routeID = routeID;
+    }
+
+    public Route(String routePointName, String routeDetails, String routeID) {
         this.routePointName = routePointName;
         this.routeDetails = routeDetails;
+        this.routeID = routeID;
+    }
+
+    public String getRouteID() {
+        return routeID;
     }
 
     public String getRoutePointName() {
