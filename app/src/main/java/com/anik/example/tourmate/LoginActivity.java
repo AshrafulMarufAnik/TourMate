@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -97,14 +98,10 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isComplete()){
-                    if(firebaseAuth.getCurrentUser().isEmailVerified()){
-                        Toast.makeText(LoginActivity.this, "Log in Successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                        finish();
-                    }
-                    else {
-                        Toast.makeText(LoginActivity.this, "Please Verify your email first", Toast.LENGTH_SHORT).show();
-                    }
+                    checkEmailVerification();
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, "Log in Failed", Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -113,6 +110,23 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
                 Toast.makeText(LoginActivity.this,e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void checkEmailVerification() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            boolean emailFlag = user.isEmailVerified();
+
+            if(emailFlag){
+                Toast.makeText(this, "Log in Successful", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                finish();
+            }
+            else {
+                Toast.makeText(this, "Please check & verify your email", Toast.LENGTH_SHORT).show();
+                firebaseAuth.signOut();
+            }
+        }
     }
 
     private void googleSignIn() {
