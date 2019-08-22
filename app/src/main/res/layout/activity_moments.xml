@@ -7,12 +7,13 @@
     android:background="@color/color_white"
     tools:context=".Activity.MomentsActivity">
 
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_arrow_back_black_24dp"
-        android:tint="#9C000000"
-        android:layout_margin="4dp"
+        android:tint="#8B000000"
+        android:layout_margin="5dp"
         android:onClick="goToTourDetails" />
 
     <TextView
@@ -28,9 +29,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/momentsTV"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:id="@+id/momentsRV">

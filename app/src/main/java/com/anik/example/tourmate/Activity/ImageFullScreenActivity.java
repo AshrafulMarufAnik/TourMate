@@ -2,19 +2,15 @@ package com.anik.example.tourmate.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.anik.example.tourmate.Adapter.MomentAdapter;
+import com.anik.example.tourmate.Adapter.ImagePagerAdapter;
 import com.anik.example.tourmate.ModelClass.Moment;
-import com.anik.example.tourmate.ModelClass.Tour;
 import com.anik.example.tourmate.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,43 +21,56 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MomentsActivity extends AppCompatActivity {
-    private RecyclerView momentsRV;
-    private String tourID,uid;
+public class ImageFullScreenActivity extends Activity {
+    private ViewPager viewPager;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
-    private ArrayList<Moment> momentList;
-    private MomentAdapter momentAdapter;
+    private SharedPreferences sharedPreferences;
+    private String tourID,uid;
+    private ArrayList<Moment> momentArrayList;
+    private ImagePagerAdapter imagePagerAdapter;
+    private String image;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_moments);
+        setContentView(R.layout.activity_image_full_screen);
         init();
 
-        tourID = getIntent().getStringExtra("tourID");
+        sharedPreferences = getSharedPreferences("TourInfo",MODE_PRIVATE);
+        tourID = sharedPreferences.getString("SPTourID",null);
+
         uid = firebaseAuth.getCurrentUser().getUid();
 
-        getAllImagesFromStorage();
-        configMomentRV();
+        if(savedInstanceState == null){
+            image = getIntent().getStringExtra("image");
+            position = Integer.parseInt(getIntent().getStringExtra("position"));
+        }
+
+        getAllImages();
+        configPagerAdapter();
     }
 
-    private void getAllImagesFromStorage() {
+    private void configPagerAdapter() {
+        viewPager.setAdapter(imagePagerAdapter);
+        viewPager.setCurrentItem(position,true);
+
+    }
+
+    private void getAllImages() {
         DatabaseReference allMomentsRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID).child("Tour Moments");
         allMomentsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    momentList.clear();
+                    momentArrayList.clear();
 
                     for(DataSnapshot momentData: dataSnapshot.getChildren()){
                         Moment newMoment = momentData.getValue(Moment.class);
-                        momentList.add(newMoment);
-                        momentAdapter.notifyDataSetChanged();
+                        momentArrayList.add(newMoment);
+                        imagePagerAdapter.notifyDataSetChanged();
                     }
-                }
-                else {
-                    Toast.makeText(MomentsActivity.this, "Tour Moment is empty", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -72,21 +81,11 @@ public class MomentsActivity extends AppCompatActivity {
         });
     }
 
-    private void configMomentRV() {
-        momentsRV.setLayoutManager(new GridLayoutManager(this,2));
-        momentsRV.setAdapter(momentAdapter);
-    }
-
     private void init() {
-        momentsRV = findViewById(R.id.momentsRV);
-        firebaseAuth = FirebaseAuth.getInstance();
+        viewPager = findViewById(R.id.imageViewPager);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        momentList = new ArrayList<>();
-        momentAdapter = new MomentAdapter(momentList,this);
-    }
-
-    public void goToTourDetails(View view) {
-        startActivity(new Intent(MomentsActivity.this,TourDetailsActivity.class).putExtra("tourID",tourID));
-        finish();
+        firebaseAuth = FirebaseAuth.getInstance();
+        momentArrayList = new ArrayList<>();
+        imagePagerAdapter = new ImagePagerAdapter(momentArrayList,this);
     }
 }

@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -38,6 +40,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 
 public class TourDetailsActivity extends AppCompatActivity {
     private LinearLayout routeClick,expenseClick,circleClick,tourMomentsClick,addMomentsClick;
@@ -46,11 +49,13 @@ public class TourDetailsActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private Tour currentTour;
     private String tourID;
+    private String SPTourID;
     private String uid;
-    private int request_camera = 1, select_file = 0, imageType = 0;
-    private String momentImage;
+    private int request_camera = 1, select_file = 0;
     private String imageDownloadUrl;
 
     @Override
@@ -59,8 +64,11 @@ public class TourDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tour_details);
 
         init();
-        tourID = getIntent().getStringExtra("tourID");
         uid = firebaseAuth.getCurrentUser().getUid();
+        tourID = getIntent().getStringExtra("tourID");
+        SPTourID = tourID;
+
+        storeAsSharedPref(SPTourID);
         getTourDetailsFromDB();
 
         routeClick.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +105,13 @@ public class TourDetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void storeAsSharedPref(String spTourID) {
+        sharedPreferences = getSharedPreferences("TourInfo",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString("SPTourID",spTourID);
+        editor.apply();
     }
 
     private void addTourImage() {
@@ -137,61 +152,19 @@ public class TourDetailsActivity extends AppCompatActivity {
             if (requestCode == request_camera) {
                 Bundle bundle = data.getExtras();
                 final Bitmap bmp = (Bitmap) bundle.get("data");
-                momentImage = encodeToBase64(bmp, Bitmap.CompressFormat.JPEG, 100);
-                uploadImageViaCamera(momentImage);
-                imageType = 1;
-
+                Uri imageURI = getImageUri(this,bmp);
+                uploadImage(imageURI);
             }
             else if (requestCode == select_file) {
                 if(data != null){
                     Uri imageUri = data.getData();
-                    uploadImageViaGallery(imageUri);
-                    imageType = 2;
+                    uploadImage(imageUri);
                 }
             }
         }
     }
 
-    private void uploadImageViaCamera(String momentImage) {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Uploading...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-        String timeInMS = String.valueOf(System.currentTimeMillis());
-        final StorageReference imageRef = storageReference.child("TourMate images").child(uid).child(tourID).child(timeInMS);
-        final String imageName = imageRef.getName();
-        //imageRef.putBytes();
-        imageRef.putFile(Uri.parse(momentImage)).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(TourDetailsActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
-                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            imageDownloadUrl = uri.toString();
-                            DatabaseReference tourImageRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID).child("Tour Moments");
-                            String newImageID = tourImageRef.push().getKey();
-                            Moment newMoment = new Moment(imageName,imageDownloadUrl);
-                            tourImageRef.child(newImageID).setValue(newMoment).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(TourDetailsActivity.this, "Successfully saved", Toast.LENGTH_SHORT).show();
-                                        progressDialog.dismiss();
-                                    }
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-        });
-
-    }
-
-    private void uploadImageViaGallery(Uri imageUri) {
+    private void uploadImage(Uri imageUri) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Uploading...");
         progressDialog.setCancelable(false);
@@ -216,7 +189,8 @@ public class TourDetailsActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(TourDetailsActivity.this, "Successfully saved", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(TourDetailsActivity.this, "Image saved", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(TourDetailsActivity.this,MomentsActivity.class).putExtra("tourID",tourID));
                                     }
                                 }
                             });
@@ -274,15 +248,10 @@ public class TourDetailsActivity extends AppCompatActivity {
         finish();
     }
 
-    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
-        ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
-        image.compress(compressFormat, quality, byteArrayOS);
-
-        return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
-    }
-
-    public static Bitmap decodeBase64(String input) {
-        byte[] decodedBytes = Base64.decode(input, 0);
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    public Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 }

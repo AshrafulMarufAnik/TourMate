@@ -1,14 +1,17 @@
 package com.anik.example.tourmate.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anik.example.tourmate.Activity.ImageFullScreenActivity;
 import com.anik.example.tourmate.ModelClass.Moment;
 import com.anik.example.tourmate.R;
 import com.squareup.picasso.Picasso;
@@ -32,10 +35,20 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Moment currentMoment = momentLists.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        final Moment currentMoment = momentLists.get(position);
 
         Picasso.with(context).load(currentMoment.getImageURL()).fit().into(holder.image);
+
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ImageFullScreenActivity.class);
+                intent.putExtra("image",currentMoment.getImageURL());
+                intent.putExtra("position",String.valueOf(position));
+                context.startActivity(intent);
+            }
+        });
 
     }
 
