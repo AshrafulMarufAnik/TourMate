@@ -1,8 +1,10 @@
-package com.anik.example.tourmate;
+package com.anik.example.tourmate.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.anik.example.tourmate.R;
 
 public class RoutePointsActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.anik.example.tourmate;
+package com.anik.example.tourmate.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.anik.example.tourmate.ModelClass.Expense;
+import com.anik.example.tourmate.Adapter.ExpenseAdapter;
+import com.anik.example.tourmate.DialogFragment.ExpenseInputDialog;
+import com.anik.example.tourmate.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.tasks.OnCompleteListener;

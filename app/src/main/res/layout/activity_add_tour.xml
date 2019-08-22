@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_white"
     android:orientation="vertical"
-    tools:context=".AddTourActivity">
+    tools:context=".Activity.AddTourActivity">
 
     <ImageView
         android:layout_width="wrap_content"

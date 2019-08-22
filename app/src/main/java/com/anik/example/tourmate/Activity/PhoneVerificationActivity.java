@@ -1,4 +1,4 @@
-package com.anik.example.tourmate;
+package com.anik.example.tourmate.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.anik.example.tourmate.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -90,7 +91,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Intent intent = new Intent(PhoneVerificationActivity.this,PhoneAuthUserRegistrationActivity.class);
+                    Intent intent = new Intent(PhoneVerificationActivity.this, PhoneAuthUserRegistrationActivity.class);
                     intent.putExtra("phoneNumber",phoneNumber);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);

@@ -1,4 +1,4 @@
-package com.anik.example.tourmate;
+package com.anik.example.tourmate.Fragment;
 
 
 import android.os.Bundle;
@@ -9,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anik.example.tourmate.R;
+
 public class NotificationFragment extends Fragment {
+    private View view;
 
 
     public NotificationFragment() {
@@ -19,10 +22,16 @@ public class NotificationFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_notification, container, false);
+        init();
 
 
 
-        return inflater.inflate(R.layout.fragment_notification, container, false);
+        return view;
+    }
+
+    private void init() {
+
     }
 
 }

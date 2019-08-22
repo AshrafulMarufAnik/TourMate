@@ -1,4 +1,4 @@
-package com.anik.example.tourmate;
+package com.anik.example.tourmate.ModelClass;
 
 public class Route {
     private String routePointName;

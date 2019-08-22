@@ -1,4 +1,4 @@
-package com.anik.example.tourmate;
+package com.anik.example.tourmate.Reciever;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.anik.example.tourmate;
+package com.anik.example.tourmate.ModelClass;
 
 import java.util.ArrayList;
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_white"
     android:orientation="vertical"
-    tools:context=".TourDetailsActivity">
+    tools:context=".Activity.TourDetailsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

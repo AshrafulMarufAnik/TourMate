@@ -1,11 +1,15 @@
-package com.anik.example.tourmate;
+package com.anik.example.tourmate.Activity;
 
-import android.app.StatusBarManager;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 
+import com.anik.example.tourmate.Reciever.CheckInternetConnection;
+import com.anik.example.tourmate.Fragment.CircleFragment;
+import com.anik.example.tourmate.Fragment.HomeFragment;
+import com.anik.example.tourmate.Fragment.NotificationFragment;
+import com.anik.example.tourmate.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -17,8 +21,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {

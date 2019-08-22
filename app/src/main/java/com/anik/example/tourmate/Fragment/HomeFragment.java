@@ -1,4 +1,4 @@
-package com.anik.example.tourmate;
+package com.anik.example.tourmate.Fragment;
 
 
 import android.content.Intent;
@@ -15,6 +15,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.anik.example.tourmate.Activity.AddTourActivity;
+import com.anik.example.tourmate.Activity.LoginActivity;
+import com.anik.example.tourmate.Activity.NearbyPlacesActivity;
+import com.anik.example.tourmate.Activity.ProfileActivity;
+import com.anik.example.tourmate.Activity.TourHistoryActivity;
+import com.anik.example.tourmate.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +50,7 @@ public class HomeFragment extends Fragment {
         addTourClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),AddTourActivity.class);
+                Intent intent = new Intent(getActivity(), AddTourActivity.class);
                 startActivity(intent);
             }
         });
@@ -52,7 +58,7 @@ public class HomeFragment extends Fragment {
         profileClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),ProfileActivity.class);
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -60,7 +66,7 @@ public class HomeFragment extends Fragment {
         tourHistoryClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),TourHistoryActivity.class);
+                Intent intent = new Intent(getActivity(), TourHistoryActivity.class);
                 startActivity(intent);
             }
         });
@@ -68,7 +74,7 @@ public class HomeFragment extends Fragment {
         nearbyClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),NearbyPlacesActivity.class);
+                Intent intent = new Intent(getActivity(), NearbyPlacesActivity.class);
                 startActivity(intent);
             }
         });
@@ -93,7 +99,7 @@ public class HomeFragment extends Fragment {
                 }
                 else {
                     Toast.makeText(getContext(), "Signed Out", Toast.LENGTH_SHORT).show();
-                    Intent intent =  new Intent(getContext(),LoginActivity.class);
+                    Intent intent =  new Intent(getContext(), LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }

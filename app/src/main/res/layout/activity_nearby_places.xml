@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/color_white"
-    tools:context=".NearbyPlacesActivity">
+    tools:context=".Activity.NearbyPlacesActivity">
 
 </LinearLayout>

@@ -5,35 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
-    tools:context=".Activity.TourHistoryActivity">
+    tools:context=".Activity.MomentsActivity">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_arrow_back_black_24dp"
-        android:padding="1dp"
-        android:layout_margin="1dp"
-        android:tint="@color/color_darkGrey"
-        android:onClick="goBack"/>
+        android:tint="#9C000000"
+        android:layout_margin="4dp"
+        android:onClick="goToTourDetails" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:textSize="16sp"
-        android:id="@+id/tv"
-        android:textAlignment="center"
-        android:text="Tour History"
+        android:text="Tour Moments"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_margin="11dp"
-        android:padding="3dp"/>
+        android:textAlignment="center"
+        android:padding="4dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/momentsTV"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:id="@+id/tourHistoryRV">
+        android:layout_below="@id/momentsTV"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/momentsRV">
 
     </androidx.recyclerview.widget.RecyclerView>
 

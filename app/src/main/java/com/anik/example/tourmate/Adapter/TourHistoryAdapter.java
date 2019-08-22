@@ -1,4 +1,4 @@
-package com.anik.example.tourmate;
+package com.anik.example.tourmate.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,6 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anik.example.tourmate.Activity.TourDetailsActivity;
+import com.anik.example.tourmate.R;
+import com.anik.example.tourmate.ModelClass.Tour;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -51,7 +54,7 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
         holder.detailsClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,TourDetailsActivity.class);
+                Intent intent = new Intent(context, TourDetailsActivity.class);
                 intent.putExtra("tourID",tourID);
                 context.startActivity(intent);
             }
