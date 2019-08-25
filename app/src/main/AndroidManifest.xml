@@ -15,8 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.ImageFullScreenActivity"
-            android:theme="@style/CustomAppTheme"></activity>
+        <activity android:name=".Activity.StartingActivity"
+            android:theme="@style/CustomAppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.ImageFullScreenActivity"
+            android:theme="@style/CustomAppTheme" />
         <activity
             android:name=".Activity.MomentsActivity"
             android:theme="@style/CustomAppTheme" />
@@ -53,11 +62,6 @@
         <activity
             android:name=".Activity.LoginActivity"
             android:theme="@style/CustomAppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.MainActivity"

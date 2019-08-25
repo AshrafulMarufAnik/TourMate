@@ -171,7 +171,7 @@ public class TourDetailsActivity extends AppCompatActivity {
         progressDialog.show();
 
         String timeInMS = String.valueOf(System.currentTimeMillis());
-        final StorageReference imageRef = storageReference.child("TourMate images").child(uid).child(tourID).child(timeInMS);
+        final StorageReference imageRef = storageReference.child("TourMate images").child(timeInMS);
         final String imageName = imageRef.getName();
         imageRef.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
