@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.anik.example.tourmate.Activity.AddTourActivity;
+import com.anik.example.tourmate.Activity.GalleryActivity;
 import com.anik.example.tourmate.Activity.LoginActivity;
 import com.anik.example.tourmate.Activity.NearbyPlacesActivity;
 import com.anik.example.tourmate.Activity.ProfileActivity;
@@ -75,6 +76,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), NearbyPlacesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        galleryClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), GalleryActivity.class);
                 startActivity(intent);
             }
         });

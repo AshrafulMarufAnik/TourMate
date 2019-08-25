@@ -20,6 +20,7 @@
         android:layout_below="@id/splashIV"
         android:text="Tour Mate"
         android:textStyle="bold"
+        android:id="@+id/splashTV"
         android:textSize="20sp"
         android:textAlignment="center"
         android:padding="2dp"
