@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.anik.example.tourmate.Activity.AddTourActivity;
 import com.anik.example.tourmate.Activity.GalleryActivity;
 import com.anik.example.tourmate.Activity.LoginActivity;
+import com.anik.example.tourmate.Activity.MapActivity;
 import com.anik.example.tourmate.Activity.NearbyPlacesActivity;
 import com.anik.example.tourmate.Activity.ProfileActivity;
 import com.anik.example.tourmate.Activity.TourHistoryActivity;
@@ -84,6 +85,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), GalleryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        circleLocatorClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                intent.putExtra("intentSource",3);
                 startActivity(intent);
             }
         });

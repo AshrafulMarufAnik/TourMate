@@ -66,23 +66,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:hint="Location"
-            android:id="@+id/signUpLocationET"
-            android:inputType="text"
-            app:libIZO_clearIconTint="@color/color_blue"
-            app:libIZO_setBorderColor="@color/color_darkGrey"
-            app:libIZO_setBorderView="true"
-            app:libIZO_setClearIconVisible="true"
-            android:backgroundTint="@color/color_blue"
-            app:libIZO_setCornerRadius="5dp"
-            app:libIZO_setStrokeWidth="2dp"/>
-
-        <com.libizo.CustomEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:hint="Password"
             android:id="@+id/signUpPasswordET"
             android:inputType="textPassword"
@@ -93,6 +76,39 @@
             android:backgroundTint="@color/color_blue"
             app:libIZO_setCornerRadius="5dp"
             app:libIZO_setStrokeWidth="2dp"/>
+
+        <LinearLayout
+            android:id="@+id/signUpLocationClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_add_location_layout"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:weightSum="2">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"
+                android:tint="@color/color_white"
+                android:src="@drawable/ic_location_on_black_24dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1.75"
+                android:id="@+id/setLocationRegTV"
+                android:text="Add Location"
+                android:textColor="@color/color_white"/>
+
+        </LinearLayout>
 
         <Button
             android:layout_width="match_parent"
