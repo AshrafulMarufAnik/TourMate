@@ -19,6 +19,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 
+import com.anik.example.tourmate.Adapter.MomentAdapter;
 import com.anik.example.tourmate.ModelClass.Moment;
 import com.anik.example.tourmate.R;
 import com.github.clans.fab.FloatingActionButton;
@@ -27,13 +28,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class GalleryActivity extends AppCompatActivity {
     private RecyclerView galleryRV;
@@ -45,6 +50,8 @@ public class GalleryActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
+    private ArrayList<Moment> momentArrayList;
+    private MomentAdapter momentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +70,6 @@ public class GalleryActivity extends AppCompatActivity {
                 addNewMoment();
             }
         });
-
-
-
     }
 
     private void configRV() {
@@ -73,6 +77,30 @@ public class GalleryActivity extends AppCompatActivity {
     }
 
     private void getAllMomentGallery() {
+        DatabaseReference allMomentsRef = databaseReference.child("User(TourMateApp)").child("All Tour Moments");
+        allMomentsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    momentArrayList.clear();
+
+                    for(DataSnapshot momentData: dataSnapshot.getChildren()){
+                        Moment newMoment = momentData.getValue(Moment.class);
+                        momentArrayList.add(newMoment);
+                        galleryRV.setAdapter(momentAdapter);
+                        momentAdapter.notifyDataSetChanged();
+                    }
+                }
+                else {
+                    Toast.makeText(GalleryActivity.this, "Tour Moment is empty", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void addNewMoment() {
@@ -144,8 +172,7 @@ public class GalleryActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             imageDownloadUrl = uri.toString();
-                            /*
-                            DatabaseReference tourImageRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID).child("Tour Moments");
+                            DatabaseReference tourImageRef = databaseReference.child("User(TourMateApp)").child("All Tour Moments");
                             String newImageID = tourImageRef.push().getKey();
                             Moment newMoment = new Moment(imageName,imageDownloadUrl);
                             tourImageRef.child(newImageID).setValue(newMoment).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -153,11 +180,10 @@ public class GalleryActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(GalleryActivity.this, "Image saved", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(GalleryActivity.this,MomentsActivity.class).putExtra("tourID",tourID));
+                                        //startActivity(new Intent(GalleryActivity.this,MomentsActivity.class).putExtra("tourID",tourID));
                                     }
                                 }
                             });
-                            */
                             progressDialog.dismiss();
                         }
                     });
@@ -175,6 +201,9 @@ public class GalleryActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        momentArrayList = new ArrayList<>();
+        momentAdapter = new MomentAdapter(momentArrayList,this);
 
     }
 

@@ -183,9 +183,21 @@ public class TourDetailsActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             imageDownloadUrl = uri.toString();
                             DatabaseReference tourImageRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID).child("Tour Moments");
+                            DatabaseReference allTourImageRef = databaseReference.child("User(TourMateApp)").child("All Tour Moments");
+
                             String newImageID = tourImageRef.push().getKey();
                             Moment newMoment = new Moment(imageName,imageDownloadUrl);
                             tourImageRef.child(newImageID).setValue(newMoment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        //Toast.makeText(TourDetailsActivity.this, "Image saved", Toast.LENGTH_SHORT).show();
+                                        //startActivity(new Intent(TourDetailsActivity.this,MomentsActivity.class).putExtra("tourID",tourID));
+                                    }
+                                }
+                            });
+                            Moment newMoment2 = new Moment(imageName,imageDownloadUrl);
+                            allTourImageRef.child(newImageID).setValue(newMoment2).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){

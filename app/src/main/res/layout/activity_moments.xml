@@ -7,35 +7,41 @@
     android:background="@color/color_white"
     tools:context=".Activity.MomentsActivity">
 
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_back_black_24dp"
-        android:tint="#8B000000"
-        android:layout_margin="5dp"
-        android:onClick="goToTourDetails" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tour Moments"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:padding="4dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/momentsTV"/>
-
-    <androidx.recyclerview.widget.RecyclerView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/momentsTV"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:id="@+id/momentsRV">
+        android:layout_marginTop="5dp">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:tint="@color/color_lightGrey"
+            android:layout_margin="5dp"
+            android:onClick="goToTourDetails" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tour Moments"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:padding="4dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/momentsTV"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/momentsTV"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/momentsRV">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
 
 </RelativeLayout>

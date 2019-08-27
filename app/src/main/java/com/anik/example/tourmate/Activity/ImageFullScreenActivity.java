@@ -43,7 +43,7 @@ public class ImageFullScreenActivity extends Activity {
 
         uid = firebaseAuth.getCurrentUser().getUid();
 
-        if(savedInstanceState == null){
+        if(savedInstanceState != null){
             image = getIntent().getStringExtra("image");
             position = Integer.parseInt(getIntent().getStringExtra("position"));
         }
@@ -53,13 +53,13 @@ public class ImageFullScreenActivity extends Activity {
     }
 
     private void configPagerAdapter() {
-        viewPager.setAdapter(imagePagerAdapter);
         viewPager.setCurrentItem(position,true);
-
+        viewPager.setAdapter(imagePagerAdapter);
     }
 
     private void getAllImages() {
         DatabaseReference allMomentsRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID).child("Tour Moments");
+        //DatabaseReference allMomentsRef = databaseReference.child("User(TourMateApp)").child("All Tour Moments");
         allMomentsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

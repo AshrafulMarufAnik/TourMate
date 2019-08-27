@@ -63,6 +63,13 @@ public class AddTourActivity extends AppCompatActivity {
             }
         });
 
+        tourLocationET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         addNewTourBTn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +78,7 @@ public class AddTourActivity extends AppCompatActivity {
                 }
                 else {
                     final String name = tourNameET.getText().toString();
-                    final String location = tourLocationET.getText().toString();
+                    //final String location = tourLocationET.getText().toString();
                     final double budget = Double.parseDouble(tourBudgetET.getText().toString());
                     final String returnDate = tourReturnDateET.getText().toString();
                     final String date = dateTV.getText().toString();
