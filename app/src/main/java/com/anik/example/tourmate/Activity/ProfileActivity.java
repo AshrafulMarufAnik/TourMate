@@ -48,6 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
                     User currentUser = dataSnapshot.getValue(User.class);
                     nameTV.setText(currentUser.getUserName());
                     emailTV.setText(currentUser.getUserEmail());
+                    locationTV.setText(currentUser.getUserLocation());
                     // location and image works
                 }
                 else {

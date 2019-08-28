@@ -68,7 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
                 else {
                     String name = nameET.getText().toString();
                     String email = emailET.getText().toString();
-                    String location = intentLocation;
+                    String location = setLocation.getText().toString();
                     String password = passwordET.getText().toString();
 
                     signUpWithEmailPassword(name,email,location,password);
@@ -108,7 +108,6 @@ public class SignUpActivity extends AppCompatActivity {
                                             Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
                                             intent.putExtra("email",email);
                                             intent.putExtra("password",password);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                             finish();
                                         }

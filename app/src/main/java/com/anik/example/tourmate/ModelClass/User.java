@@ -6,6 +6,7 @@ public class User {
     private String userProfileImage;
     private String userCoverImage;
     private int userTotalTours;
+    private String userLocation;
 
     public User() {
     }
@@ -30,6 +31,15 @@ public class User {
         this.userTotalTours = userTotalTours;
     }
 
+    public User(String userName, String userEmail, String userProfileImage, String userCoverImage, int userTotalTours, String userLocation) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userProfileImage = userProfileImage;
+        this.userCoverImage = userCoverImage;
+        this.userTotalTours = userTotalTours;
+        this.userLocation = userLocation;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -48,5 +58,9 @@ public class User {
 
     public int getUserTotalTours() {
         return userTotalTours;
+    }
+
+    public String getUserLocation() {
+        return userLocation;
     }
 }

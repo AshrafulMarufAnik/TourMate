@@ -62,18 +62,24 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         getPermissions();
         init();
 
-        if (firebaseUser!=null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
         if(getIntent().getExtras()!=null){
             String email = getIntent().getStringExtra("email");
             String password = getIntent().getStringExtra("password");
             emailET.setText(email);
             passwordET.setText(password);
         }
+        else if(firebaseUser!=null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        /*
+        if (firebaseUser!=null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } */
 
         logInBTN.setOnClickListener(new View.OnClickListener() {
             @Override

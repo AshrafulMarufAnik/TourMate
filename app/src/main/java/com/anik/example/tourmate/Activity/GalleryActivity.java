@@ -77,7 +77,7 @@ public class GalleryActivity extends AppCompatActivity {
     }
 
     private void getAllMomentGallery() {
-        DatabaseReference allMomentsRef = databaseReference.child("User(TourMateApp)").child("All Tour Moments");
+        DatabaseReference allMomentsRef = databaseReference.child("User(TourMateApp)").child(uid).child("All Tour Moments");
         allMomentsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -172,7 +172,7 @@ public class GalleryActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             imageDownloadUrl = uri.toString();
-                            DatabaseReference tourImageRef = databaseReference.child("User(TourMateApp)").child("All Tour Moments");
+                            DatabaseReference tourImageRef = databaseReference.child("User(TourMateApp)").child(uid).child("All Tour Moments");
                             String newImageID = tourImageRef.push().getKey();
                             Moment newMoment = new Moment(imageName,imageDownloadUrl);
                             tourImageRef.child(newImageID).setValue(newMoment).addOnCompleteListener(new OnCompleteListener<Void>() {
