@@ -131,6 +131,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         editLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editLocation.setVisibility(View.INVISIBLE);
                 String location = mapLocationTV.getText().toString();
                 mapLocationTV.setVisibility(View.INVISIBLE);
                 mapLocationET.setVisibility(View.VISIBLE);
@@ -143,6 +144,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         editLocationBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editLocation.setVisibility(View.VISIBLE);
                 String location = mapLocationET.getText().toString();
                 if(location.length()<=0){
                     Toast.makeText(MapActivity.this, "Please Type location", Toast.LENGTH_SHORT).show();

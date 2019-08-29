@@ -21,10 +21,9 @@ public class User {
         this.userImageDownloadURL = userImageDownloadURL;
     }
 
-    public User(String userName, String userEmail, int userTotalTours, String userLocation) {
+    public User(String userName, String userEmail, String userLocation) {
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userTotalTours = userTotalTours;
         this.userLocation = userLocation;
     }
 

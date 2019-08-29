@@ -23,9 +23,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:padding="8dp"
+        android:padding="2dp"
         android:text="Add New Tour"
         android:textAlignment="center"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -71,18 +72,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".25"
-                android:tint="@color/color_white"
-                android:src="@drawable/ic_location_on_black_24dp" />
+                android:src="@drawable/ic_location_on_black_24dp"
+                android:tint="@color/color_white" />
 
             <TextView
+                android:id="@+id/setMapLocationTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="3dp"
                 android:layout_weight="1.75"
                 android:text="Add Location"
-                android:id="@+id/setMapLocationTV"
-                android:textColor="@color/color_white"/>
+                android:textColor="@color/color_white" />
 
         </LinearLayout>
 
@@ -100,8 +101,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:cardBackgroundColor="#6293B9"
-                app:cardElevation="5dp"
                 app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -123,11 +124,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
-                        android:padding="5dp"
                         android:hint="Departure Date"
-                        android:textColorHint="@color/color_white"
+                        android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="@color/color_white"
+                        android:textColorHint="@color/color_white"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -140,8 +141,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/color_light_red"
-                app:cardElevation="5dp"
                 app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -163,11 +164,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
-                        android:padding="5dp"
                         android:hint="Departure Date"
-                        android:textColorHint="@color/color_white"
+                        android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="@color/color_white"
+                        android:textColorHint="@color/color_white"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -195,22 +196,41 @@
         app:libIZO_setCornerRadius="5dp"
         app:libIZO_setStrokeWidth="2dp" />
 
-    <com.libizo.CustomEditText
-        android:id="@+id/addTourReturnDateET"
+    <LinearLayout
+        android:id="@+id/addTourReturnDateClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:backgroundTint="@color/color_blue"
-        android:hint="Approx Return Date"
-        android:inputType="date"
-        app:libIZO_clearIconTint="@color/color_blue"
-        app:libIZO_setBorderColor="@color/color_darkGrey"
-        app:libIZO_setBorderView="true"
-        app:libIZO_setClearIconVisible="true"
-        app:libIZO_setCornerRadius="5dp"
-        app:libIZO_setStrokeWidth="2dp" />
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_add_location_layout"
+        android:backgroundTint="@color/color_darkGrey"
+        android:orientation="horizontal"
+        android:padding="3dp"
+        android:weightSum="2">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight=".25"
+            android:src="@drawable/calender"
+            android:layout_margin="5dp"
+            android:tint="@color/color_white"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/setReturnDateTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1.75"
+            android:text="Add Return Date"
+            android:textColor="@color/color_white" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/saveNewTourBTN"

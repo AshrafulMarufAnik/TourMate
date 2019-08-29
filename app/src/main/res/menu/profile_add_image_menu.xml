@@ -6,14 +6,12 @@
         android:id="@+id/addProfilePic"
         android:title="Add Profile Image"
         app:showAsAction="never"
-        android:icon="@drawable/ic_camera_alt_black_24dp"
         android:iconTint="@color/color_lightGrey"/>
 
     <item
         android:id="@+id/addCoverPic"
         android:title="Add Cover Image"
         app:showAsAction="never"
-        android:icon="@drawable/ic_add_circle_black_24dp"
         android:iconTint="@color/color_lightGrey"/>
 
 </menu>

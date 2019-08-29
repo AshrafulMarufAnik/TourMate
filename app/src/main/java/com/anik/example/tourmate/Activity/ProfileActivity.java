@@ -188,13 +188,7 @@ public class ProfileActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             imageDownloadUrl = uri.toString();
                             DatabaseReference coverImageRef = databaseReference.child("User(TourMateApp)").child(uid).child("user image").child("cover image");
-                            //String newProfileImageID = profileImageRef.push().getKey();
-                            //String newCoverImageID = profileImageRef.push().getKey();
-                            //Map<String, Object> userImages = new HashMap<>();
-                            //userImages.put("userCoverImage", imageDownloadUrl);
-
                             User userCoverImage = new User(imageDownloadUrl);
-                            //Moment newMoment = new Moment(imageName, imageDownloadUrl);
                             coverImageRef.setValue(userCoverImage).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -229,14 +223,7 @@ public class ProfileActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             imageDownloadUrl = uri.toString();
                             DatabaseReference profileImageRef = databaseReference.child("User(TourMateApp)").child(uid).child("user image").child("profile image");
-                            //String newProfileImageID = profileImageRef.push().getKey();
-                            //String newCoverImageID = profileImageRef.push().getKey();
-
                             User userProfileImage = new User(imageDownloadUrl);
-                            //Map<String, Object> userImages = new HashMap<>();
-                            //userImages.put("userProfileImage", imageDownloadUrl);
-
-                            //Moment newMoment = new Moment(imageName, imageDownloadUrl);
                             profileImageRef.setValue(userProfileImage).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -286,7 +273,6 @@ public class ProfileActivity extends AppCompatActivity {
                     Picasso.with(ProfileActivity.this).load(currentUserProfileImage.getUserImageDownloadURL()).fit().into(profileImage);
                 }
                 else {
-                    Toast.makeText(ProfileActivity.this, "No User Image", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -304,7 +290,6 @@ public class ProfileActivity extends AppCompatActivity {
                     Picasso.with(ProfileActivity.this).load(currentUserCoverImage.getUserImageDownloadURL()).fit().into(coverImage);
                 }
                 else {
-                    Toast.makeText(ProfileActivity.this, "No User Image", Toast.LENGTH_SHORT).show();
                 }
             }
 
