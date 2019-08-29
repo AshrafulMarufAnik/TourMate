@@ -37,7 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
-    private String intentLocation;
+    private String intentLocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,20 @@ public class SignUpActivity extends AppCompatActivity {
         init();
         //checkConnectivity();
 
-        intentLocation = getIntent().getStringExtra("location");
+        if(getIntent().getExtras() != null){
+            intentLocation = getIntent().getStringExtra("location");
+            String name = getIntent().getStringExtra("signUpIntentName");
+            String email = getIntent().getStringExtra("signUpIntentEmail");
+            String password = getIntent().getStringExtra("signUpIntentPassword");
+
+            setLocation.setText(intentLocation);
+            nameET.setText(name);
+            emailET.setText(email);
+            passwordET.setText(password);
+        }
+        else {
+            Toast.makeText(this, "Fill up the fields", Toast.LENGTH_SHORT).show();
+        }
 
         if(intentLocation != null){
             setLocation.setText(intentLocation);
@@ -55,7 +68,24 @@ public class SignUpActivity extends AppCompatActivity {
         locationClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SignUpActivity.this,MapActivity.class).putExtra("intentSource",1));
+                if(nameET.getText().toString() != null || emailET.getText().toString() != null || passwordET.getText().toString() != null){
+                    String name = nameET.getText().toString();
+                    String email = emailET.getText().toString();
+                    String password = passwordET.getText().toString();
+
+                    Intent intent = new Intent(SignUpActivity.this,MapActivity.class);
+                    intent.putExtra("intentSource",1);
+                    intent.putExtra("signUpName",name);
+                    intent.putExtra("signUpEmail",email);
+                    intent.putExtra("signUpPassword",password);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(SignUpActivity.this,MapActivity.class);
+                    intent.putExtra("intentSource",1);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -63,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(intentLocation==null || nameET.getText().toString().isEmpty() || emailET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty()){
-                    Toast.makeText(SignUpActivity.this, "Fill up the fields and add location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Fill up the fields or add location", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     String name = nameET.getText().toString();

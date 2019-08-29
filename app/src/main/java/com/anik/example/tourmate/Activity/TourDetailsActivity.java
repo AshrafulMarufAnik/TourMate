@@ -183,7 +183,7 @@ public class TourDetailsActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             imageDownloadUrl = uri.toString();
                             DatabaseReference tourImageRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID).child("Tour Moments");
-                            DatabaseReference allTourImageRef = databaseReference.child("User(TourMateApp)").child("All Tour Moments");
+                            DatabaseReference allTourImageRef = databaseReference.child("User(TourMateApp)").child(uid).child("All Tour Moments");
 
                             String newImageID = tourImageRef.push().getKey();
                             Moment newMoment = new Moment(imageName,imageDownloadUrl);

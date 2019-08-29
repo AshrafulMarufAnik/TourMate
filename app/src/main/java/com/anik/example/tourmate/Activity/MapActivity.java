@@ -45,6 +45,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private ImageView editLocation;
     private FloatingActionButton mapCurrentLocationFABTN;
     private String setLocation;
+    private String name = null,budget = null,returnDate = null,date = null,time = null;
+    private String signUpName = null,signUpEmail = null,signUpPassword = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         init();
 
         final int intentSource = getIntent().getIntExtra("intentSource",0);
+        if(getIntent().getExtras() != null){
+            name = getIntent().getStringExtra("name");
+            budget = getIntent().getStringExtra("budget");
+            returnDate = getIntent().getStringExtra("returnDate");
+            date = getIntent().getStringExtra("date");
+            time = getIntent().getStringExtra("time");
+
+            signUpName = getIntent().getStringExtra("signUpName");
+            signUpEmail = getIntent().getStringExtra("signUpEmail");
+            signUpPassword = getIntent().getStringExtra("signUpPassword");
+        }
 
         if(intentSource == 3){
             mapLocationTV.setVisibility(View.GONE);
@@ -70,6 +83,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     if(location.length()<=0){
                         Toast.makeText(MapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
                     }
+                    else if(name != null && budget != null && returnDate != null && date != null && time != null){
+                        Intent intent = new Intent(MapActivity.this,AddTourActivity.class);
+                        intent.putExtra("location",location);
+                        intent.putExtra("intentName",name);
+                        intent.putExtra("intentBudget",budget);
+                        intent.putExtra("intentReturnDate",returnDate);
+                        intent.putExtra("intentDate",date);
+                        intent.putExtra("intentTime",time);
+                        startActivity(intent);
+                        finish();
+                    }
                     else {
                         Intent intent = new Intent(MapActivity.this,AddTourActivity.class);
                         intent.putExtra("location",location);
@@ -81,6 +105,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     String location = mapLocationTV.getText().toString();
                     if(location.length()<=0){
                         Toast.makeText(MapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(signUpName != null && signUpEmail != null && signUpPassword != null){
+                        Intent intent = new Intent(MapActivity.this,SignUpActivity.class);
+                        intent.putExtra("location",location);
+                        intent.putExtra("signUpIntentName",signUpName);
+                        intent.putExtra("signUpIntentEmail",signUpEmail);
+                        intent.putExtra("signUpIntentPassword",signUpPassword);
+                        startActivity(intent);
+                        finish();
                     }
                     else {
                         Intent intent = new Intent(MapActivity.this,SignUpActivity.class);

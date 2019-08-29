@@ -74,13 +74,6 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
             finish();
         }
 
-        /*
-        if (firebaseUser!=null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } */
-
         logInBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
