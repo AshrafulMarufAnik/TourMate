@@ -3,10 +3,11 @@ package com.anik.example.tourmate.ModelClass;
 public class User {
     private String userName;
     private String userEmail;
-    private String userProfileImage;
-    private String userCoverImage;
     private int userTotalTours;
     private String userLocation;
+    private String userProfileImage;
+    private String userCoverImage;
+    private String userImageDownloadURL;
 
     public User() {
     }
@@ -16,26 +17,13 @@ public class User {
         this.userEmail = userEmail;
     }
 
-    public User(String userName, String userEmail, String userProfileImage, String userCoverImage) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userProfileImage = userProfileImage;
-        this.userCoverImage = userCoverImage;
+    public User(String userImageDownloadURL) {
+        this.userImageDownloadURL = userImageDownloadURL;
     }
 
-    public User(String userName, String userEmail, String userProfileImage, String userCoverImage, int userTotalTours) {
+    public User(String userName, String userEmail, int userTotalTours, String userLocation) {
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userProfileImage = userProfileImage;
-        this.userCoverImage = userCoverImage;
-        this.userTotalTours = userTotalTours;
-    }
-
-    public User(String userName, String userEmail, String userProfileImage, String userCoverImage, int userTotalTours, String userLocation) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userProfileImage = userProfileImage;
-        this.userCoverImage = userCoverImage;
         this.userTotalTours = userTotalTours;
         this.userLocation = userLocation;
     }
@@ -62,5 +50,9 @@ public class User {
 
     public String getUserLocation() {
         return userLocation;
+    }
+
+    public String getUserImageDownloadURL() {
+        return userImageDownloadURL;
     }
 }
