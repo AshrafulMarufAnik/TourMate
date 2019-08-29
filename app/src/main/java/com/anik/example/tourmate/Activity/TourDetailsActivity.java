@@ -76,6 +76,7 @@ public class TourDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(TourDetailsActivity.this,RoutePointsActivity.class);
                 intent.putExtra("tourID",tourID);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -85,6 +86,7 @@ public class TourDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(TourDetailsActivity.this,ExpenseListActivity.class);
                 intent.putExtra("tourID",tourID);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -94,6 +96,7 @@ public class TourDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(TourDetailsActivity.this,MomentsActivity.class);
                 intent.putExtra("tourID",tourID);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -256,7 +259,7 @@ public class TourDetailsActivity extends AppCompatActivity {
     }
 
     public void goBack(View view) {
-        startActivity(new Intent(TourDetailsActivity.this,TourHistoryActivity.class));
+        startActivity(new Intent(TourDetailsActivity.this,TourHistoryActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         finish();
     }
 
