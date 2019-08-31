@@ -45,16 +45,15 @@ public class MomentsActivity extends AppCompatActivity {
         tourID = getIntent().getStringExtra("tourID");
         uid = firebaseAuth.getCurrentUser().getUid();
 
+        getAllImagesFromStorage();
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 getAllImagesFromStorage();
 
             }
         });
-
-        getAllImagesFromStorage();
         configMomentRV();
     }
 
@@ -75,6 +74,7 @@ public class MomentsActivity extends AppCompatActivity {
                     swipeRefreshLayout.setRefreshing(false);
                 }
                 else {
+                    swipeRefreshLayout.setRefreshing(false);
                     Toast.makeText(MomentsActivity.this, "Tour Moment is empty", Toast.LENGTH_SHORT).show();
                 }
             }

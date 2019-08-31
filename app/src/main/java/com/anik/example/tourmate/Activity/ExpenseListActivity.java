@@ -96,6 +96,7 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
                     swipeRefreshLayoutELA.setRefreshing(false);
                 }
                 else {
+                    swipeRefreshLayoutELA.setRefreshing(false);
                     Toast.makeText(ExpenseListActivity.this, "Expense List is empty", Toast.LENGTH_SHORT).show();
                 }
             }

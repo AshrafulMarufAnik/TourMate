@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -52,6 +54,7 @@ public class GalleryActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ArrayList<Moment> momentArrayList;
     private MomentAdapter momentAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,15 @@ public class GalleryActivity extends AppCompatActivity {
         uid = firebaseAuth.getCurrentUser().getUid();
 
         getAllMomentGallery();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onRefresh() {
+                getAllMomentGallery();
+            }
+        });
+
         configRV();
 
         addGalleryFABTN.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +102,10 @@ public class GalleryActivity extends AppCompatActivity {
                         galleryRV.setAdapter(momentAdapter);
                         momentAdapter.notifyDataSetChanged();
                     }
+                    swipeRefreshLayout.setRefreshing(false);
                 }
                 else {
+                    swipeRefreshLayout.setRefreshing(false);
                     Toast.makeText(GalleryActivity.this, "Tour Moment is empty", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -197,6 +211,7 @@ public class GalleryActivity extends AppCompatActivity {
         galleryRV = findViewById(R.id.galleryRV);
         addGalleryFABTN = findViewById(R.id.addGalleryMomentFABTN);
         actionMenu = findViewById(R.id.addGalleryMomentFAM);
+        swipeRefreshLayout = findViewById(R.id.momentSwipe);
 
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();

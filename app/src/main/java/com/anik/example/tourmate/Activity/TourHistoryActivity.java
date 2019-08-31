@@ -77,6 +77,7 @@ public class TourHistoryActivity extends AppCompatActivity {
                     swipeRefreshLayout_THA.setRefreshing(false);
                 }
                 else {
+                    swipeRefreshLayout_THA.setRefreshing(false);
                     Toast.makeText(TourHistoryActivity.this, "Tour History is empty", Toast.LENGTH_SHORT).show();
                 }
             }

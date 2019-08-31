@@ -55,14 +55,15 @@
             android:name=".Activity.SignUpActivity"
             android:theme="@style/CustomAppTheme" />
         <activity android:name=".Activity.StartingActivity"
-            android:theme="@style/CustomAppTheme"></activity>
-        <activity
-            android:name=".Activity.LoginActivity"
             android:theme="@style/CustomAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:theme="@style/CustomAppTheme">
         </activity>
         <activity android:name=".Activity.MapActivity"
             android:theme="@style/CustomAppTheme"></activity>
