@@ -1,6 +1,7 @@
 package com.anik.example.tourmate.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -33,18 +34,21 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class AddTourActivity extends AppCompatActivity {
-    private Button addNewTourBTn;
-    private EditText tourNameET,tourBudgetET;
+    private Button addNewTourBTn,updateTourBTN;
+    private EditText tourNameET, tourBudgetET;
     private LinearLayout addTourReturnDateClick;
     private LinearLayout tourLocationClick;
-    private TextView dateTV,timeTV,setLocationTV,setReturnDateTV;
-    private LinearLayout departureDateClick,departureTimeClick;
+    private TextView dateTV, timeTV, setLocationTV, setReturnDateTV, titleTV;
+    private LinearLayout departureDateClick, departureTimeClick;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
     private long dateInMS;
     private String intentLocation;
-    private String name,budget,returnDate,date,time;
+    private int updateIntent=0,updateMapReturn;
+    private String name, budget, returnDate, date, time;
+    private String updateTID;
+    private int updateMapSource=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,21 +58,63 @@ public class AddTourActivity extends AppCompatActivity {
         init();
 
         intentLocation = getIntent().getStringExtra("location");
+        updateIntent = getIntent().getIntExtra("updateIntent", 0);
+        updateMapReturn = getIntent().getIntExtra("updateMapReturn",0);
 
-        if(getIntent().getExtras() != null){
-            intentLocation = getIntent().getStringExtra("location");
-            name = getIntent().getStringExtra("intentName");
-            budget = getIntent().getStringExtra("intentBudget");
-            returnDate = getIntent().getStringExtra("intentReturnDate");
-            date = getIntent().getStringExtra("intentDate");
-            time = getIntent().getStringExtra("intentTime");
+        if (getIntent().getExtras() != null) {
+            if (updateIntent == 1) {
+                titleTV.setText("Update Tour");
+                addNewTourBTn.setText("Update");
+                updateTID = getIntent().getStringExtra("updateTourID");
+                String tName = getIntent().getStringExtra("updateTourName");
+                String tLocation = getIntent().getStringExtra("updateTourLocation");
+                double tBudget = Double.parseDouble(getIntent().getStringExtra("updateTourBudget"));
+                String tReturnDate = getIntent().getStringExtra("updateTourReturnDate");
+                String tDate = getIntent().getStringExtra("updateTourDate");
+                String tTime = getIntent().getStringExtra("updateTourTime");
 
-            setLocationTV.setText(intentLocation);
-            tourNameET.setText(name);
-            tourBudgetET.setText(budget);
-            setReturnDateTV.setText(returnDate);
-            dateTV.setText(date);
-            timeTV.setText(time);
+                setLocationTV.setText(tLocation);
+                tourNameET.setText(tName);
+                tourBudgetET.setText(String.valueOf(tBudget));
+                setReturnDateTV.setText(tReturnDate);
+                dateTV.setText(tDate);
+                timeTV.setText(tTime);
+                updateIntent = 1;
+                updateMapSource = 1;
+            }
+            else if(updateMapReturn == 1){
+                addNewTourBTn.setText("Update");
+                updateIntent = 1;
+                intentLocation = getIntent().getStringExtra("location");
+                updateTID = getIntent().getStringExtra("updateTourIDReturn");
+                name = getIntent().getStringExtra("intentName");
+                budget = getIntent().getStringExtra("intentBudget");
+                returnDate = getIntent().getStringExtra("intentReturnDate");
+                date = getIntent().getStringExtra("intentDate");
+                time = getIntent().getStringExtra("intentTime");
+
+                setLocationTV.setText(intentLocation);
+                tourNameET.setText(name);
+                tourBudgetET.setText(budget);
+                setReturnDateTV.setText(returnDate);
+                dateTV.setText(date);
+                timeTV.setText(time);
+            }
+            else {
+                intentLocation = getIntent().getStringExtra("location");
+                name = getIntent().getStringExtra("intentName");
+                budget = getIntent().getStringExtra("intentBudget");
+                returnDate = getIntent().getStringExtra("intentReturnDate");
+                date = getIntent().getStringExtra("intentDate");
+                time = getIntent().getStringExtra("intentTime");
+
+                setLocationTV.setText(intentLocation);
+                tourNameET.setText(name);
+                tourBudgetET.setText(budget);
+                setReturnDateTV.setText(returnDate);
+                dateTV.setText(date);
+                timeTV.setText(time);
+            }
         }
 
         departureDateClick.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +123,7 @@ public class AddTourActivity extends AppCompatActivity {
                 datePicker();
             }
         });
-        
+
         departureTimeClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,25 +134,27 @@ public class AddTourActivity extends AppCompatActivity {
         tourLocationClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tourNameET.getText().toString() != null || tourBudgetET.getText().toString() != null || setReturnDateTV.getText().toString() != null || dateTV.getText().toString() != null || timeTV.getText().toString() != null){
+                if (tourNameET.getText().toString() != null || tourBudgetET.getText().toString() != null || setReturnDateTV.getText().toString() != null || dateTV.getText().toString() != null || timeTV.getText().toString() != null) {
                     String name = tourNameET.getText().toString();
                     String budget = tourBudgetET.getText().toString();
                     String returnDate = setReturnDateTV.getText().toString();
                     String date = dateTV.getText().toString();
                     String time = timeTV.getText().toString();
 
-                    Intent intent = new Intent(AddTourActivity.this,MapActivity.class);
-                    intent.putExtra("intentSource",2);
-                    intent.putExtra("name",name);
-                    intent.putExtra("budget",budget);
-                    intent.putExtra("returnDate",returnDate);
-                    intent.putExtra("date",date);
-                    intent.putExtra("time",time);
+                    Intent intent = new Intent(AddTourActivity.this, MapActivity.class);
+                    intent.putExtra("updateMapSource",updateMapSource);
+                    intent.putExtra("updateTourID",updateTID);
+                    intent.putExtra("intentSource", 2);
+                    intent.putExtra("name", name);
+                    intent.putExtra("budget", budget);
+                    intent.putExtra("returnDate", returnDate);
+                    intent.putExtra("date", date);
+                    intent.putExtra("time", time);
                     startActivity(intent);
                 }
                 else {
-                    Intent intent = new Intent(AddTourActivity.this,MapActivity.class);
-                    intent.putExtra("intentSource",2);
+                    Intent intent = new Intent(AddTourActivity.this, MapActivity.class);
+                    intent.putExtra("intentSource", 2);
                     startActivity(intent);
                 }
             }
@@ -114,52 +162,101 @@ public class AddTourActivity extends AppCompatActivity {
 
         addTourReturnDateClick.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { returnDatePicker();
+            public void onClick(View view) {
+                returnDatePicker();
             }
         });
 
         addNewTourBTn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(intentLocation==null || tourNameET.getText().toString().isEmpty() || tourBudgetET.getText().toString().isEmpty() || setReturnDateTV.getText().toString().isEmpty()){
-                    Toast.makeText(AddTourActivity.this, "No data added", Toast.LENGTH_SHORT).show();
+                if(updateIntent == 1){
+                   updateTourData(updateTID);
                 }
                 else {
-                    final String name = tourNameET.getText().toString();
-                    final String location = intentLocation;
-                    final double budget = Double.parseDouble(tourBudgetET.getText().toString());
-                    final String returnDate = setReturnDateTV.getText().toString();
-                    final String date = dateTV.getText().toString();
-                    final String time = timeTV.getText().toString();
-
-                    final String uid = firebaseAuth.getCurrentUser().getUid();
-
-                    DatabaseReference tourInfoRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information");
-                    final String tourID = tourInfoRef.push().getKey();
-
-                    Tour newTour = new Tour(tourID,name,location,returnDate,date,time,budget);
-                    tourInfoRef.child(tourID).setValue(newTour).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(AddTourActivity.this, "New Tour added", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(AddTourActivity.this,TourDetailsActivity.class);
-                                intent.putExtra("tourID",tourID);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AddTourActivity.this,e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    addNewTour();
                 }
             }
         });
     }
+
+    private void addNewTour() {
+        if (intentLocation == null || tourNameET.getText().toString().isEmpty() || tourBudgetET.getText().toString().isEmpty() || setReturnDateTV.getText().toString().isEmpty()) {
+            Toast.makeText(AddTourActivity.this, "Fill up all fields", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            final String name = tourNameET.getText().toString();
+            final String location = intentLocation;
+            final double budget = Double.parseDouble(tourBudgetET.getText().toString());
+            final String returnDate = setReturnDateTV.getText().toString();
+            final String date = dateTV.getText().toString();
+            final String time = timeTV.getText().toString();
+
+            final String uid = firebaseAuth.getCurrentUser().getUid();
+
+            DatabaseReference tourInfoRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information");
+            final String tourID = tourInfoRef.push().getKey();
+
+            Tour newTour = new Tour(tourID,name,location,returnDate,date,time,budget);
+            tourInfoRef.child(tourID).setValue(newTour).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(AddTourActivity.this, "New Tour added", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(AddTourActivity.this, TourDetailsActivity.class);
+                        intent.putExtra("tourID", tourID);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(AddTourActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void updateTourData(final String updateTID) {
+        if (setLocationTV.getText().toString() == null || tourNameET.getText().toString().isEmpty() || tourBudgetET.getText().toString().isEmpty() || setReturnDateTV.getText().toString().isEmpty()) {
+            Toast.makeText(AddTourActivity.this, "Insert new data to update", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            String uName = tourNameET.getText().toString();
+            String uLocation = setLocationTV.getText().toString();
+            double uBudget = Double.parseDouble(tourBudgetET.getText().toString());
+            String uReturnDate = setReturnDateTV.getText().toString();
+            String uDate = dateTV.getText().toString();
+            String uTime = timeTV.getText().toString();
+
+            final String uid = firebaseAuth.getCurrentUser().getUid();
+
+            DatabaseReference tourInfoRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(updateTID);
+
+            Tour updateTour = new Tour(updateTID,uName,uLocation,uReturnDate,uDate,uTime,uBudget);
+            tourInfoRef.setValue(updateTour).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(AddTourActivity.this, "Tour updated", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(AddTourActivity.this, TourDetailsActivity.class);
+                        intent.putExtra("tourID", updateTID);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(AddTourActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
 
     private void returnDatePicker() {
         DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -208,7 +305,7 @@ public class AddTourActivity extends AppCompatActivity {
                 CharSequence charSequence = DateFormat.format("hh:mm a", time);
                 timeTV.setText(charSequence);
             }
-        }, hour, minute,false);
+        }, hour, minute, false);
         timePickerDialog.show();
     }
 
@@ -248,6 +345,7 @@ public class AddTourActivity extends AppCompatActivity {
     private void init() {
         addNewTourBTn = findViewById(R.id.saveNewTourBTN);
         tourNameET = findViewById(R.id.addTourNameET);
+        titleTV = findViewById(R.id.a1TV);
         tourLocationClick = findViewById(R.id.addTourLocationClick);
         setLocationTV = findViewById(R.id.setMapLocationTV);
         tourBudgetET = findViewById(R.id.addTourBudgetET);
@@ -264,7 +362,7 @@ public class AddTourActivity extends AppCompatActivity {
     }
 
     public void goBack(View view) {
-        startActivity(new Intent(AddTourActivity.this,MainActivity.class));
+        startActivity(new Intent(AddTourActivity.this, MainActivity.class));
         finish();
     }
 }

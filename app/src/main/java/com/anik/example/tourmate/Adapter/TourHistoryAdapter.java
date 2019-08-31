@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anik.example.tourmate.Activity.AddTourActivity;
 import com.anik.example.tourmate.Activity.TourDetailsActivity;
 import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.ModelClass.Tour;
@@ -63,7 +64,17 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
         holder.updateClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Not available now", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, AddTourActivity.class);
+                intent.putExtra("updateIntent",1);
+                intent.putExtra("updateTourName",currentTour.getTourName());
+                intent.putExtra("updateTourID",currentTour.getTourID());
+                intent.putExtra("updateTourLocation",currentTour.getTourLocation());
+                intent.putExtra("updateTourDate",currentTour.getTourDate());
+                intent.putExtra("updateTourTime",currentTour.getTourTime());
+                intent.putExtra("updateTourReturnDate",currentTour.getTourReturnDate());
+                intent.putExtra("updateTourBudget",String.valueOf(currentTour.getTourBudget()));
+                context.startActivity(intent);
+                //Toast.makeText(context, "Not available now", Toast.LENGTH_SHORT).show();
             }
         });
 

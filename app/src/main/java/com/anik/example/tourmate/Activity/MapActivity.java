@@ -45,8 +45,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private ImageView editLocation;
     private FloatingActionButton mapCurrentLocationFABTN;
     private String setLocation;
-    private String name = null,budget = null,returnDate = null,date = null,time = null;
+    private String name = null,budget = null,returnDate = null,date = null,time = null,tourID;
     private String signUpName = null,signUpEmail = null,signUpPassword = null;
+    private int updateMapSource=0;
+    private int intentSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +56,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         init();
 
-        final int intentSource = getIntent().getIntExtra("intentSource",0);
+        intentSource = getIntent().getIntExtra("intentSource",0);
+        updateMapSource = getIntent().getIntExtra("updateMapSource",0);
+
         if(getIntent().getExtras() != null){
             name = getIntent().getStringExtra("name");
             budget = getIntent().getStringExtra("budget");
             returnDate = getIntent().getStringExtra("returnDate");
             date = getIntent().getStringExtra("date");
             time = getIntent().getStringExtra("time");
+            tourID = getIntent().getStringExtra("updateTourID");
 
             signUpName = getIntent().getStringExtra("signUpName");
             signUpEmail = getIntent().getStringExtra("signUpEmail");
@@ -78,7 +83,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapConfirmLocationBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(intentSource == 2){
+                if(intentSource == 2 && updateMapSource == 0){
                     String location = mapLocationTV.getText().toString();
                     if(location.length()<=0){
                         Toast.makeText(MapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
@@ -86,6 +91,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     else if(name != null && budget != null && returnDate != null && date != null && time != null){
                         Intent intent = new Intent(MapActivity.this,AddTourActivity.class);
                         intent.putExtra("location",location);
+                        intent.putExtra("intentName",name);
+                        intent.putExtra("intentBudget",budget);
+                        intent.putExtra("intentReturnDate",returnDate);
+                        intent.putExtra("intentDate",date);
+                        intent.putExtra("intentTime",time);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        Intent intent = new Intent(MapActivity.this,AddTourActivity.class);
+                        intent.putExtra("location",location);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+                else if(intentSource == 2 && updateMapSource==1){
+                    String location = mapLocationTV.getText().toString();
+                    if(location.length()<=0){
+                        Toast.makeText(MapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(name != null && budget != null && returnDate != null && date != null && time != null){
+                        Intent intent = new Intent(MapActivity.this,AddTourActivity.class);
+                        intent.putExtra("location",location);
+                        intent.putExtra("updateMapReturn",1);
+                        intent.putExtra("updateTourIDReturn",tourID);
                         intent.putExtra("intentName",name);
                         intent.putExtra("intentBudget",budget);
                         intent.putExtra("intentReturnDate",returnDate);
