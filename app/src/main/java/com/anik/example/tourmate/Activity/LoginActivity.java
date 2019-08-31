@@ -1,12 +1,16 @@
 package com.anik.example.tourmate.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,23 +53,25 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
     private DatabaseReference databaseReference;
     private String PhoneNumber;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        init();
 
-        if (firebaseUser!=null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        getPermissions();
+        init();
 
         if(getIntent().getExtras()!=null){
             String email = getIntent().getStringExtra("email");
             String password = getIntent().getStringExtra("password");
             emailET.setText(email);
             passwordET.setText(password);
+        }
+        else if(firebaseUser!=null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         logInBTN.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +96,33 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
                 googleSignIn();
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void getPermissions() {
+        String[] permissions = {Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_MEDIA_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION};
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(Manifest.permission.ACCESS_MEDIA_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(permissions, 0);
+
+            }
+        }
+        else {
+            Toast.makeText(this, "Please Check permissions in App info", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void logInWithEmailPassword(String email, String password) {

@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anik.example.tourmate.Reciever.CheckInternetConnection;
@@ -28,11 +30,14 @@ import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
     private CheckInternetConnection checkInternetConnection;
-    private EditText nameET,emailET,locationET,passwordET;
+    private EditText nameET,emailET,passwordET;
+    private LinearLayout locationClick;
+    private TextView setLocation;
     private Button signUpBTN;
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+    private String intentLocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +46,59 @@ public class SignUpActivity extends AppCompatActivity {
         init();
         //checkConnectivity();
 
+        if(getIntent().getExtras() != null){
+            intentLocation = getIntent().getStringExtra("location");
+            String name = getIntent().getStringExtra("signUpIntentName");
+            String email = getIntent().getStringExtra("signUpIntentEmail");
+            String password = getIntent().getStringExtra("signUpIntentPassword");
+
+            setLocation.setText(intentLocation);
+            nameET.setText(name);
+            emailET.setText(email);
+            passwordET.setText(password);
+        }
+        else {
+            Toast.makeText(this, "Fill up the fields", Toast.LENGTH_SHORT).show();
+        }
+
+        if(intentLocation != null){
+            setLocation.setText(intentLocation);
+        }
+
+        locationClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(nameET.getText().toString() != null || emailET.getText().toString() != null || passwordET.getText().toString() != null){
+                    String name = nameET.getText().toString();
+                    String email = emailET.getText().toString();
+                    String password = passwordET.getText().toString();
+
+                    Intent intent = new Intent(SignUpActivity.this,MapActivity.class);
+                    intent.putExtra("intentSource",1);
+                    intent.putExtra("signUpName",name);
+                    intent.putExtra("signUpEmail",email);
+                    intent.putExtra("signUpPassword",password);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(SignUpActivity.this,MapActivity.class);
+                    intent.putExtra("intentSource",1);
+                    startActivity(intent);
+                }
+
+            }
+        });
+
         signUpBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(nameET.getText().toString().isEmpty() || emailET.getText().toString().isEmpty() || locationET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty()){
-                    Toast.makeText(SignUpActivity.this, "Fill up the fields", Toast.LENGTH_SHORT).show();
+                if(intentLocation==null || nameET.getText().toString().isEmpty() || emailET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty()){
+                    Toast.makeText(SignUpActivity.this, "Fill up the fields or add location", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     String name = nameET.getText().toString();
                     String email = emailET.getText().toString();
-                    String location = locationET.getText().toString();
+                    String location = setLocation.getText().toString();
                     String password = passwordET.getText().toString();
 
                     signUpWithEmailPassword(name,email,location,password);
@@ -90,7 +138,6 @@ public class SignUpActivity extends AppCompatActivity {
                                             Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
                                             intent.putExtra("email",email);
                                             intent.putExtra("password",password);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                             finish();
                                         }
@@ -127,7 +174,8 @@ public class SignUpActivity extends AppCompatActivity {
         checkInternetConnection = new CheckInternetConnection();
         nameET = findViewById(R.id.signUpNameET);
         emailET = findViewById(R.id.signUpEmailET);
-        locationET = findViewById(R.id.signUpLocationET);
+        locationClick = findViewById(R.id.signUpLocationClick);
+        setLocation = findViewById(R.id.setLocationRegTV);
         passwordET = findViewById(R.id.signUpPasswordET);
         signUpBTN = findViewById(R.id.signUpBTN);
         progressBar = findViewById(R.id.progressBar);

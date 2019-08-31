@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -30,6 +31,7 @@ public class TourHistoryActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private String uid;
+    private SwipeRefreshLayout swipeRefreshLayout_THA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,14 @@ public class TourHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tour_history);
         init();
         uid = firebaseAuth.getCurrentUser().getUid();
+
+        swipeRefreshLayout_THA.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getAllTourDataFromDBThroughModelClass();
+
+            }
+        });
 
         getAllTourDataFromDBThroughModelClass();
         configTourHistoryRV();
@@ -46,6 +56,8 @@ public class TourHistoryActivity extends AppCompatActivity {
     private void configTourHistoryRV() {
         tourHistoryRV.setLayoutManager(new LinearLayoutManager(this));
         tourHistoryRV.setAdapter(tourHistoryAdapter);
+
+
     }
 
     private void getAllTourDataFromDBThroughModelClass() {
@@ -60,7 +72,9 @@ public class TourHistoryActivity extends AppCompatActivity {
                         Tour newTour = tourData.getValue(Tour.class);
                         tourList.add(newTour);
                         tourHistoryAdapter.notifyDataSetChanged();
+
                     }
+                    swipeRefreshLayout_THA.setRefreshing(false);
                 }
                 else {
                     Toast.makeText(TourHistoryActivity.this, "Tour History is empty", Toast.LENGTH_SHORT).show();
@@ -81,6 +95,9 @@ public class TourHistoryActivity extends AppCompatActivity {
         tourHistoryAdapter = new TourHistoryAdapter(tourList,this);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
+
+        swipeRefreshLayout_THA = findViewById(R.id.swiperefreshlayout_THA);
+        swipeRefreshLayout_THA.setColorSchemeResources(R.color.color_blue);
     }
 
     public void goBack(View view) {

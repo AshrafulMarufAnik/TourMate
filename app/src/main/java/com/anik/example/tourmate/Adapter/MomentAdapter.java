@@ -40,6 +40,7 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.ViewHolder
 
         Picasso.with(context).load(currentMoment.getImageURL()).fit().into(holder.image);
 
+        /*
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +50,7 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.ViewHolder
                 context.startActivity(intent);
             }
         });
+        */
 
     }
 

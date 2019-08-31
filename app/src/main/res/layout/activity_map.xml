@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    tools:context=".Activity.MapActivity">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:layout_above="@id/LL"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/LL"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:tint="@color/color_lightGrey"
+                android:id="@+id/IV"
+                android:src="@drawable/ic_location_on_black_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:layout_toRightOf="@id/IV"
+                android:layout_toLeftOf="@id/editLocationIV"
+                android:id="@+id/mapLocationAddressTV"
+                android:hint="Pick up location"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="3dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_toRightOf="@id/IV"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/editLocationIV"
+                android:visibility="invisible"
+                android:id="@+id/mapLocationAddressET"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="3dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_black_24dp"
+                android:tint="@color/color_lightGrey"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="1dp"
+                android:layout_marginLeft="2dp"
+                android:id="@+id/editLocationIV"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="90dp"
+                android:layout_height="27dp"
+                android:layout_margin="15dp"
+                android:layout_gravity="right"
+                android:text="Confirm"
+                android:textSize="13sp"
+                android:textAllCaps="false"
+                android:id="@+id/mapConfirmLocationBTN"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/custom_cardview_layout_design"
+                android:elevation="5dp"/>
+
+            <Button
+                android:layout_width="90dp"
+                android:layout_height="27dp"
+                android:layout_margin="15dp"
+                android:layout_gravity="right"
+                android:text="Done"
+                android:textSize="13sp"
+                android:visibility="gone"
+                android:textAllCaps="false"
+                android:id="@+id/mapEditDoneBTN"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/custom_cardview_layout_design"
+                android:elevation="5dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/LL"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="@color/color_white"
+        android:onClick="currentLocation"
+        android:id="@+id/mapCurrentLocationFABTN"
+        android:src="@drawable/ic_my_location_black_24dp"
+        android:tint="#5C5B5B"
+        android:layout_margin="10dp"/>
+
+</RelativeLayout>

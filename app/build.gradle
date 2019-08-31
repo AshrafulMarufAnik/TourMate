@@ -29,6 +29,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:17.0.0'
     implementation 'com.google.firebase:firebase-storage:17.0.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0' //google map
+    implementation 'com.google.android.gms:play-services-location:16.0.0' //google map fused location
     implementation 'com.squareup.picasso:picasso:2.5.2' //picasso for image load
     implementation 'com.github.bumptech.glide:glide:4.9.0' //glide for image slide
     implementation 'com.libizo:customedittext:1.0.6' // custom edit text
