@@ -57,9 +57,6 @@ public class SignUpActivity extends AppCompatActivity {
             emailET.setText(email);
             passwordET.setText(password);
         }
-        else {
-            Toast.makeText(this, "Fill up the fields", Toast.LENGTH_SHORT).show();
-        }
 
         if(intentLocation != null){
             setLocation.setText(intentLocation);

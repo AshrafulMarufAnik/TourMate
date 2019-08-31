@@ -75,14 +75,13 @@
                 android:src="@drawable/ic_location_on_black_24dp" />
 
             <TextView
-
-                android:id="@+id/setMapLocationTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="3dp"
                 android:layout_weight="1.75"
                 android:text="Add Location"
+                android:id="@+id/setMapLocationTV"
                 android:textColor="@color/color_white"/>
 
         </LinearLayout>

@@ -34,15 +34,16 @@ import java.util.Date;
 
 public class AddTourActivity extends AppCompatActivity {
     private Button addNewTourBTn;
-    private EditText tourNameET,tourBudgetET,tourReturnDateET;
+    private EditText tourNameET,tourBudgetET;
+    private LinearLayout addTourReturnDateClick;
     private LinearLayout tourLocationClick;
-    private TextView dateTV,timeTV,setLocationTV;
+    private TextView dateTV,timeTV,setLocationTV,setReturnDateTV;
     private LinearLayout departureDateClick,departureTimeClick;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
     private long dateInMS;
-    private String intentLocation="";
+    private String intentLocation;
     private String name,budget,returnDate,date,time;
 
     @Override
@@ -65,12 +66,9 @@ public class AddTourActivity extends AppCompatActivity {
             setLocationTV.setText(intentLocation);
             tourNameET.setText(name);
             tourBudgetET.setText(budget);
-            tourReturnDateET.setText(returnDate);
+            setReturnDateTV.setText(returnDate);
             dateTV.setText(date);
             timeTV.setText(time);
-        }
-        else {
-            Toast.makeText(this, "Fill up the fields", Toast.LENGTH_SHORT).show();
         }
 
         departureDateClick.setOnClickListener(new View.OnClickListener() {
@@ -90,10 +88,10 @@ public class AddTourActivity extends AppCompatActivity {
         tourLocationClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tourNameET.getText().toString() != null || tourBudgetET.getText().toString() != null || tourReturnDateET.getText().toString() != null || dateTV.getText().toString() != null || timeTV.getText().toString() != null){
+                if(tourNameET.getText().toString() != null || tourBudgetET.getText().toString() != null || setReturnDateTV.getText().toString() != null || dateTV.getText().toString() != null || timeTV.getText().toString() != null){
                     String name = tourNameET.getText().toString();
                     String budget = tourBudgetET.getText().toString();
-                    String returnDate = tourReturnDateET.getText().toString();
+                    String returnDate = setReturnDateTV.getText().toString();
                     String date = dateTV.getText().toString();
                     String time = timeTV.getText().toString();
 
@@ -114,17 +112,23 @@ public class AddTourActivity extends AppCompatActivity {
             }
         });
 
+        addTourReturnDateClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { returnDatePicker();
+            }
+        });
+
         addNewTourBTn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(intentLocation==null || tourNameET.getText().toString().isEmpty() || tourBudgetET.getText().toString().isEmpty() || tourReturnDateET.getText().toString().isEmpty()){
+                if(intentLocation==null || tourNameET.getText().toString().isEmpty() || tourBudgetET.getText().toString().isEmpty() || setReturnDateTV.getText().toString().isEmpty()){
                     Toast.makeText(AddTourActivity.this, "No data added", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     final String name = tourNameET.getText().toString();
                     final String location = intentLocation;
                     final double budget = Double.parseDouble(tourBudgetET.getText().toString());
-                    final String returnDate = tourReturnDateET.getText().toString();
+                    final String returnDate = setReturnDateTV.getText().toString();
                     final String date = dateTV.getText().toString();
                     final String time = timeTV.getText().toString();
 
@@ -155,6 +159,39 @@ public class AddTourActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void returnDatePicker() {
+        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                month = month + 1;
+
+                String currentDate = day + "/" + month + "/" + year;
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                Date date = null;
+
+                try {
+                    date = simpleDateFormat.parse(currentDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                dateInMS = date.getTime();
+                setReturnDateTV.setText(simpleDateFormat.format(date));
+            }
+        };
+
+        Calendar calendar = Calendar.getInstance();
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSetListener, year, month, day);
+        datePickerDialog.show();
     }
 
     private void timePicker() {
@@ -214,7 +251,8 @@ public class AddTourActivity extends AppCompatActivity {
         tourLocationClick = findViewById(R.id.addTourLocationClick);
         setLocationTV = findViewById(R.id.setMapLocationTV);
         tourBudgetET = findViewById(R.id.addTourBudgetET);
-        tourReturnDateET = findViewById(R.id.addTourReturnDateET);
+        addTourReturnDateClick = findViewById(R.id.addTourReturnDateClick);
+        setReturnDateTV = findViewById(R.id.setReturnDateTV);
         departureDateClick = findViewById(R.id.addDepartureDateClick);
         departureTimeClick = findViewById(R.id.addDepartureTimeClick);
         dateTV = findViewById(R.id.addDateTV);

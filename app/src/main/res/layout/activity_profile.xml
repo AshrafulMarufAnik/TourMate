@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/color_white"
+    android:orientation="vertical"
     tools:context=".Activity.ProfileActivity">
 
     <RelativeLayout
@@ -15,15 +15,17 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
             android:onClick="goBack"
             android:padding="2dp"
-            android:tint="@color/color_darkGrey"/>
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:tint="@color/color_darkGrey" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -33,47 +35,46 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_margin="14dp"
-                    android:tint="#686565"
-                    android:src="@drawable/ic_edit_black_24dp"/>
+                    android:id="@+id/addImageClickIV"
+                    android:src="@drawable/ic_edit_black_24dp"
+                    android:tint="#686565" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profileImageCIV"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
+                    android:layout_centerHorizontal="true"
                     android:elevation="6dp"
                     android:src="@drawable/user"
-                    android:layout_centerHorizontal="true"
-                    app:civ_border_width="2dp"
-                    app:civ_border_color="@color/color_lightGrey"/>
+                    app:civ_border_color="@color/color_lightGrey"
+                    app:civ_border_width="2dp" />
 
                 <ImageView
+                    android:id="@+id/coverImageIV"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
-                    android:layout_marginTop="50dp"
-                    android:id="@+id/coverImageIV"
-                    android:src="@drawable/sample_image"
-                    android:tint="@color/color_lightGrey"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:layout_centerHorizontal="true"
-                    android:scaleType="fitXY"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/sample_image"/>
 
             </RelativeLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/color_white"
-                android:layout_marginTop="8dp"
+                android:layout_below="@id/coverImageIV"
                 android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
-                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="@color/color_white"
                 app:cardElevation="5dp"
-                android:layout_below="@id/coverImageIV">
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -82,27 +83,27 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/userNameTV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
                         android:text="Name"
-                        android:id="@+id/userNameTV"
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/userEmailTV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
-                        android:text="Email"
-                        android:id="@+id/userEmailTV"/>
+                        android:text="Email" />
 
                     <TextView
+                        android:id="@+id/userLocationTV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
-                        android:text="Location"
-                        android:id="@+id/userLocationTV"/>
+                        android:text="Location" />
 
                 </LinearLayout>
 
@@ -111,56 +112,55 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:weightSum="2"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="6dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
-                android:orientation="horizontal">
+                android:layout_marginRight="8dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/color_blue"
-                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="7dp"
                     app:cardElevation="5dp"
-                    app:cardCornerRadius="7dp">
+                    app:cardUseCompatPadding="true">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/CIV1"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:id="@+id/CIV1"
-                            app:civ_border_width="3dp"
                             android:layout_margin="5dp"
                             android:src="@drawable/current_tour"
                             android:tint="@color/color_white"
-                            app:civ_border_color="@color/color_white"/>
+                            app:civ_border_color="@color/color_white"
+                            app:civ_border_width="3dp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/CIV1"
                             android:layout_marginLeft="8dp"
-                            android:layout_marginRight="2dp"
                             android:layout_marginTop="4dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_toRightOf="@id/CIV1"
                             android:text="Total Tours"
                             android:textColor="@color/color_white"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/CIV1"
-                            android:layout_marginTop="1dp"
                             android:layout_marginLeft="5dp"
+                            android:layout_marginTop="1dp"
                             android:text="Total Tour Expenses"
                             android:textAlignment="center"
-                            android:textColor="@color/color_white"/>
+                            android:textColor="@color/color_white" />
 
                     </RelativeLayout>
 
@@ -171,45 +171,44 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/color_green"
-                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="7dp"
                     app:cardElevation="5dp"
-                    app:cardCornerRadius="7dp">
+                    app:cardUseCompatPadding="true">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/CIV2"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:id="@+id/CIV2"
-                            app:civ_border_width="3dp"
                             android:layout_margin="5dp"
                             android:src="@drawable/upcoming_tour"
                             android:tint="@color/color_white"
-                            app:civ_border_color="@color/color_white"/>
+                            app:civ_border_color="@color/color_white"
+                            app:civ_border_width="3dp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/CIV2"
-                            android:layout_marginTop="5dp"
                             android:layout_marginLeft="8dp"
+                            android:layout_marginTop="5dp"
                             android:layout_marginRight="2dp"
+                            android:layout_toRightOf="@id/CIV2"
                             android:text="Favourite Places"
                             android:textColor="@color/color_white"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/CIV2"
-                            android:layout_marginTop="1dp"
                             android:layout_marginLeft="5dp"
+                            android:layout_marginTop="1dp"
                             android:text="Total Added"
                             android:textAlignment="center"
-                            android:textColor="@color/color_white"/>
+                            android:textColor="@color/color_white" />
 
                     </RelativeLayout>
 
@@ -217,100 +216,27 @@
 
             </LinearLayout>
 
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="90dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/imageCollectionHSV"
-                android:paddingTop="@dimen/cardview_compat_inset_shadow">
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:layout_margin="8dp"
-                        android:baseline="@dimen/activity_horizontal_margin"
-                        android:src="@drawable/sample_image"
-                        android:elevation="5dp"
-                        android:tint="@color/color_lightGrey"/>
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:layout_margin="8dp"
-                        android:baseline="@dimen/activity_horizontal_margin"
-                        android:src="@drawable/sample_image"
-                        android:elevation="5dp"
-                        android:tint="@color/color_lightGrey"/>
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:layout_margin="8dp"
-                        android:baseline="@dimen/activity_horizontal_margin"
-                        android:src="@drawable/sample_image"
-                        android:elevation="5dp"
-                        android:tint="@color/color_lightGrey"/>
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:layout_margin="8dp"
-                        android:baseline="@dimen/activity_horizontal_margin"
-                        android:src="@drawable/sample_image"
-                        android:elevation="5dp"
-                        android:tint="@color/color_lightGrey"/>
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:layout_margin="8dp"
-                        android:baseline="@dimen/activity_horizontal_margin"
-                        android:src="@drawable/sample_image"
-                        android:elevation="5dp"
-                        android:tint="@color/color_lightGrey"/>
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:layout_margin="8dp"
-                        android:baseline="@dimen/activity_horizontal_margin"
-                        android:src="@drawable/sample_image"
-                        android:elevation="5dp"
-                        android:tint="@color/color_lightGrey"/>
-
-
-                </LinearLayout>
-
-            </HorizontalScrollView>
-
         </LinearLayout>
 
         <Button
+            android:id="@+id/logoutBTN"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
             android:layout_marginLeft="130dp"
             android:layout_marginRight="130dp"
-            android:layout_marginBottom="30dp"
-            android:elevation="2dp"
+            android:layout_marginBottom="50dp"
             android:background="@drawable/custom_button_design"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:onClick="logOut"
             android:text="Log out"
-            android:textSize="15sp"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/color_blue"
-            android:id="@+id/logoutBTN"
-            android:onClick="logOut"/>
+            android:textSize="15sp" />
 
     </RelativeLayout>
-
 
 
 </LinearLayout>

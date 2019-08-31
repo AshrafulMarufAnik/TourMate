@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -147,5 +148,12 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
             }
         });
 
+    }
+
+    public void goToTourDetailsActivity(View view) {
+        Intent intent = new Intent(ExpenseListActivity.this,TourDetailsActivity.class);
+        intent.putExtra("tourID",tourID);
+        startActivity(intent);
+        finish();
     }
 }
