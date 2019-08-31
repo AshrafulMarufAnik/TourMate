@@ -74,7 +74,6 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
                 intent.putExtra("updateTourReturnDate",currentTour.getTourReturnDate());
                 intent.putExtra("updateTourBudget",String.valueOf(currentTour.getTourBudget()));
                 context.startActivity(intent);
-                //Toast.makeText(context, "Not available now", Toast.LENGTH_SHORT).show();
             }
         });
 
