@@ -18,6 +18,8 @@ import com.anik.example.tourmate.Activity.AddTourActivity;
 import com.anik.example.tourmate.Activity.TourDetailsActivity;
 import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.ModelClass.Tour;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,7 +46,7 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final Tour currentTour = tourList.get(position);
 
         holder.tourName.setText(currentTour.getTourName());
@@ -88,10 +90,20 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String uid = firebaseAuth.getCurrentUser().getUid();
-                        DatabaseReference tourRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information");
-                        ////////////////
-                        Toast.makeText(context, "Can't Delete at this moment", Toast.LENGTH_SHORT).show();
-                        //notifyDataSetChanged();
+                        DatabaseReference tourRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(currentTour.getTourID());
+                        tourRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(context, "Tour Deleted", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(context,"Error", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        tourList.remove(position);
+                        notifyDataSetChanged();
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
