@@ -9,4 +9,6 @@
     <string name="tour_history">Tour History</string>
     <string name="sign_up"><b><u>Sign Up with Email</u></b></string>
     <string name="log_in"><b><u>Log in</u></b></string>
+
+    <string name="map_api">AIzaSyAxrCuPOMzumuYKIHjEqDw7VS-wSvsHulc</string>
 </resources>

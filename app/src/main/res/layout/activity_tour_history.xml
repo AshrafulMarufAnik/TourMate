@@ -28,13 +28,26 @@
         android:layout_margin="11dp"
         android:padding="3dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/tv"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:id="@+id/tourHistoryRV">
+        android:layout_height="match_parent"
+        android:id="@+id/swiperefreshlayout_THA"
+        android:layout_below="@id/tv">
 
-    </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:id="@+id/tourHistoryRV">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </RelativeLayout>

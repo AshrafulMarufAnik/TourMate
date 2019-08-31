@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
     private DatabaseReference databaseReference;
     private ArrayList<Expense> expenseList;
     private ExpenseAdapter expenseAdapter;
+    private SwipeRefreshLayout swipeRefreshLayoutELA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,15 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
             }
         });
 
+        swipeRefreshLayoutELA.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                getExpenseDataFromDBThroughModelClass();
+
+            }
+        });
+
         getExpenseDataFromDBThroughModelClass();
         configExpenseListRV();
     }
@@ -66,6 +77,7 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
     private void configExpenseListRV() {
         expenseListRV.setLayoutManager(new LinearLayoutManager(this));
         expenseListRV.setAdapter(expenseAdapter);
+
     }
 
     private void getExpenseDataFromDBThroughModelClass() {
@@ -81,6 +93,7 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
                         expenseList.add(newExpense);
                         expenseAdapter.notifyDataSetChanged();
                     }
+                    swipeRefreshLayoutELA.setRefreshing(false);
                 }
                 else {
                     Toast.makeText(ExpenseListActivity.this, "Expense List is empty", Toast.LENGTH_SHORT).show();
@@ -111,6 +124,8 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
         databaseReference = FirebaseDatabase.getInstance().getReference();
         expenseList = new ArrayList<>();
         expenseAdapter = new ExpenseAdapter(expenseList,this);
+
+        swipeRefreshLayoutELA = findViewById(R.id.swiperefreshlayout_ELA);
     }
 
     @Override

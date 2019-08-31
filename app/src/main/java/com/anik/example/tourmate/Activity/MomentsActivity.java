@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -33,6 +34,8 @@ public class MomentsActivity extends AppCompatActivity {
     private ArrayList<Moment> momentList;
     private MomentAdapter momentAdapter;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,15 @@ public class MomentsActivity extends AppCompatActivity {
 
         tourID = getIntent().getStringExtra("tourID");
         uid = firebaseAuth.getCurrentUser().getUid();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                getAllImagesFromStorage();
+
+            }
+        });
 
         getAllImagesFromStorage();
         configMomentRV();
@@ -59,6 +71,8 @@ public class MomentsActivity extends AppCompatActivity {
                         momentList.add(newMoment);
                         momentAdapter.notifyDataSetChanged();
                     }
+
+                    swipeRefreshLayout.setRefreshing(false);
                 }
                 else {
                     Toast.makeText(MomentsActivity.this, "Tour Moment is empty", Toast.LENGTH_SHORT).show();
@@ -83,6 +97,8 @@ public class MomentsActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         momentList = new ArrayList<>();
         momentAdapter = new MomentAdapter(momentList,this);
+        swipeRefreshLayout = findViewById(R.id.swiperefreshlayout_MA);
+        swipeRefreshLayout.setColorSchemeResources(R.color.color_blue);
     }
 
     public void goToTourDetails(View view) {
