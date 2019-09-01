@@ -1,6 +1,7 @@
 package com.anik.example.tourmate.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anik.example.tourmate.Activity.TourHistoryActivity;
 import com.anik.example.tourmate.ModelClass.Expense;
 import com.anik.example.tourmate.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,7 +63,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
             @Override
             public void onClick(View view) {
                 sharedPreferences = context.getSharedPreferences("TourInfo",MODE_PRIVATE);
-                String tourID = sharedPreferences.getString("SPTourID",null);
+                final String tourID = sharedPreferences.getString("SPTourID",null);
                 String uid = firebaseAuth.getCurrentUser().getUid();
                 final DatabaseReference tourRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID).child("Expense Lists").child(currentExpense.getExpenseID());
 
@@ -72,19 +74,25 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if(menuItem.getItemId() == R.id.deleteExpense){
-                            tourRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(context, "Expense deleted", Toast.LENGTH_SHORT).show();
+                            if(tourID != null){
+                                tourRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(context, "Expense deleted", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                    else {
-                                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                            expenseList.remove(position);
-                            notifyDataSetChanged();
+                                });
+                                expenseList.remove(position);
+                                notifyDataSetChanged();
+                            }
+                            else {
+                                context.startActivity(new Intent(context, TourHistoryActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            }
+
                         }
                         return false;
                     }

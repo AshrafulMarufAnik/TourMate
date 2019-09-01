@@ -61,6 +61,8 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
             }
         });
 
+        getExpenseDataFromDBThroughModelClass();
+
         swipeRefreshLayoutELA.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
             public void onRefresh() {
@@ -68,7 +70,6 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
             }
         });
 
-        getExpenseDataFromDBThroughModelClass();
         configExpenseListRV();
     }
 

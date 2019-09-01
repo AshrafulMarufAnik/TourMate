@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.anik.example.tourmate.Activity.AddTourActivity;
@@ -31,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class HomeFragment extends Fragment {
     private View view;
     private LinearLayout addTourClick, profileClick, tourHistoryClick, galleryClick, nearbyClick, circleLocatorClick;
+    private RelativeLayout openWeatherInfoClick;
     private Button logOutBTN;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -98,6 +100,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        openWeatherInfoClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Under development", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         logOutBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,6 +156,7 @@ public class HomeFragment extends Fragment {
         galleryClick = view.findViewById(R.id.openGalleryClick);
         nearbyClick = view.findViewById(R.id.openNearbyClick);
         circleLocatorClick = view.findViewById(R.id.openCircleLocatorClick);
+        openWeatherInfoClick = view.findViewById(R.id.openWeatherInfoClick);
         logOutBTN = view.findViewById(R.id.logOutBTN);
 
         firebaseAuth = FirebaseAuth.getInstance();

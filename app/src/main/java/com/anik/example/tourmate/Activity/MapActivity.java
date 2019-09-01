@@ -42,7 +42,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Button mapConfirmLocationBTN;
     private Button editLocationBTN;
     private EditText mapLocationET;
-    private ImageView editLocation;
+    private ImageView editLocation,locationMarker;
     private FloatingActionButton mapCurrentLocationFABTN;
     private String setLocation;
     private String name = null,budget = null,returnDate = null,date = null,time = null,tourID;
@@ -75,9 +75,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(intentSource == 3){
             mapLocationTV.setVisibility(View.GONE);
             mapConfirmLocationBTN.setVisibility(View.GONE);
+            editLocation.setVisibility(View.GONE);
             Toast.makeText(MapActivity.this, "Under development", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MapActivity.this,MainActivity.class));
-            finish();
         }
 
         mapConfirmLocationBTN.setOnClickListener(new View.OnClickListener() {
@@ -152,9 +151,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         finish();
                     }
                 }
-                else if(intentSource == 3){
-                    Toast.makeText(MapActivity.this, "Circle Locator not done", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -200,7 +196,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         LatLng initialZoomedLatLng = new LatLng(23.7508851, 90.3926964);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialZoomedLatLng, 15));
-        googleMap.addMarker(new MarkerOptions().position(initialZoomedLatLng));
+
+        googleMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
+            @Override
+            public void onCameraMoveStarted(int i) {
+                locationMarker.setVisibility(View.VISIBLE);
+                targetLocation(map);
+            }
+        });
+
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -209,8 +213,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
     }
 
+    private void targetLocation(final GoogleMap googleMap) {
+        googleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                LatLng targetLatLng = googleMap.getCameraPosition().target;
+                locationMarker.setVisibility(View.GONE);
+                googleMap.addMarker(new MarkerOptions().position(targetLatLng).title(getAddress(targetLatLng.latitude,targetLatLng.longitude)).snippet(getAddress(targetLatLng.latitude,targetLatLng.longitude)));
+                googleMap.addCircle(new CircleOptions().center(targetLatLng));
+                mapLocationTV.setText(getAddress(targetLatLng.latitude,targetLatLng.longitude));
+            }
+        });
+        googleMap.clear();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void currentLocation(View view) {
+        locationMarker.setVisibility(View.GONE);
         getCurrentLocation();
     }
 
@@ -271,5 +290,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         editLocationBTN = findViewById(R.id.mapEditDoneBTN);
         mapConfirmLocationBTN = findViewById(R.id.mapConfirmLocationBTN);
         mapCurrentLocationFABTN = findViewById(R.id.mapCurrentLocationFABTN);
+        locationMarker = findViewById(R.id.locationMarkerIV);
     }
 }
