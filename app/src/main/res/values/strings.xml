@@ -11,4 +11,5 @@
     <string name="log_in"><b><u>Log in</u></b></string>
 
     <string name="map_api">AIzaSyAxrCuPOMzumuYKIHjEqDw7VS-wSvsHulc</string>
+    <string name="place_api_key">AIzaSyB9MxxJBmzLHdfsMEZSdV0vORR_MRwirPI</string>
 </resources>
