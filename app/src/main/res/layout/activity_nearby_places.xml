@@ -28,10 +28,12 @@
                 android:layout_weight=".25"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_search_black_24dp"
-                android:padding="7dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:padding="3dp"
+                android:onClick="goToMain"
                 android:layout_gravity="center"
-                android:tint="#504F4F"/>
+                android:layout_marginRight="3dp"
+                android:tint="#666464"/>
 
             <LinearLayout
                 android:layout_weight="1.5"
@@ -52,6 +54,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:padding="1dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
                     android:background="@color/color_darkGrey">
 
                 </View>
@@ -113,6 +117,7 @@
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
                 app:cardCornerRadius="3dp"
+                android:layout_marginRight="5dp"
                 android:backgroundTint="@color/color_light_red">
 
                 <LinearLayout
@@ -149,6 +154,7 @@
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
                 app:cardCornerRadius="3dp"
+                android:layout_marginRight="5dp"
                 android:backgroundTint="@color/color_light_green">
 
                 <LinearLayout
@@ -229,6 +235,7 @@
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
                 app:cardCornerRadius="3dp"
+                android:layout_marginRight="5dp"
                 android:backgroundTint="#74FF9800">
 
                 <LinearLayout
@@ -265,6 +272,7 @@
                 android:layout_height="wrap_content"
                 app:cardUseCompatPadding="true"
                 app:cardCornerRadius="3dp"
+                android:layout_marginRight="5dp"
                 android:backgroundTint="#949C27B0">
 
                 <LinearLayout

@@ -4,7 +4,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
-
     private static String BASE_URL_PLACE_API="https://maps.googleapis.com/maps/api/";
     private static Retrofit retrofit;
 
