@@ -65,10 +65,16 @@ public class TourDetailsActivity extends AppCompatActivity {
 
         init();
         uid = firebaseAuth.getCurrentUser().getUid();
-        tourID = getIntent().getStringExtra("tourID");
-        SPTourID = tourID;
+        if(getIntent().getExtras() != null){
+            tourID = getIntent().getStringExtra("tourID");
+            SPTourID = tourID;
+            storeAsSharedPref(SPTourID);
+        }
+        else {
+            sharedPreferences = getSharedPreferences("TourInfo",MODE_PRIVATE);
+            tourID = sharedPreferences.getString("SPTourID",null);
+        }
 
-        storeAsSharedPref(SPTourID);
         getTourDetailsFromDB();
 
         routeClick.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +82,6 @@ public class TourDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(TourDetailsActivity.this,RoutePointsActivity.class);
                 intent.putExtra("tourID",tourID);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -86,7 +91,6 @@ public class TourDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(TourDetailsActivity.this,ExpenseListActivity.class);
                 intent.putExtra("tourID",tourID);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -96,7 +100,6 @@ public class TourDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(TourDetailsActivity.this,MomentsActivity.class);
                 intent.putExtra("tourID",tourID);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });

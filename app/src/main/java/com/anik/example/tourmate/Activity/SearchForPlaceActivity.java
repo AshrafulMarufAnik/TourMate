@@ -1,7 +1,6 @@
 package com.anik.example.tourmate.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +16,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.anik.example.tourmate.Adapter.PlacesAutoCompleteAdapter;
-import com.anik.example.tourmate.Adapter.PredictionInterface;
+import com.anik.example.tourmate.PlaceAPI.PredictionInterface;
 import com.anik.example.tourmate.PlaceAPI.Prediction;
 import com.anik.example.tourmate.R;
 

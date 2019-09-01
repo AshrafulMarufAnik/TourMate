@@ -8,17 +8,18 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.anik.example.tourmate.Activity.MapActivity;
 import com.anik.example.tourmate.PlaceAPI.Prediction;
+import com.anik.example.tourmate.PlaceAPI.PredictionInterface;
 import com.anik.example.tourmate.PlaceAPI.Predictions;
 import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.retrofit.ApiService;
 import com.anik.example.tourmate.retrofit.RetrofitInstance;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,6 @@ public class PlacesAutoCompleteAdapter extends RecyclerView.Adapter<PlacesAutoCo
         this.predictions = predictions;
         this.predictionInterface = predictionInterface;
     }
-
 
     @NonNull
     @Override
@@ -57,8 +57,6 @@ public class PlacesAutoCompleteAdapter extends RecyclerView.Adapter<PlacesAutoCo
                     intent.putExtra("intentSource",6);
                     intent.putExtra("placeSearchResultLocation",location);
                     context.startActivity(intent);
-                    Toast.makeText(context,location, Toast.LENGTH_LONG).show();
-                    // intent work for click event & put extra to map activity
                 }
             });
         }
