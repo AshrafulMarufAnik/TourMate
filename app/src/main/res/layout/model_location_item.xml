@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_location_on_black_24dp"
+        android:drawableTint="#666768"
         android:drawablePadding="5dp"
+        android:textColor="#BC000000"
         android:padding="10dp"
         android:text="Location name"
         android:textSize="14sp" />

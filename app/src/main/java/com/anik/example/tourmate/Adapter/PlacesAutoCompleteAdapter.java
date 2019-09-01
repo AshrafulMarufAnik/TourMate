@@ -1,6 +1,7 @@
 package com.anik.example.tourmate.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anik.example.tourmate.Activity.MapActivity;
 import com.anik.example.tourmate.PlaceAPI.Prediction;
 import com.anik.example.tourmate.PlaceAPI.Predictions;
 import com.anik.example.tourmate.R;
@@ -51,6 +53,10 @@ public class PlacesAutoCompleteAdapter extends RecyclerView.Adapter<PlacesAutoCo
                 public void onClick(View v) {
 
                     String location = prediction.getDescription();
+                    Intent intent = new Intent(context, MapActivity.class);
+                    intent.putExtra("intentSource",6);
+                    intent.putExtra("placeSearchResultLocation",location);
+                    context.startActivity(intent);
                     Toast.makeText(context,location, Toast.LENGTH_LONG).show();
                     // intent work for click event & put extra to map activity
                 }

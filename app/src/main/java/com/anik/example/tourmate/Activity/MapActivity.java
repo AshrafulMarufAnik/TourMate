@@ -49,6 +49,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private String setLocation;
     private String name = null,budget = null,returnDate = null,date = null,time = null,tourID;
     private String signUpName = null,signUpEmail = null,signUpPassword = null;
+    private String searchResultLocation;
     private int updateMapSource=0;
     private int intentSource;
 
@@ -79,6 +80,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             mapConfirmLocationBTN.setVisibility(View.GONE);
             editLocation.setVisibility(View.GONE);
             Toast.makeText(MapActivity.this, "Under development", Toast.LENGTH_SHORT).show();
+        }
+        else if(intentSource == 6){
+            searchResultLocation = getIntent().getStringExtra("placeSearchResultLocation");
+            searchLocationTV.setText(searchResultLocation);
+            mapLocationTV.setText(searchResultLocation);
+            intentSource =2;
         }
 
         mapConfirmLocationBTN.setOnClickListener(new View.OnClickListener() {

@@ -43,8 +43,6 @@ public class SearchForPlaceActivity extends AppCompatActivity implements Predict
         initRecyclerView();
         hideSearchViewIcon();
         searchViewAction();
-
-
     }
 
     private void init() {
