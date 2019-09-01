@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +39,9 @@ import java.util.Locale;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap map;
-    private TextView mapLocationTV;
+    private TextView mapLocationTV,searchLocationTV;
     private Button mapConfirmLocationBTN;
+    private LinearLayout searchLocationClick;
     private Button editLocationBTN;
     private EditText mapLocationET;
     private ImageView editLocation,locationMarker;
@@ -286,6 +288,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         mapLocationTV = findViewById(R.id.mapLocationAddressTV);
         mapLocationET = findViewById(R.id.mapLocationAddressET);
+        searchLocationClick = findViewById(R.id.searchLocationClick);
+        searchLocationTV = findViewById(R.id.searchLocationMapTV);
         editLocation = findViewById(R.id.editLocationIV);
         editLocationBTN = findViewById(R.id.mapEditDoneBTN);
         mapConfirmLocationBTN = findViewById(R.id.mapConfirmLocationBTN);
