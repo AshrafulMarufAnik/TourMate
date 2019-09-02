@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.RouteSearchPlaceActivity"></activity>
+        <activity android:name=".Activity.RouteSearchPlaceActivity"
+            android:theme="@style/CustomAppTheme"></activity>
         <activity
             android:name=".Activity.SearchForPlaceActivity"
             android:theme="@style/CustomAppTheme" />
