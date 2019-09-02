@@ -58,7 +58,8 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, TourDetailsActivity.class);
-                intent.putExtra("tourID",tourID);
+                intent.putExtra("dTourID",tourID);
+                intent.putExtra("intentSource",2);
                 context.startActivity(intent);
             }
         });

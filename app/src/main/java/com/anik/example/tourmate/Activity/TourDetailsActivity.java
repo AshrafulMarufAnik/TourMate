@@ -52,8 +52,8 @@ public class TourDetailsActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Tour currentTour;
-    private String tourID;
-    private String SPTourID;
+    private String tourID=null;
+    private String SPTourID=null;
     private String uid;
     private int request_camera = 1, select_file = 0;
     private String imageDownloadUrl;
@@ -65,22 +65,28 @@ public class TourDetailsActivity extends AppCompatActivity {
 
         init();
         uid = firebaseAuth.getCurrentUser().getUid();
+        tourID = getIntent().getStringExtra("tourID");
+        storeAsSharedPref(tourID);
+
         int intentSource = getIntent().getIntExtra("intentSource",0);
 
-        if(intentSource == 1){
-            String tid = getIntent().getStringExtra("uTourID");
-            tourID = tid;
-        }
-        else {
-            if(getIntent().getExtras() != null){
-                tourID = getIntent().getStringExtra("tourID");
-                SPTourID = tourID;
+        if(getIntent().getExtras() != null){
+            if(intentSource == 1){
+                String tid = getIntent().getStringExtra("uTourID");
+                tourID = tid;
+                SPTourID = tid;
                 storeAsSharedPref(SPTourID);
             }
-            else {
-                sharedPreferences = getSharedPreferences("TourInfo",MODE_PRIVATE);
-                tourID = sharedPreferences.getString("SPTourID",null);
+            else if(intentSource == 2){
+                String tid = getIntent().getStringExtra("dTourID");
+                tourID = tid;
+                SPTourID = tid;
+                storeAsSharedPref(SPTourID);
             }
+        }
+        else {
+            sharedPreferences = getSharedPreferences("TourInfo",MODE_PRIVATE);
+            tourID = sharedPreferences.getString("SPTourID",null);
         }
 
         getTourDetailsFromDB();
@@ -89,6 +95,7 @@ public class TourDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TourDetailsActivity.this,RoutePointsActivity.class);
+                intent.putExtra("tourID",tourID);
                 startActivity(intent);
             }
         });
@@ -269,7 +276,7 @@ public class TourDetailsActivity extends AppCompatActivity {
     }
 
     public void goBack(View view) {
-        startActivity(new Intent(TourDetailsActivity.this,TourHistoryActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        startActivity(new Intent(TourDetailsActivity.this,TourHistoryActivity.class));
         finish();
     }
 

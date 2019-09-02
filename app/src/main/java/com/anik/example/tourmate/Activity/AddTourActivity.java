@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.anik.example.tourmate.ModelClass.Expense;
+import com.anik.example.tourmate.ModelClass.Route;
 import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.ModelClass.Tour;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,11 +27,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -49,6 +55,8 @@ public class AddTourActivity extends AppCompatActivity {
     private String name, budget, returnDate, date, time;
     private String updateTID;
     private int updateMapSource=0;
+    private ArrayList<Route> routeList = new ArrayList<>();
+    private ArrayList<Expense> expenseList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,7 +243,43 @@ public class AddTourActivity extends AppCompatActivity {
 
             DatabaseReference tourInfoRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(updateTID);
 
-            Tour updateTour = new Tour(updateTID,uName,uLocation,uReturnDate,uDate,uTime,uBudget);
+            tourInfoRef.child("Route points Lists").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        routeList.clear();
+                        for(DataSnapshot routeListData: dataSnapshot.getChildren()){
+                            Route newRoute = routeListData.getValue(Route.class);
+                            routeList.add(newRoute);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(AddTourActivity.this,databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            tourInfoRef.child("Expense Lists").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        expenseList.clear();
+                        for(DataSnapshot expenseListData: dataSnapshot.getChildren()){
+                            Expense newExpense = expenseListData.getValue(Expense.class);
+                            expenseList.add(newExpense);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(AddTourActivity.this,databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            //Tour updateTour = new Tour(updateTID,uName,uLocation,uReturnDate,uDate,uTime,uBudget);
+            Tour updateTour = new Tour(updateTID,uName,uLocation,uReturnDate,uDate,uTime,uBudget,routeList,expenseList);
+
             tourInfoRef.setValue(updateTour).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

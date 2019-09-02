@@ -30,7 +30,7 @@ public class TourHistoryActivity extends AppCompatActivity {
     private ArrayList<Tour> tourList;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
-    private String uid;
+    private String uid,tourID;
     private SwipeRefreshLayout swipeRefreshLayout_THA;
 
     @Override
