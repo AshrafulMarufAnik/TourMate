@@ -242,8 +242,8 @@ public class AddTourActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(AddTourActivity.this, "Tour updated", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddTourActivity.this, TourDetailsActivity.class);
-                        intent.putExtra("tourID", updateTID);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("uTourID", updateTID);
+                        intent.putExtra("intentSource",1);
                         startActivity(intent);
                         finish();
                     }

@@ -1,6 +1,7 @@
 package com.anik.example.tourmate.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -160,6 +161,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         finish();
                     }
                 }
+                else if(intentSource == 8){
+                    String location = mapLocationTV.getText().toString();
+                    if(location.length()<=0){
+                        Toast.makeText(MapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Intent intent = new Intent(MapActivity.this,RoutePointsActivity.class);
+                        intent.putExtra("routeLocation",location);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
             }
         });
 
@@ -200,8 +213,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         searchLocationClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapActivity.this,SearchForPlaceActivity.class);
-                startActivity(intent);
+                if(intentSource == 8){
+                    Intent intent = new Intent(MapActivity.this,RouteSearchPlaceActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(MapActivity.this,SearchForPlaceActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }

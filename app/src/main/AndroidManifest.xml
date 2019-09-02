@@ -17,8 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.SearchForPlaceActivity"
-            android:theme="@style/CustomAppTheme"></activity>
+        <activity android:name=".Activity.RouteSearchPlaceActivity"></activity>
+        <activity
+            android:name=".Activity.SearchForPlaceActivity"
+            android:theme="@style/CustomAppTheme" />
         <activity
             android:name=".Activity.ImageFullScreenActivity"
             android:theme="@style/CustomAppTheme" />
@@ -69,7 +71,7 @@
         </activity>
         <activity
             android:name=".Activity.LoginActivity"
-            android:theme="@style/CustomAppTheme"></activity>
+            android:theme="@style/CustomAppTheme" />
         <activity
             android:name=".Activity.MapActivity"
             android:theme="@style/CustomAppTheme" />
@@ -85,7 +87,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBtZx6jdQuF6HNbo4shEcNrKWAQd-O2Nvw" />

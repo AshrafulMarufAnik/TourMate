@@ -1,6 +1,5 @@
 package com.anik.example.tourmate.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -15,25 +14,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.anik.example.tourmate.Activity.MapActivity;
 import com.anik.example.tourmate.Activity.RoutePointsActivity;
-import com.anik.example.tourmate.Activity.SearchForPlaceActivity;
 import com.anik.example.tourmate.PlaceAPI.Prediction;
 import com.anik.example.tourmate.PlaceAPI.PredictionInterface;
 import com.anik.example.tourmate.PlaceAPI.Predictions;
 import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.retrofit.ApiService;
 import com.anik.example.tourmate.retrofit.RetrofitInstance;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlacesAutoCompleteAdapter extends RecyclerView.Adapter<PlacesAutoCompleteAdapter.ViewHolder> implements Filterable {
+public class RoutePlacesAutoComplete extends RecyclerView.Adapter<RoutePlacesAutoComplete.ViewHolder> implements Filterable {
 
     private Context context;
     private List<Prediction> predictions;
     private PredictionInterface predictionInterface;
 
-    public PlacesAutoCompleteAdapter(Context context, List<Prediction> predictions, PredictionInterface predictionInterface) {
+    public RoutePlacesAutoComplete(Context context, List<Prediction> predictions, PredictionInterface predictionInterface) {
         this.context = context;
         this.predictions = predictions;
         this.predictionInterface = predictionInterface;
@@ -41,13 +38,13 @@ public class PlacesAutoCompleteAdapter extends RecyclerView.Adapter<PlacesAutoCo
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RoutePlacesAutoComplete.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.model_location_item,viewGroup,false);
-        return new ViewHolder(itemView);
+        return new RoutePlacesAutoComplete.ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final RoutePlacesAutoComplete.ViewHolder viewHolder, int i) {
         if (predictions != null && predictions.size() > 0) {
             final Prediction prediction = predictions.get(i);
             viewHolder.locationNameTV.setText(prediction.getDescription());
@@ -56,9 +53,8 @@ public class PlacesAutoCompleteAdapter extends RecyclerView.Adapter<PlacesAutoCo
                 public void onClick(View v) {
 
                     String location = prediction.getDescription();
-                    Intent intent = new Intent(context, MapActivity.class);
-                    intent.putExtra("intentSource",6);
-                    intent.putExtra("placeSearchResultLocation",location);
+                    Intent intent = new Intent(context, RoutePointsActivity.class);
+                    intent.putExtra("routeLocation",location);
                     context.startActivity(intent);
 
                 }
@@ -73,7 +69,7 @@ public class PlacesAutoCompleteAdapter extends RecyclerView.Adapter<PlacesAutoCo
 
     @Override
     public Filter getFilter() {
-        return new PlacesAutoCompleteFilter(this,context);
+        return new RoutePlacesAutoComplete.PlacesAutoCompleteFilter(this,context);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -87,19 +83,19 @@ public class PlacesAutoCompleteAdapter extends RecyclerView.Adapter<PlacesAutoCo
 
     private class PlacesAutoCompleteFilter extends Filter {
 
-        private PlacesAutoCompleteAdapter placesAutoCompleteAdapter;
+        private RoutePlacesAutoComplete routePlacesAutoCompleteAdapter;
         private Context context;
 
-        public PlacesAutoCompleteFilter(PlacesAutoCompleteAdapter placesAutoCompleteAdapter, Context context) {
+        public PlacesAutoCompleteFilter(RoutePlacesAutoComplete routePlacesAutoCompleteAdapter, Context context) {
             super();
-            this.placesAutoCompleteAdapter = placesAutoCompleteAdapter;
+            this.routePlacesAutoCompleteAdapter = routePlacesAutoCompleteAdapter;
             this.context = context;
         }
 
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             try {
-                placesAutoCompleteAdapter.predictions.clear();
+                routePlacesAutoCompleteAdapter.predictions.clear();
                 FilterResults filterResults = new FilterResults();
                 if (charSequence == null || charSequence.length() == 0) {
                     filterResults.values = new ArrayList<Prediction>();
@@ -118,10 +114,10 @@ public class PlacesAutoCompleteAdapter extends RecyclerView.Adapter<PlacesAutoCo
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            placesAutoCompleteAdapter.predictions.clear();
+            routePlacesAutoCompleteAdapter.predictions.clear();
             if (filterResults!=null){
-                placesAutoCompleteAdapter.predictions.addAll((List<Prediction>) filterResults.values);
-                placesAutoCompleteAdapter.notifyDataSetChanged();
+                routePlacesAutoCompleteAdapter.predictions.addAll((List<Prediction>) filterResults.values);
+                routePlacesAutoCompleteAdapter.notifyDataSetChanged();
             }
         }
 

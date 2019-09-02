@@ -1,11 +1,9 @@
 package com.anik.example.tourmate.Activity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -18,8 +16,9 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.anik.example.tourmate.Adapter.PlacesAutoCompleteAdapter;
-import com.anik.example.tourmate.PlaceAPI.PredictionInterface;
+import com.anik.example.tourmate.Adapter.RoutePlacesAutoComplete;
 import com.anik.example.tourmate.PlaceAPI.Prediction;
+import com.anik.example.tourmate.PlaceAPI.PredictionInterface;
 import com.anik.example.tourmate.R;
 
 import java.io.IOException;
@@ -27,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class SearchForPlaceActivity extends AppCompatActivity implements PredictionInterface {
-    private PlacesAutoCompleteAdapter placesAutoCompleteAdapter;
+public class RouteSearchPlaceActivity extends AppCompatActivity implements PredictionInterface {
+    private RoutePlacesAutoComplete routePlacesAutoCompleteAdapter;
     private SearchView searchView;
     private RecyclerView locationSearchRV;
     private String locationText;
@@ -39,7 +38,7 @@ public class SearchForPlaceActivity extends AppCompatActivity implements Predict
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_for_place);
+        setContentView(R.layout.activity_route_search_place);
 
         init();
 
@@ -67,9 +66,9 @@ public class SearchForPlaceActivity extends AppCompatActivity implements Predict
             public boolean onQueryTextChange(String newText) {
                 if (newText.isEmpty()) {
                     predictions.clear();
-                    placesAutoCompleteAdapter.notifyDataSetChanged();
+                    routePlacesAutoCompleteAdapter.notifyDataSetChanged();
                 }
-                placesAutoCompleteAdapter.getFilter().filter(newText);
+                routePlacesAutoCompleteAdapter.getFilter().filter(newText);
                 return true;
             }
         });
@@ -85,9 +84,9 @@ public class SearchForPlaceActivity extends AppCompatActivity implements Predict
 
     private void initRecyclerView() {
         predictions = new ArrayList<>();
-        placesAutoCompleteAdapter = new PlacesAutoCompleteAdapter(getApplicationContext(), predictions, this);
+        routePlacesAutoCompleteAdapter = new RoutePlacesAutoComplete(getApplicationContext(), predictions, this);
         locationSearchRV.setLayoutManager(new LinearLayoutManager(this));
-        locationSearchRV.setAdapter(placesAutoCompleteAdapter);
+        locationSearchRV.setAdapter(routePlacesAutoCompleteAdapter);
 
     }
 
@@ -117,9 +116,8 @@ public class SearchForPlaceActivity extends AppCompatActivity implements Predict
     }
 
     public void openMap(View view) {
-        Intent intent = new Intent(SearchForPlaceActivity.this,MapActivity.class);
-        intent.putExtra("intentSource",4);
+        Intent intent = new Intent(RouteSearchPlaceActivity.this,MapActivity.class);
+        intent.putExtra("intentSource",8);
         startActivity(intent);
     }
 }
-

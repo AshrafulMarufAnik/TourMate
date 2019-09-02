@@ -65,14 +65,22 @@ public class TourDetailsActivity extends AppCompatActivity {
 
         init();
         uid = firebaseAuth.getCurrentUser().getUid();
-        if(getIntent().getExtras() != null){
-            tourID = getIntent().getStringExtra("tourID");
-            SPTourID = tourID;
-            storeAsSharedPref(SPTourID);
+        int intentSource = getIntent().getIntExtra("intentSource",0);
+
+        if(intentSource == 1){
+            String tid = getIntent().getStringExtra("uTourID");
+            tourID = tid;
         }
         else {
-            sharedPreferences = getSharedPreferences("TourInfo",MODE_PRIVATE);
-            tourID = sharedPreferences.getString("SPTourID",null);
+            if(getIntent().getExtras() != null){
+                tourID = getIntent().getStringExtra("tourID");
+                SPTourID = tourID;
+                storeAsSharedPref(SPTourID);
+            }
+            else {
+                sharedPreferences = getSharedPreferences("TourInfo",MODE_PRIVATE);
+                tourID = sharedPreferences.getString("SPTourID",null);
+            }
         }
 
         getTourDetailsFromDB();
@@ -81,7 +89,6 @@ public class TourDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TourDetailsActivity.this,RoutePointsActivity.class);
-                intent.putExtra("tourID",tourID);
                 startActivity(intent);
             }
         });
