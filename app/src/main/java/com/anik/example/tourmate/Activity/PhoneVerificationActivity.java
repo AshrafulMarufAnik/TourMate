@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     private Button loginBTN;
     private String phoneNumber,code,verificationID;
     private FirebaseAuth firebaseAuth;
+    private final int OTP_TIME_OUT = 30000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,18 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phone_verification);
 
         init();
-        phoneNumber = getIntent().getStringExtra("phoneNumber");
-        sendOTP();
+        if(getIntent().getExtras()!=null){
+            phoneNumber = getIntent().getStringExtra("phoneNumber");
+            sendOTP();
 
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(PhoneVerificationActivity.this,LoginActivity.class));
+                    finish();
+                }
+            },OTP_TIME_OUT);
+        }
     }
 
     public void phoneLogIn(View view) {
@@ -93,7 +104,6 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Intent intent = new Intent(PhoneVerificationActivity.this, PhoneAuthUserRegistrationActivity.class);
                     intent.putExtra("phoneNumber",phoneNumber);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 }

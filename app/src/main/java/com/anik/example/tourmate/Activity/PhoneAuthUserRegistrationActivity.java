@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,8 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private FirebaseUser firebaseUser;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,9 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phone_auth_user_registration);
         init();
 
-        number = getIntent().getStringExtra("phoneNumber") ;
+        if(getIntent().getExtras() != null){
+            number = getIntent().getStringExtra("phoneNumber");
+        }
 
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +68,9 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(PhoneAuthUserRegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                            storeAsSharedPref(1);
                             Intent intent = new Intent(PhoneAuthUserRegistrationActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            //intent.putExtra("phoneLoginSource",1);
                             startActivity(intent);
                             finish();
                         }
@@ -77,6 +83,13 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void storeAsSharedPref(int phoneLoginInfoSP) {
+        sharedPreferences = getSharedPreferences("phoneLoginSP",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putInt("phoneLoginInfo",phoneLoginInfoSP);
+        editor.apply();
     }
 
     private void init() {

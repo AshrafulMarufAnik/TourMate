@@ -2,6 +2,7 @@ package com.anik.example.tourmate.Fragment;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,10 +25,18 @@ import com.anik.example.tourmate.Activity.NearbyPlacesActivity;
 import com.anik.example.tourmate.Activity.ProfileActivity;
 import com.anik.example.tourmate.Activity.TourHistoryActivity;
 import com.anik.example.tourmate.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
     private View view;
@@ -37,8 +46,14 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseAuth.AuthStateListener authStateListener;
+    private GoogleSignInAccount account;
+    GoogleSignInClient googleSignInClient;
     private DatabaseReference databaseReference;
     private String userID;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private int phoneLoginSP;
+    private int phoneLoginIntentSource;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -47,9 +62,10 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        init();
-        fireBaseStateListener();
 
+        init();
+
+        account = GoogleSignIn.getLastSignedInAccount(getActivity());
 
         addTourClick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,11 +126,36 @@ public class HomeFragment extends Fragment {
         logOutBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseAuth.signOut();
+                if(firebaseUser != null){
+                    firebaseAuth.signOut();
+                    storeAsSharedPref(0);
+                    startActivity(new Intent(getActivity(),LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    getActivity().finish();
+                }
+                else if(account != null){
+                    googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(getContext(), "Sign out successful", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getActivity(),LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                getActivity().finish();
+                            }
+                        }
+                    });
+                }
+
             }
         });
 
         return view;
+    }
+
+    public void storeAsSharedPref(int phoneLoginInfoSP) {
+        sharedPreferences = getActivity().getSharedPreferences("phoneLoginSP",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putInt("phoneLoginInfo",phoneLoginInfoSP);
+        editor.apply();
     }
 
     private void fireBaseStateListener(){
@@ -122,13 +163,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null && user.isEmailVerified()){
+                if(user!=null){
+                    Log.d("Signed in","user ID: "+user.getUid());
+                }
+                else if(user!=null || phoneLoginSP == 1){
                     Log.d("Signed in","user ID: "+user.getUid());
                 }
                 else {
                     Toast.makeText(getContext(), "Signed Out", Toast.LENGTH_SHORT).show();
                     Intent intent =  new Intent(getContext(), LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
             }
@@ -138,15 +181,15 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
+        //FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if(authStateListener!=null){
-            FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
-        }
+        //if(authStateListener!=null){
+            //FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
+        //}
     }
 
     private void init() {

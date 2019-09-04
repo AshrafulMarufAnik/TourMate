@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -52,6 +53,11 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
     private String PhoneNumber;
+    private int intentSource;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private int phoneLoginSP;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -62,13 +68,30 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         getPermissions();
         init();
 
-        if(getIntent().getExtras()!=null){
+        sharedPreferences = getSharedPreferences("phoneLoginSP", MODE_PRIVATE);
+        phoneLoginSP = sharedPreferences.getInt("phoneLoginInfo", 0);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if (getIntent().getExtras() != null) {
             String email = getIntent().getStringExtra("email");
             String password = getIntent().getStringExtra("password");
             emailET.setText(email);
             passwordET.setText(password);
+            intentSource = getIntent().getIntExtra("phoneLoginSource",0);
         }
-        else if(firebaseUser!=null){
+
+        if (phoneLoginSP == 1 && firebaseUser != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else if(firebaseUser != null && firebaseUser.isEmailVerified()){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else if(account != null){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -127,10 +150,10 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
 
     private void logInWithEmailPassword(String email, String password) {
 
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isComplete()){
+                if (task.isComplete()) {
                     checkEmailVerification();
                 }
                 else {
@@ -140,7 +163,7 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginActivity.this,e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -150,9 +173,9 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         if (user != null) {
             boolean emailFlag = user.isEmailVerified();
 
-            if(emailFlag){
+            if (emailFlag) {
                 Toast.makeText(this, "Log in Successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             }
             else {
@@ -171,75 +194,68 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode==RESULT_OK){
+        if (resultCode == RESULT_OK) {
             if (requestCode == RC_SIGN_IN) {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                try {
-                    GoogleSignInAccount account = task.getResult(ApiException.class);
-                    fireBaseAuthWithGoogle(account);
-                } catch (ApiException e) {
-                    Log.w("Error", "Google sign in failed", e);
-                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+                handleSignInResult(task);
             }
         }
     }
 
-    private void fireBaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d("FireBaseAuthLog", "FireBaseAuthWithGoogle:" + acct.getId());
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                    handleUser(user);
-                } else {
-                    Log.w("Sign in Error", "signInWithCredential:failure", task.getException());
-                    Toast.makeText(LoginActivity.this, "Sign in failed", Toast.LENGTH_SHORT).show();
-                    handleUser(null);
-                }
-            }
-        });
-
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            updateUI(account);
+        }
+        catch (ApiException e) {
+            Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
+            updateUI(null);
+        }
     }
 
-    private void handleUser(FirebaseUser user) {
-        String personId = user.getUid();
-        String personName = user.getDisplayName();
-        String personEmail = user.getEmail();
-        Uri personPhoto = user.getPhotoUrl();
+    private void updateUI(final GoogleSignInAccount account) {
+        if(account != null){
+            final String personId = account.getId();
+            String personName = account.getDisplayName();
+            String personEmail = account.getEmail();
+            Uri personPhoto = account.getPhotoUrl();
 
-        //image storing to storage remaining
+            //image storing to storage remaining
 
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put("userID", personId);
-        userMap.put("loggedInWith", "Google");
-        userMap.put("googleUserName", personName);
-        userMap.put("googleUserEmail", personEmail);
+            Map<String, Object> userMap = new HashMap<>();
+            userMap.put("userID", personId);
+            userMap.put("loggedInWith", "Google");
+            userMap.put("userName", personName);
+            userMap.put("userEmail", personEmail);
 
-        DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child(personId).child("user information");
-        userRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(LoginActivity.this, "Sign In Successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+            DatabaseReference userRef = databaseReference.child("User(TourMateApp)").child(personId).child("user information");
+            userRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        //storeGoogleSignInIdAsSharedPref(personId);
+                        Toast.makeText(LoginActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        finish();
+                    }
+                }
+            });
+        }
+    }
+
+    public void storeGoogleSignInIdAsSharedPref(String googleSignInId) {
+        sharedPreferences = getSharedPreferences("googleLoginSP",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString("googleLoginIdInfo",googleSignInId);
+        editor.putString("signInType","googleSignIn");
+        editor.apply();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         //checkConnectivity();
+
     }
 
     @Override
@@ -276,14 +292,14 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
 
     private void openDialog() {
         PhoneNumberInputDialog phoneNumberInputDialog = new PhoneNumberInputDialog();
-        phoneNumberInputDialog.show(getSupportFragmentManager(),"PhoneNumber Input Dialog");
+        phoneNumberInputDialog.show(getSupportFragmentManager(), "PhoneNumber Input Dialog");
     }
 
     @Override
     public void applyText(String phoneNumber) {
         String number = phoneNumber;
-        Intent intent = new Intent(LoginActivity.this,PhoneVerificationActivity.class);
-        intent.putExtra("phoneNumber",number);
+        Intent intent = new Intent(LoginActivity.this, PhoneVerificationActivity.class);
+        intent.putExtra("phoneNumber", number);
         startActivity(intent);
     }
 }

@@ -1,8 +1,10 @@
 package com.anik.example.tourmate.Activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
@@ -31,15 +33,17 @@ public class MainActivity extends AppCompatActivity {
     private CheckInternetConnection checkInternetConnection;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+    private SharedPreferences sharedPreferences;
+    private int phoneLoginSP;
+    private int phoneLoginIntentSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         init();
+
         //checkConnectivity();
-        fireBaseStateListener();
 
         replaceFragment(new HomeFragment());
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -51,14 +55,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null){
+                if(user!=null || phoneLoginSP == 1){
+                    Log.d("Signed in","user ID: "+user.getUid());
+                }
+                else if(phoneLoginSP ==1 || phoneLoginIntentSource == 1){
                     Log.d("Signed in","user ID: "+user.getUid());
                 }
                 else {
                     Toast.makeText(MainActivity.this, "You Signed Out", Toast.LENGTH_SHORT).show();
                     Intent intent =  new Intent(MainActivity.this,LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                    finish();
                 }
             }
         };
@@ -68,16 +75,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //checkConnectivity();
-        FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         //unregisterReceiver(checkInternetConnection);
-        if(authStateListener!=null){
-            FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
-        }
     }
 
     private void init() {

@@ -1,7 +1,6 @@
 package com.anik.example.tourmate.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,117 +38,63 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class SignUpLocationMapActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap map;
-    private TextView mapLocationTV,searchLocationTV;
+    private TextView mapLocationTV, searchLocationTV;
     private Button mapConfirmLocationBTN;
     private LinearLayout searchLocationClick;
     private Button editLocationBTN;
     private EditText mapLocationET;
-    private ImageView editLocation,locationMarker;
+    private ImageView editLocation, locationMarker;
     private FloatingActionButton mapCurrentLocationFABTN;
     private String setLocation;
-    private String name = null,budget = null,returnDate = null,date = null,time = null,tourID;
-    private String searchResultLocation;
-    private int updateMapSource=0;
-    private int intentSource;
+    private String signUpName = null, signUpEmail = null, signUpPassword = null;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_sign_up_location_map);
         init();
 
-        intentSource = getIntent().getIntExtra("intentSource",0);
-        storeAsSharedPref(intentSource);
-        updateMapSource = getIntent().getIntExtra("updateMapSource",0);
+        sharedPreferences = getSharedPreferences("signUpInfoSP", MODE_PRIVATE);
+        signUpName = sharedPreferences.getString("signUpName", null);
+        signUpEmail = sharedPreferences.getString("signUpEmail", null);
+        signUpPassword = sharedPreferences.getString("signUpPassword", null);
 
-        if(getIntent().getExtras() != null){
-            name = getIntent().getStringExtra("name");
-            budget = getIntent().getStringExtra("budget");
-            returnDate = getIntent().getStringExtra("returnDate");
-            date = getIntent().getStringExtra("date");
-            time = getIntent().getStringExtra("time");
-            tourID = getIntent().getStringExtra("updateTourID");
-        }
+        if (getIntent().getExtras() != null) {
+            int intentSource = getIntent().getIntExtra("fromSignUpPlaceSearch", 0);
 
-        if(intentSource == 3){
-            mapLocationTV.setVisibility(View.GONE);
-            mapConfirmLocationBTN.setVisibility(View.GONE);
-            editLocation.setVisibility(View.GONE);
-            Toast.makeText(MapActivity.this, "Under development", Toast.LENGTH_SHORT).show();
-        }
-        else if(intentSource == 6){
-            searchResultLocation = getIntent().getStringExtra("placeSearchResultLocation");
-            searchLocationTV.setText(searchResultLocation);
-            mapLocationTV.setText(searchResultLocation);
-            intentSource =2;
+            if (intentSource == 1) {
+                String searchResultLocation = getIntent().getStringExtra("signUpSearchLocation");
+                mapLocationTV.setText(searchResultLocation);
+            }
         }
 
         mapConfirmLocationBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(intentSource == 2 && updateMapSource == 0){
-                    String location = mapLocationTV.getText().toString();
-                    if(location.length()<=0){
-                        Toast.makeText(MapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(name != null && budget != null && returnDate != null && date != null && time != null){
-                        Intent intent = new Intent(MapActivity.this,AddTourActivity.class);
-                        intent.putExtra("location",location);
-                        intent.putExtra("intentName",name);
-                        intent.putExtra("intentBudget",budget);
-                        intent.putExtra("intentReturnDate",returnDate);
-                        intent.putExtra("intentDate",date);
-                        intent.putExtra("intentTime",time);
-                        startActivity(intent);
-                        finish();
-                    }
-                    else {
-                        Intent intent = new Intent(MapActivity.this,AddTourActivity.class);
-                        intent.putExtra("location",location);
-                        startActivity(intent);
-                        finish();
-                    }
+                String location = mapLocationTV.getText().toString();
+                if (location.length() <= 0) {
+                    Toast.makeText(SignUpLocationMapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
                 }
-                else if(intentSource == 2 && updateMapSource==1){
-                    String location = mapLocationTV.getText().toString();
-                    if(location.length()<=0){
-                        Toast.makeText(MapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(name != null && budget != null && returnDate != null && date != null && time != null){
-                        Intent intent = new Intent(MapActivity.this,AddTourActivity.class);
-                        intent.putExtra("location",location);
-                        intent.putExtra("updateMapReturn",1);
-                        intent.putExtra("updateTourIDReturn",tourID);
-                        intent.putExtra("intentName",name);
-                        intent.putExtra("intentBudget",budget);
-                        intent.putExtra("intentReturnDate",returnDate);
-                        intent.putExtra("intentDate",date);
-                        intent.putExtra("intentTime",time);
-                        startActivity(intent);
-                        finish();
-                    }
-                    else {
-                        Intent intent = new Intent(MapActivity.this,AddTourActivity.class);
-                        intent.putExtra("location",location);
-                        startActivity(intent);
-                        finish();
-                    }
+                else if (signUpName != null && signUpEmail != null && signUpPassword != null) {
+                    Intent intent = new Intent(SignUpLocationMapActivity.this, SignUpActivity.class);
+                    intent.putExtra("signUpIntentLocation", location);
+                    intent.putExtra("intentSource", 1);
+                    intent.putExtra("signUpIntentName", signUpName);
+                    intent.putExtra("signUpIntentEmail", signUpEmail);
+                    intent.putExtra("signUpIntentPassword", signUpPassword);
+                    startActivity(intent);
+                    finish();
                 }
-                else if(intentSource == 8){
-                    String location = mapLocationTV.getText().toString();
-                    if(location.length()<=0){
-                        Toast.makeText(MapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Intent intent = new Intent(MapActivity.this,RoutePointsActivity.class);
-                        intent.putExtra("routeLocation",location);
-                        startActivity(intent);
-                        finish();
-                    }
+                else {
+                    Intent intent = new Intent(SignUpLocationMapActivity.this, SignUpActivity.class);
+                    intent.putExtra("intentSource", 2);
+                    intent.putExtra("signUpIntentLocation", location);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -172,13 +117,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 editLocation.setVisibility(View.VISIBLE);
                 String location = mapLocationET.getText().toString();
-                if(location.length()<=0){
-                    Toast.makeText(MapActivity.this, "Please Type location", Toast.LENGTH_SHORT).show();
-                }
-                else if(location.length()<=3){
-                    Toast.makeText(MapActivity.this, "Type Proper Address", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                if (location.length() <= 0) {
+                    Toast.makeText(SignUpLocationMapActivity.this, "Please Type location", Toast.LENGTH_SHORT).show();
+                } else if (location.length() <= 3) {
+                    Toast.makeText(SignUpLocationMapActivity.this, "Type Proper Address", Toast.LENGTH_SHORT).show();
+                } else {
                     mapLocationET.setVisibility(View.GONE);
                     mapLocationTV.setVisibility(View.VISIBLE);
                     mapLocationTV.setText(location);
@@ -191,14 +134,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         searchLocationClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(intentSource == 8){
-                    Intent intent = new Intent(MapActivity.this,RouteSearchPlaceActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Intent intent = new Intent(MapActivity.this,SearchForPlaceActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(SignUpLocationMapActivity.this, SignUpPlaceSearchActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -209,7 +146,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         map = googleMap;
 
         LatLng initialZoomedLatLng = new LatLng(23.7508851, 90.3926964);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialZoomedLatLng, 15));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialZoomedLatLng, 16));
 
         googleMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
             @Override
@@ -233,9 +170,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onCameraIdle() {
                 LatLng targetLatLng = googleMap.getCameraPosition().target;
                 locationMarker.setVisibility(View.GONE);
-                googleMap.addMarker(new MarkerOptions().position(targetLatLng).title(getAddress(targetLatLng.latitude,targetLatLng.longitude)).snippet(getAddress(targetLatLng.latitude,targetLatLng.longitude)));
+                googleMap.addMarker(new MarkerOptions().position(targetLatLng).title(getAddress(targetLatLng.latitude, targetLatLng.longitude)).snippet(getAddress(targetLatLng.latitude, targetLatLng.longitude)));
                 googleMap.addCircle(new CircleOptions().center(targetLatLng));
-                mapLocationTV.setText(getAddress(targetLatLng.latitude,targetLatLng.longitude));
+                mapLocationTV.setText(getAddress(targetLatLng.latitude, targetLatLng.longitude));
             }
         });
         googleMap.clear();
@@ -255,17 +192,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
         Task location = fusedLocationProviderClient.getLastLocation();
-        if(location != null){
+        if (location != null) {
             location.addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Location currentLocation = (Location) task.getResult();
-                        LatLng latLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,17));
-                        map.addMarker(new MarkerOptions().position(latLng).title(getAddress(currentLocation.getLatitude(),currentLocation.getLongitude())).snippet("Your Location"));
+                        LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
+                        map.addMarker(new MarkerOptions().position(latLng).title(getAddress(currentLocation.getLatitude(), currentLocation.getLongitude())).snippet("Your Location"));
                         map.addCircle(new CircleOptions().center(latLng));
-                        setLocation = getAddress(currentLocation.getLatitude(),currentLocation.getLongitude());
+                        setLocation = getAddress(currentLocation.getLatitude(), currentLocation.getLongitude());
                         mapLocationTV.setText(setLocation);
                     }
                 }
@@ -273,7 +210,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    public String getAddress(double lat,double lng){
+    public String getAddress(double lat, double lng) {
         String address = "";
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -281,8 +218,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         List<Address> addressList;
 
         try {
-            addressList = geocoder.getFromLocation(lat,lng,1);
-            if(addressList.size()>0){
+            addressList = geocoder.getFromLocation(lat, lng, 1);
+            if (addressList.size() > 0) {
                 address = addressList.get(0).getAddressLine(0);
             }
 
@@ -295,9 +232,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public void storeAsSharedPref(int intentSource) {
-        sharedPreferences = getSharedPreferences("intentSourceInfo",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("intentSourceInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        editor.putInt("intentSource",intentSource);
+        editor.putInt("intentSource", intentSource);
         editor.apply();
     }
 

@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.ModelClass.Tour;
 import com.anik.example.tourmate.Adapter.TourHistoryAdapter;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,7 +40,15 @@ public class TourHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_history);
         init();
-        uid = firebaseAuth.getCurrentUser().getUid();
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account != null){
+            uid = account.getId();
+        }
+        else {
+            uid = firebaseAuth.getCurrentUser().getUid();
+        }
+        //uid = firebaseAuth.getCurrentUser().getUid();
 
         swipeRefreshLayout_THA.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.anik.example.tourmate.ModelClass.Moment;
 import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.ModelClass.User;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -57,12 +59,14 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
     private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private String uid;
     private final int request_camera = 1;
     private final int select_file = 0;
     private String imageDownloadUrl=null;
     private int typePic = 0;
     private Uri picURI;
+    private String gUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +74,16 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         init();
-        uid = firebaseAuth.getCurrentUser().getUid();
-        fireBaseStateListener();
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account != null){
+            uid = account.getId();
+        }
+        else {
+            uid = firebaseAuth.getCurrentUser().getUid();
+        }
+
+        //fireBaseStateListener();
         getUserInfoFromDB();
 
         addImage.setOnClickListener(new View.OnClickListener() {
@@ -320,6 +332,16 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void logOut(View view) {
         FirebaseAuth.getInstance().signOut();
+        storeAsSharedPref(0);
+        startActivity(new Intent(ProfileActivity.this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        finish();
+    }
+
+    public void storeAsSharedPref(int phoneLoginInfoSP) {
+        sharedPreferences = getSharedPreferences("phoneLoginSP",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putInt("phoneLoginInfo",phoneLoginInfoSP);
+        editor.apply();
     }
 
     private void fireBaseStateListener() {
@@ -342,15 +364,15 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
+        //FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (authStateListener != null) {
-            FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
-        }
+        //if (authStateListener != null) {
+         //   FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
+        //}
     }
 
     public Uri getImageUri(Context context, Bitmap inImage) {

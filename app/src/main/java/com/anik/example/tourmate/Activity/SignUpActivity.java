@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,9 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private String intentLocation = null;
+    private int intentSource;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +51,23 @@ public class SignUpActivity extends AppCompatActivity {
         //checkConnectivity();
 
         if(getIntent().getExtras() != null){
-            intentLocation = getIntent().getStringExtra("location");
-            String name = getIntent().getStringExtra("signUpIntentName");
-            String email = getIntent().getStringExtra("signUpIntentEmail");
-            String password = getIntent().getStringExtra("signUpIntentPassword");
+            int intentSource = getIntent().getIntExtra("intentSource",0);
 
-            setLocation.setText(intentLocation);
-            nameET.setText(name);
-            emailET.setText(email);
-            passwordET.setText(password);
-        }
+            if(intentSource == 1){
+                String name = getIntent().getStringExtra("signUpIntentName");
+                String email = getIntent().getStringExtra("signUpIntentEmail");
+                String password = getIntent().getStringExtra("signUpIntentPassword");
+                String location = getIntent().getStringExtra("signUpIntentLocation");
 
-        if(intentLocation != null){
-            setLocation.setText(intentLocation);
+                nameET.setText(name);
+                emailET.setText(email);
+                passwordET.setText(password);
+                setLocation.setText(location);
+            }
+            else if(intentSource == 2){
+                String location = getIntent().getStringExtra("signUpIntentLocation");
+                setLocation.setText(location);
+            }
         }
 
         locationClick.setOnClickListener(new View.OnClickListener() {
@@ -70,16 +78,12 @@ public class SignUpActivity extends AppCompatActivity {
                     String email = emailET.getText().toString();
                     String password = passwordET.getText().toString();
 
-                    Intent intent = new Intent(SignUpActivity.this,MapActivity.class);
-                    intent.putExtra("intentSource",1);
-                    intent.putExtra("signUpName",name);
-                    intent.putExtra("signUpEmail",email);
-                    intent.putExtra("signUpPassword",password);
+                    storeSignUpInfoAsSharedPref(name,email,password);
+                    Intent intent = new Intent(SignUpActivity.this,SignUpLocationMapActivity.class);
                     startActivity(intent);
                 }
                 else {
-                    Intent intent = new Intent(SignUpActivity.this,MapActivity.class);
-                    intent.putExtra("intentSource",1);
+                    Intent intent = new Intent(SignUpActivity.this,SignUpLocationMapActivity.class);
                     startActivity(intent);
                 }
 
@@ -89,8 +93,8 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(intentLocation==null || nameET.getText().toString().isEmpty() || emailET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty()){
-                    Toast.makeText(SignUpActivity.this, "Fill up the fields or add location", Toast.LENGTH_SHORT).show();
+                if(setLocation.getText().toString().length()<= 0 || nameET.getText().toString().isEmpty() || emailET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty()){
+                    Toast.makeText(SignUpActivity.this, "Fill up the fields and add location", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     String name = nameET.getText().toString();
@@ -153,6 +157,16 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void storeSignUpInfoAsSharedPref(String name,String email,String password) {
+        sharedPreferences = getSharedPreferences("signUpInfoSP",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString("signUpName",name);
+        editor.putString("signUpEmail",email);
+        editor.putString("signUpPassword",password);
+        editor.commit();
+        editor.apply();
     }
 
     @Override

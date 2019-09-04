@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.anik.example.tourmate.ModelClass.Moment;
 import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.ModelClass.Tour;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -64,7 +66,15 @@ public class TourDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tour_details);
 
         init();
-        uid = firebaseAuth.getCurrentUser().getUid();
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account != null){
+            uid = account.getId();
+        }
+        else {
+            uid = firebaseAuth.getCurrentUser().getUid();
+        }
+        //uid = firebaseAuth.getCurrentUser().getUid();
         tourID = getIntent().getStringExtra("tourID");
         storeAsSharedPref(tourID);
 
