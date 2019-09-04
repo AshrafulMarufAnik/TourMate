@@ -17,6 +17,10 @@ import com.anik.example.tourmate.Adapter.MomentAdapter;
 import com.anik.example.tourmate.ModelClass.Moment;
 import com.anik.example.tourmate.ModelClass.Tour;
 import com.anik.example.tourmate.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +39,8 @@ public class MomentsActivity extends AppCompatActivity {
     private MomentAdapter momentAdapter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +48,19 @@ public class MomentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_moments);
         init();
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(MomentsActivity.this, gso);
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if(account != null){
+            uid = account.getId();
+        }
+        else {
+            uid = firebaseAuth.getCurrentUser().getUid();
+        }
+
         tourID = getIntent().getStringExtra("tourID");
-        uid = firebaseAuth.getCurrentUser().getUid();
+        //uid = firebaseAuth.getCurrentUser().getUid();
 
         getAllImagesFromStorage();
 

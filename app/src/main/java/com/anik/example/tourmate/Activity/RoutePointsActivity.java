@@ -19,6 +19,10 @@ import com.anik.example.tourmate.ModelClass.Expense;
 import com.anik.example.tourmate.ModelClass.Route;
 import com.anik.example.tourmate.R;
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -45,6 +49,8 @@ public class RoutePointsActivity extends AppCompatActivity {
     private String routeLocation;
     private TextView rp;
     private String routeID;
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +58,20 @@ public class RoutePointsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_route_points);
         init();
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(RoutePointsActivity.this, gso);
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if(account != null){
+            uid = account.getId();
+        }
+        else {
+            uid = firebaseAuth.getCurrentUser().getUid();
+        }
+
         sharedPreferences = getSharedPreferences("TourInfo",MODE_PRIVATE);
         tourID = sharedPreferences.getString("SPTourID",null);
-        uid = firebaseAuth.getCurrentUser().getUid();
+        //uid = firebaseAuth.getCurrentUser().getUid();
 
         if(getIntent().getExtras() != null){
             routeLocation = getIntent().getStringExtra("routeLocation");

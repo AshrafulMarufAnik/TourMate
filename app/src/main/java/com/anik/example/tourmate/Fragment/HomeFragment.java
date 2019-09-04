@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
     private FirebaseUser firebaseUser;
     private FirebaseAuth.AuthStateListener authStateListener;
     private GoogleSignInAccount account;
-    GoogleSignInClient googleSignInClient;
+    private GoogleSignInClient mGoogleSignInClient;
     private DatabaseReference databaseReference;
     private String userID;
     private SharedPreferences sharedPreferences;
@@ -66,6 +66,8 @@ public class HomeFragment extends Fragment {
         init();
 
         account = GoogleSignIn.getLastSignedInAccount(getActivity());
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
         addTourClick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,14 +128,8 @@ public class HomeFragment extends Fragment {
         logOutBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(firebaseUser != null){
-                    firebaseAuth.signOut();
-                    storeAsSharedPref(0);
-                    startActivity(new Intent(getActivity(),LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                    getActivity().finish();
-                }
-                else if(account != null){
-                    googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                if(account != null){
+                    mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
@@ -143,6 +139,12 @@ public class HomeFragment extends Fragment {
                             }
                         }
                     });
+                }
+                else {
+                    firebaseAuth.signOut();
+                    storeAsSharedPref(0);
+                    startActivity(new Intent(getActivity(),LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    getActivity().finish();
                 }
 
             }

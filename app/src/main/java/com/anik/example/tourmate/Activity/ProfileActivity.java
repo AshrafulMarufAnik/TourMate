@@ -28,6 +28,8 @@ import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.ModelClass.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -56,6 +58,8 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView addImage, coverImage;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+    private GoogleSignInAccount account;
+    private GoogleSignInClient mGoogleSignInClient;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
     private SharedPreferences sharedPreferences;
@@ -75,7 +79,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         init();
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(ProfileActivity.this, gso);
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
         if(account != null){
             uid = account.getId();
         }
@@ -331,10 +338,24 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void logOut(View view) {
-        FirebaseAuth.getInstance().signOut();
-        storeAsSharedPref(0);
-        startActivity(new Intent(ProfileActivity.this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-        finish();
+        if(account != null){
+            mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(ProfileActivity.this, "Sign out successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ProfileActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                        finish();
+                    }
+                }
+            });
+        }
+        else {
+            firebaseAuth.signOut();
+            storeAsSharedPref(0);
+            startActivity(new Intent(ProfileActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            finish();
+        }
     }
 
     public void storeAsSharedPref(int phoneLoginInfoSP) {

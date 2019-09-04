@@ -214,8 +214,8 @@ public class NearbyPlacesActivity extends AppCompatActivity implements OnMapRead
                         markerOptions.title(placeName + " : " + vicinity);
                         Marker m = map.addMarker(markerOptions);
                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
-                        map.animateCamera(CameraUpdateFactory.zoomTo(14));
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                        map.animateCamera(CameraUpdateFactory.zoomTo(15));
                     }
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");

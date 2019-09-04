@@ -27,6 +27,8 @@ import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.ModelClass.Tour;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -49,6 +51,8 @@ public class TourDetailsActivity extends AppCompatActivity {
     private TextView tourNameTV,tourLocationTV,tourBudgetTV,tourTotalExpenseTV,tourReturnDateTV;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInAccount account;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
     private SharedPreferences sharedPreferences;
@@ -67,13 +71,17 @@ public class TourDetailsActivity extends AppCompatActivity {
 
         init();
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(TourDetailsActivity.this, gso);
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
         if(account != null){
             uid = account.getId();
         }
         else {
             uid = firebaseAuth.getCurrentUser().getUid();
         }
+
         //uid = firebaseAuth.getCurrentUser().getUid();
         tourID = getIntent().getStringExtra("tourID");
         storeAsSharedPref(tourID);

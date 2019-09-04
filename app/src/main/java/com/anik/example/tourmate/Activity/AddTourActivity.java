@@ -22,6 +22,10 @@ import com.anik.example.tourmate.ModelClass.Expense;
 import com.anik.example.tourmate.ModelClass.Route;
 import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.ModelClass.Tour;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -54,9 +58,12 @@ public class AddTourActivity extends AppCompatActivity {
     private int updateIntent=0,updateMapReturn;
     private String name, budget, returnDate, date, time;
     private String updateTID;
+    private String uid;
     private int updateMapSource=0;
     private ArrayList<Route> routeList = new ArrayList<>();
     private ArrayList<Expense> expenseList = new ArrayList<>();
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,17 @@ public class AddTourActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_tour);
 
         init();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(AddTourActivity.this, gso);
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if(account != null){
+            uid = account.getId();
+        }
+        else {
+            uid = firebaseAuth.getCurrentUser().getUid();
+        }
 
         intentLocation = getIntent().getStringExtra("location");
         updateIntent = getIntent().getIntExtra("updateIntent", 0);
@@ -200,7 +218,7 @@ public class AddTourActivity extends AppCompatActivity {
             final String date = dateTV.getText().toString();
             final String time = timeTV.getText().toString();
 
-            final String uid = firebaseAuth.getCurrentUser().getUid();
+            //final String uid = firebaseAuth.getCurrentUser().getUid();
 
             DatabaseReference tourInfoRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information");
             final String tourID = tourInfoRef.push().getKey();

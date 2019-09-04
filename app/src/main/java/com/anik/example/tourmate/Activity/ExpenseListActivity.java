@@ -17,6 +17,10 @@ import com.anik.example.tourmate.DialogFragment.ExpenseInputDialog;
 import com.anik.example.tourmate.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -35,8 +39,9 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
     private FloatingActionMenu addExpenseFAM;
     private FloatingActionButton addExpenseFABTN;
     private String tourID,uid,expenseID;
-
     private FirebaseAuth firebaseAuth;
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInAccount account;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
@@ -50,14 +55,25 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
         setContentView(R.layout.activity_expense_list);
 
         init();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(ExpenseListActivity.this, gso);
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if(account != null){
+            uid = account.getId();
+        }
+        else {
+            uid = firebaseAuth.getCurrentUser().getUid();
+        }
+
         tourID = getIntent().getStringExtra("tourID");
-        uid = firebaseAuth.getCurrentUser().getUid();
+        //uid = firebaseAuth.getCurrentUser().getUid();
 
         addExpenseFABTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openInputDialog();
-
             }
         });
 
@@ -65,9 +81,7 @@ public class ExpenseListActivity extends AppCompatActivity implements ExpenseInp
 
         swipeRefreshLayoutELA.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
-            public void onRefresh() {
-                getExpenseDataFromDBThroughModelClass();
-            }
+            public void onRefresh() { getExpenseDataFromDBThroughModelClass();}
         });
 
         configExpenseListRV();

@@ -68,6 +68,9 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         getPermissions();
         init();
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
+
         sharedPreferences = getSharedPreferences("phoneLoginSP", MODE_PRIVATE);
         phoneLoginSP = sharedPreferences.getInt("phoneLoginInfo", 0);
 
@@ -114,9 +117,8 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         googleSignInClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-                mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
-                googleSignIn();
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
     }
@@ -185,11 +187,6 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         }
     }
 
-    private void googleSignIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -209,7 +206,7 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
         }
         catch (ApiException e) {
             Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
-            updateUI(null);
+            Toast.makeText(this,e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -234,7 +231,7 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
                         //storeGoogleSignInIdAsSharedPref(personId);
-                        Toast.makeText(LoginActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Sign-in Successful", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         finish();
                     }
