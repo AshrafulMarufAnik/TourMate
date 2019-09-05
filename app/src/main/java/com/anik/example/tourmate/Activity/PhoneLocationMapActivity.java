@@ -1,7 +1,6 @@
 package com.anik.example.tourmate.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,7 +38,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class PhoneLocationMapActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap map;
     private TextView mapLocationTV,searchLocationTV;
     private Button mapConfirmLocationBTN;
@@ -52,6 +51,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private String name = null,budget = null,returnDate = null,date = null,time = null,tourID;
     private String searchResultLocation;
     private int updateMapSource=0;
+    private String userName,userEmail;
     private int intentSource;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -59,49 +59,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_phone_location_map);
         init();
 
-        intentSource = getIntent().getIntExtra("intentSource",0);
-        storeAsSharedPref(intentSource);
-        updateMapSource = getIntent().getIntExtra("updateMapSource",0);
-
-        if(getIntent().getExtras() != null){
-            name = getIntent().getStringExtra("name");
-            budget = getIntent().getStringExtra("budget");
-            returnDate = getIntent().getStringExtra("returnDate");
-            date = getIntent().getStringExtra("date");
-            time = getIntent().getStringExtra("time");
-            tourID = getIntent().getStringExtra("updateTourID");
-        }
-
-        if(intentSource == 3){
-            mapLocationTV.setVisibility(View.GONE);
-            mapConfirmLocationBTN.setVisibility(View.GONE);
-            editLocation.setVisibility(View.GONE);
-            Toast.makeText(MapActivity.this, "Under development", Toast.LENGTH_SHORT).show();
-        }
-        else if(intentSource == 6){
-            searchResultLocation = getIntent().getStringExtra("placeSearchResultLocation");
-            searchLocationTV.setText(searchResultLocation);
-            mapLocationTV.setText(searchResultLocation);
-            intentSource =2;
-        }
+        sharedPreferences = getSharedPreferences("phoneAuthUserInfoSP",MODE_PRIVATE);
+        userName = sharedPreferences.getString("phoneAuthUserName",null);
+        userEmail = sharedPreferences.getString("phoneAuthUserEmail",null);
 
         mapConfirmLocationBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(intentSource == 8){
-                    String location = mapLocationTV.getText().toString();
-                    if(location.length()<=0){
-                        Toast.makeText(MapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Intent intent = new Intent(MapActivity.this,RoutePointsActivity.class);
-                        intent.putExtra("routeLocation",location);
-                        startActivity(intent);
-                        finish();
-                    }
+                String location = mapLocationTV.getText().toString();
+                if(location.length()<=0){
+                    Toast.makeText(PhoneLocationMapActivity.this, "Pick Location please", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(PhoneLocationMapActivity.this,PhoneAuthUserRegistrationActivity.class);
+                    intent.putExtra("userLocation",location);
+                    intent.putExtra("userName",userName);
+                    intent.putExtra("userEmail",userEmail);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -125,10 +103,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 editLocation.setVisibility(View.VISIBLE);
                 String location = mapLocationET.getText().toString();
                 if(location.length()<=0){
-                    Toast.makeText(MapActivity.this, "Please Type location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhoneLocationMapActivity.this, "Please Type location", Toast.LENGTH_SHORT).show();
                 }
                 else if(location.length()<=3){
-                    Toast.makeText(MapActivity.this, "Type Proper Address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhoneLocationMapActivity.this, "Type Proper Address", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     mapLocationET.setVisibility(View.GONE);
@@ -143,14 +121,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         searchLocationClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(intentSource == 8){
-                    Intent intent = new Intent(MapActivity.this,RouteSearchPlaceActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Intent intent = new Intent(MapActivity.this,SearchForPlaceActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(PhoneLocationMapActivity.this,PhoneUserLocationSearchActivity.class);
+                startActivity(intent);
             }
         });
     }

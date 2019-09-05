@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anik.example.tourmate.R;
@@ -24,9 +26,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
-    private EditText nameET, emailET, locationET;
+    private EditText nameET, emailET;
+    private TextView locationPhoneRegTV;
     private Button registerBTN;
-    private String uid,number;
+    private LinearLayout phoneAuthUserLocationClick;
+    private String uid,number,intentLocation=null;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private FirebaseUser firebaseUser;
@@ -41,18 +45,26 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
 
         if(getIntent().getExtras() != null){
             number = getIntent().getStringExtra("phoneNumber");
+            intentLocation = getIntent().getStringExtra("userLocation");
+
+            String name = getIntent().getStringExtra("userName");
+            String email = getIntent().getStringExtra("userEmail");
+
+            locationPhoneRegTV.setText(intentLocation);
+            nameET.setText(name);
+            emailET.setText(email);
         }
 
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (nameET.getText().toString().isEmpty() || emailET.getText().toString().isEmpty() || locationET.getText().toString().isEmpty()) {
-                    Toast.makeText(PhoneAuthUserRegistrationActivity.this, "Fill uo fields", Toast.LENGTH_SHORT).show();
+                if (nameET.getText().toString().isEmpty() || emailET.getText().toString().isEmpty() || intentLocation == null) {
+                    Toast.makeText(PhoneAuthUserRegistrationActivity.this, "Fill up all fields", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     String name = nameET.getText().toString();
                     String email = emailET.getText().toString();
-                    String location = locationET.getText().toString();
+                    String location = locationPhoneRegTV.getText().toString();
                     String userID = firebaseUser.getUid();
 
                     Map<String, Object> userMap = new HashMap<>();
@@ -83,6 +95,24 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
                 }
             }
         });
+
+        phoneAuthUserLocationClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(nameET.getText().toString() != null || emailET.getText().toString() != null){
+                    String name = nameET.getText().toString();
+                    String email = emailET.getText().toString();
+
+                    storePhoneAuthUserInfoAsSharedPref(name,email);
+                    Intent intent = new Intent(PhoneAuthUserRegistrationActivity.this,PhoneLocationMapActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(PhoneAuthUserRegistrationActivity.this,PhoneLocationMapActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     public void storeAsSharedPref(int phoneLoginInfoSP) {
@@ -92,11 +122,21 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    public void storePhoneAuthUserInfoAsSharedPref(String name,String email) {
+        sharedPreferences = getSharedPreferences("phoneAuthUserInfoSP",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString("phoneAuthUserName",name);
+        editor.putString("phoneAuthUserEmail",email);
+        editor.commit();
+        editor.apply();
+    }
+
     private void init() {
         nameET = findViewById(R.id.phoneAuthUserNameET);
         emailET = findViewById(R.id.phoneAuthUserEmailET);
-        locationET = findViewById(R.id.phoneAuthUserLocationET);
+        phoneAuthUserLocationClick = findViewById(R.id.phoneAuthUserLocationClick);
         registerBTN = findViewById(R.id.phoneAuthUserRegBTN);
+        locationPhoneRegTV = findViewById(R.id.setLocationPhoneRegTV);
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
