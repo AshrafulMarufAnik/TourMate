@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -64,6 +65,9 @@ public class AddTourActivity extends AppCompatActivity {
     private ArrayList<Expense> expenseList = new ArrayList<>();
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInAccount account;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private int intentSourceFromTourPlaceSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +87,31 @@ public class AddTourActivity extends AppCompatActivity {
             uid = firebaseAuth.getCurrentUser().getUid();
         }
 
-        intentLocation = getIntent().getStringExtra("location");
-        updateIntent = getIntent().getIntExtra("updateIntent", 0);
-        updateMapReturn = getIntent().getIntExtra("updateMapReturn",0);
+        if(getIntent().getExtras() != null){
+            intentSourceFromTourPlaceSearch = getIntent().getIntExtra("fromTourPlaceSearch",0);
+        }
 
+        if(intentSourceFromTourPlaceSearch == 1){
+            intentLocation = getIntent().getStringExtra("tourLocation");
+            String name = getIntent().getStringExtra("intentTourName");
+            String budget = getIntent().getStringExtra("intentTourBudget");
+            String date = getIntent().getStringExtra("intentTourDate");
+            String time = getIntent().getStringExtra("intentTourTime");
+            String returnDate = getIntent().getStringExtra("intentTourReturnDate");
+
+            setLocationTV.setText(intentLocation);
+            tourNameET.setText(name);
+            tourBudgetET.setText(budget);
+            setReturnDateTV.setText(returnDate);
+            dateTV.setText(date);
+            timeTV.setText(time);
+
+        }
+
+        //updateIntent = getIntent().getIntExtra("updateIntent", 0);
+        //updateMapReturn = getIntent().getIntExtra("updateMapReturn",0);
+
+        /*
         if (getIntent().getExtras() != null) {
             if (updateIntent == 1) {
                 titleTV.setText("Update Tour");
@@ -141,7 +166,7 @@ public class AddTourActivity extends AppCompatActivity {
                 dateTV.setText(date);
                 timeTV.setText(time);
             }
-        }
+        } */
 
         departureDateClick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,20 +192,12 @@ public class AddTourActivity extends AppCompatActivity {
                     String date = dateTV.getText().toString();
                     String time = timeTV.getText().toString();
 
-                    Intent intent = new Intent(AddTourActivity.this, MapActivity.class);
-                    intent.putExtra("updateMapSource",updateMapSource);
-                    intent.putExtra("updateTourID",updateTID);
-                    intent.putExtra("intentSource", 2);
-                    intent.putExtra("name", name);
-                    intent.putExtra("budget", budget);
-                    intent.putExtra("returnDate", returnDate);
-                    intent.putExtra("date", date);
-                    intent.putExtra("time", time);
+                    storeNewTourInfoAsSharedPref(name,budget,date,time,returnDate);
+                    Intent intent = new Intent(AddTourActivity.this, TourLocationSearchActivity.class);
                     startActivity(intent);
                 }
                 else {
-                    Intent intent = new Intent(AddTourActivity.this, MapActivity.class);
-                    intent.putExtra("intentSource", 2);
+                    Intent intent = new Intent(AddTourActivity.this, TourLocationSearchActivity.class);
                     startActivity(intent);
                 }
             }
@@ -188,8 +205,7 @@ public class AddTourActivity extends AppCompatActivity {
 
         addTourReturnDateClick.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                returnDatePicker();
+            public void onClick(View view) { returnDatePicker();
             }
         });
 
@@ -206,13 +222,25 @@ public class AddTourActivity extends AppCompatActivity {
         });
     }
 
+    public void storeNewTourInfoAsSharedPref(String name,String budget,String date,String time,String returnDate) {
+        sharedPreferences = getSharedPreferences("NewTourInfoSP",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString("tourName",name);
+        editor.putString("tourBudget",budget);
+        editor.putString("tourDate",date);
+        editor.putString("tourTime",time);
+        editor.putString("tourReturnDate",returnDate);
+        editor.commit();
+        editor.apply();
+    }
+
     private void addNewTour() {
-        if (intentLocation == null || tourNameET.getText().toString().isEmpty() || tourBudgetET.getText().toString().isEmpty() || setReturnDateTV.getText().toString().isEmpty()) {
+        if (intentLocation == null || tourNameET.getText().toString().isEmpty() || tourBudgetET.getText().toString().isEmpty() || setReturnDateTV.getText().toString().isEmpty() || dateTV.getText().toString().isEmpty() || timeTV.getText().toString().isEmpty()) {
             Toast.makeText(AddTourActivity.this, "Fill up all fields", Toast.LENGTH_SHORT).show();
         }
         else {
             final String name = tourNameET.getText().toString();
-            final String location = intentLocation;
+            final String location = setLocationTV.getText().toString();
             final double budget = Double.parseDouble(tourBudgetET.getText().toString());
             final String returnDate = setReturnDateTV.getText().toString();
             final String date = dateTV.getText().toString();

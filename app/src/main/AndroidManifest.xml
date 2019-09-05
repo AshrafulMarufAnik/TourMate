@@ -17,8 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.SignUpPlaceSearchActivity"></activity>
-        <activity android:name=".Activity.SignUpLocationMapActivity" />
+        <activity android:name=".Activity.TourLocationSearchActivity"
+            android:theme="@style/CustomAppTheme"></activity>
+        <activity android:name=".Activity.SignUpPlaceSearchActivity"
+            android:theme="@style/CustomAppTheme"/>
+        <activity android:name=".Activity.SignUpLocationMapActivity"
+            android:theme="@style/CustomAppTheme"/>
         <activity
             android:name=".Activity.RouteSearchPlaceActivity"
             android:theme="@style/CustomAppTheme" />
