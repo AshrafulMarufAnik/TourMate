@@ -30,7 +30,7 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
     private TextView locationPhoneRegTV;
     private Button registerBTN;
     private LinearLayout phoneAuthUserLocationClick;
-    private String uid,number,intentLocation=null;
+    private String uid,number,intentLocation;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private FirebaseUser firebaseUser;
@@ -44,27 +44,33 @@ public class PhoneAuthUserRegistrationActivity extends AppCompatActivity {
         init();
 
         if(getIntent().getExtras() != null){
-            number = getIntent().getStringExtra("phoneNumber");
-            intentLocation = getIntent().getStringExtra("userLocation");
+            int intentSource = getIntent().getIntExtra("intentSource",0);
 
-            String name = getIntent().getStringExtra("userName");
-            String email = getIntent().getStringExtra("userEmail");
+            if(intentSource == 1){
+                number = getIntent().getStringExtra("phoneNumber");
+            }
+            else if(intentSource == 2){
+                intentLocation = getIntent().getStringExtra("userLocation");
+                String name = getIntent().getStringExtra("userName");
+                String email = getIntent().getStringExtra("userEmail");
 
-            locationPhoneRegTV.setText(intentLocation);
-            nameET.setText(name);
-            emailET.setText(email);
+                locationPhoneRegTV.setText(intentLocation);
+                nameET.setText(name);
+                emailET.setText(email);
+            }
         }
 
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (nameET.getText().toString().isEmpty() || emailET.getText().toString().isEmpty() || intentLocation == null) {
+                String mLocation = locationPhoneRegTV.getText().toString();
+                if (nameET.getText().toString() == null || emailET.getText().toString() == null || mLocation == null) {
                     Toast.makeText(PhoneAuthUserRegistrationActivity.this, "Fill up all fields", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     String name = nameET.getText().toString();
                     String email = emailET.getText().toString();
-                    String location = locationPhoneRegTV.getText().toString();
+                    String location = mLocation;
                     String userID = firebaseUser.getUid();
 
                     Map<String, Object> userMap = new HashMap<>();

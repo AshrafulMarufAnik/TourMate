@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anik.example.tourmate.R;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PhoneVerificationActivity extends AppCompatActivity {
     private EditText verificationCodeET;
+    private TextView tryAgain;
     private Button loginBTN;
     private String phoneNumber,code,verificationID;
     private FirebaseAuth firebaseAuth;
@@ -39,15 +41,14 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         if(getIntent().getExtras()!=null){
             phoneNumber = getIntent().getStringExtra("phoneNumber");
             sendOTP();
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(PhoneVerificationActivity.this,LoginActivity.class));
-                    finish();
-                }
-            },OTP_TIME_OUT);
         }
+
+        tryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendOTP();
+            }
+        });
     }
 
     public void phoneLogIn(View view) {
@@ -103,6 +104,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Intent intent = new Intent(PhoneVerificationActivity.this, PhoneAuthUserRegistrationActivity.class);
+                    intent.putExtra("intentSource",1);
                     intent.putExtra("phoneNumber",phoneNumber);
                     startActivity(intent);
                     finish();
@@ -120,6 +122,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         verificationCodeET = findViewById(R.id.phoneOtpET);
         loginBTN = findViewById(R.id.phoneLogInBTN);
         firebaseAuth = FirebaseAuth.getInstance();
+        tryAgain = findViewById(R.id.tryAgainTV);
     }
 
 }

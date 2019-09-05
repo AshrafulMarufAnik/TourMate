@@ -66,6 +66,14 @@ public class PhoneLocationMapActivity extends AppCompatActivity implements OnMap
         userName = sharedPreferences.getString("phoneAuthUserName",null);
         userEmail = sharedPreferences.getString("phoneAuthUserEmail",null);
 
+        if(getIntent().getExtras() != null){
+            int intentSource = getIntent().getIntExtra("fromPhoneUserPlaceSearch",0);
+            if(intentSource == 1){
+                String location = getIntent().getStringExtra("phoneUserLocation");
+                mapLocationTV.setText(location);
+            }
+        }
+
         mapConfirmLocationBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +83,7 @@ public class PhoneLocationMapActivity extends AppCompatActivity implements OnMap
                 }
                 else {
                     Intent intent = new Intent(PhoneLocationMapActivity.this,PhoneAuthUserRegistrationActivity.class);
+                    intent.putExtra("intentSource",2);
                     intent.putExtra("userLocation",location);
                     intent.putExtra("userName",userName);
                     intent.putExtra("userEmail",userEmail);

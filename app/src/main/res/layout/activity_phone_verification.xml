@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="80dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:onClick="phoneLogIn"
@@ -54,5 +54,16 @@
         android:text="Log in"
         android:textStyle="bold"
         android:textColor="@color/color_blue"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Try Again"
+        android:id="@+id/tryAgainTV"
+        android:padding="5dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_margin="50dp"/>
 
 </LinearLayout>
