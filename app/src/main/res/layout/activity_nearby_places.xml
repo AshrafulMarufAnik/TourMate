@@ -7,74 +7,14 @@
     android:background="@color/color_white"
     tools:context=".Activity.NearbyPlacesActivity">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="3dp"
-        android:elevation="5dp"
-        app:cardCornerRadius="5dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/nearbySearchLocationClick"
-            android:weightSum="2">
-
-            <ImageView
-                android:layout_weight=".25"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_back_black_24dp"
-                android:padding="3dp"
-                android:onClick="goToMain"
-                android:layout_gravity="center"
-                android:layout_marginRight="3dp"
-                android:tint="#666464"/>
-
-            <LinearLayout
-                android:layout_weight="1.5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Search location"
-                    android:textColor="#B0000000"
-                    android:id="@+id/nearbySearchLocationMapTV"
-                    android:padding="4dp"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:padding="1dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="3dp"
-                    android:background="@color/color_darkGrey">
-
-                </View>
-
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:layout_gravity="center"
-                android:padding="7dp"
-                android:src="@drawable/ic_list_black_24dp"
-                android:tint="#504F4F"/>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:tint="@color/color_lightGrey"
+        android:padding="3dp"
+        android:onClick="goToMain"
+        android:elevation="10dp"/>
 
     <fragment
         android:layout_width="match_parent"

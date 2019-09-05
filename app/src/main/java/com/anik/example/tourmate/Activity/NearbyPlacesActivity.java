@@ -49,8 +49,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NearbyPlacesActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap map;
-    private LinearLayout resturentClick, hotelClick, mallClick, gasStationClick, atmClick, hospitalClick,locationSearchClick;
-    private TextView nearbyLocationTV;
+    private LinearLayout resturentClick, hotelClick, mallClick, gasStationClick, atmClick, hospitalClick;
     private Location currentLocation;
     private LatLng latLng;
 
@@ -102,12 +101,6 @@ public class NearbyPlacesActivity extends AppCompatActivity implements OnMapRead
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) { getNearbyPlaces("hospital");
-            }
-        });
-
-        locationSearchClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { startActivity(new Intent(NearbyPlacesActivity.this,SearchForPlaceActivity.class));
             }
         });
 
@@ -187,7 +180,8 @@ public class NearbyPlacesActivity extends AppCompatActivity implements OnMapRead
                     if(task.isSuccessful()){
                         currentLocation = (Location) task.getResult();
                         latLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,17));
+                        map.animateCamera(CameraUpdateFactory.zoomTo(15));
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
                     }
                 }
             });
@@ -196,7 +190,7 @@ public class NearbyPlacesActivity extends AppCompatActivity implements OnMapRead
         Retrofit retrofitInstance = RetrofitInstance.getRetrofitInstanceForPlaceAPI();
         ApiService service = retrofitInstance.create(ApiService.class);
 
-        Call<Example> call = service.getNearbyPlaces(type, latLng.latitude + "," + latLng.longitude,1000);
+        Call<Example> call = service.getNearbyPlaces(type, latLng.latitude + "," + latLng.longitude,300);
 
         call.enqueue(new Callback<Example>() {
             @Override
@@ -214,8 +208,8 @@ public class NearbyPlacesActivity extends AppCompatActivity implements OnMapRead
                         markerOptions.title(placeName + " : " + vicinity);
                         Marker m = map.addMarker(markerOptions);
                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
-                        map.animateCamera(CameraUpdateFactory.zoomTo(15));
+                        //map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                        //map.animateCamera(CameraUpdateFactory.zoomTo(15));
                     }
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
@@ -273,8 +267,6 @@ public class NearbyPlacesActivity extends AppCompatActivity implements OnMapRead
         gasStationClick = findViewById(R.id.gasStationClick);
         atmClick = findViewById(R.id.atmClick);
         hospitalClick = findViewById(R.id.hospitalClick);
-        nearbyLocationTV = findViewById(R.id.nearbySearchLocationMapTV);
-        locationSearchClick = findViewById(R.id.nearbySearchLocationClick);
     }
 
     public void goToMain(View view) {
