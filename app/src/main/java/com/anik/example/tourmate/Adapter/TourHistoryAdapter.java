@@ -18,6 +18,10 @@ import com.anik.example.tourmate.Activity.AddTourActivity;
 import com.anik.example.tourmate.Activity.TourDetailsActivity;
 import com.anik.example.tourmate.R;
 import com.anik.example.tourmate.ModelClass.Tour;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +35,9 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
     private Context context;
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInAccount account;
+    private String uid;
 
     public TourHistoryAdapter(ArrayList<Tour> tourList, Context context) {
         this.tourList = tourList;
@@ -47,6 +54,17 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(context.getApplicationContext(), gso);
+        account = GoogleSignIn.getLastSignedInAccount(context.getApplicationContext());
+
+        if(account != null){
+            uid = account.getId();
+        }
+        else {
+            uid = firebaseAuth.getCurrentUser().getUid();
+        }
+
         final Tour currentTour = tourList.get(position);
 
         holder.tourName.setText(currentTour.getTourName());
@@ -90,7 +108,7 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String uid = firebaseAuth.getCurrentUser().getUid();
+                        //String uid = firebaseAuth.getCurrentUser().getUid();
                         DatabaseReference tourRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(currentTour.getTourID());
                         tourRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override

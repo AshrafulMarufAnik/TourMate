@@ -15,9 +15,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anik.example.tourmate.Activity.AddTourActivity;
 import com.anik.example.tourmate.Activity.TourHistoryActivity;
 import com.anik.example.tourmate.ModelClass.Route;
 import com.anik.example.tourmate.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +39,9 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.View
     private SharedPreferences sharedPreferences;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInAccount account;
+    private String uid;
 
     public RouteListAdapter(ArrayList<Route> routeList, Context context) {
         this.routeList = routeList;
@@ -51,6 +59,17 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.View
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Route currentRoute = routeList.get(position);
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(context.getApplicationContext(), gso);
+        account = GoogleSignIn.getLastSignedInAccount(context.getApplicationContext());
+
+        if(account != null){
+            uid = account.getId();
+        }
+        else {
+            uid = firebaseAuth.getCurrentUser().getUid();
+        }
+
         String routeID = currentRoute.getRouteID();
         holder.routeName.setText(currentRoute.getRoutePointName());
 
@@ -59,7 +78,7 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.View
             public void onClick(View view) {
                 sharedPreferences = context.getSharedPreferences("TourInfo",MODE_PRIVATE);
                 final String tourID = sharedPreferences.getString("SPTourID",null);
-                String uid = firebaseAuth.getCurrentUser().getUid();
+                //String uid = firebaseAuth.getCurrentUser().getUid();
                 final DatabaseReference routeRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID).child("Route points Lists").child(currentRoute.getRouteID());
 
                 PopupMenu popupMenu = new PopupMenu(context,holder.routeMenu);

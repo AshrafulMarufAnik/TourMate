@@ -18,6 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.anik.example.tourmate.Activity.TourHistoryActivity;
 import com.anik.example.tourmate.ModelClass.Expense;
 import com.anik.example.tourmate.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +38,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private SharedPreferences sharedPreferences;
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInAccount account;
+    private String uid;
 
     public ExpenseAdapter(ArrayList<Expense> expenseList, Context context) {
         this.expenseList = expenseList;
@@ -49,6 +56,17 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        mGoogleSignInClient = GoogleSignIn.getClient(context.getApplicationContext(), gso);
+        account = GoogleSignIn.getLastSignedInAccount(context.getApplicationContext());
+
+        if(account != null){
+            uid = account.getId();
+        }
+        else {
+            uid = firebaseAuth.getCurrentUser().getUid();
+        }
+
         final Expense currentExpense = expenseList.get(position);
 
         holder.typeTV.setText(currentExpense.getExpenseType());
@@ -64,7 +82,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
             public void onClick(View view) {
                 sharedPreferences = context.getSharedPreferences("TourInfo",MODE_PRIVATE);
                 final String tourID = sharedPreferences.getString("SPTourID",null);
-                String uid = firebaseAuth.getCurrentUser().getUid();
+                //String uid = firebaseAuth.getCurrentUser().getUid();
                 final DatabaseReference tourRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information").child(tourID).child("Expense Lists").child(currentExpense.getExpenseID());
 
                 PopupMenu popupMenu = new PopupMenu(context,holder.menuIV);

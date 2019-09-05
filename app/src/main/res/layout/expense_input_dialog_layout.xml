@@ -2,58 +2,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
     android:orientation="vertical">
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Expense Type"
-        android:textAllCaps="false"
-        android:layout_margin="10dp"
-        android:id="@+id/expenseTypeET"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Expense Details   (optional)"
-        android:textAllCaps="false"
-        android:inputType="textMultiLine"
-        android:layout_margin="10dp"
-        android:id="@+id/expenseNoteET"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Expense Amount"
-        android:inputType="numberDecimal"
-        android:layout_margin="10dp"
-        android:id="@+id/expenseAmountET"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2">
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_margin="20dp">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Expense Date"
-            android:inputType="date"
+            android:hint="Expense Type"
+            android:textAllCaps="false"
             android:layout_margin="10dp"
-            android:id="@+id/expenseDateET"/>
+            android:id="@+id/expenseTypeET"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Expense Time"
-            android:inputType="time"
+            android:hint="Expense Details   (optional)"
+            android:textAllCaps="false"
+            android:inputType="textMultiLine"
             android:layout_margin="10dp"
-            android:id="@+id/expenseTimeET"/>
+            android:id="@+id/expenseNoteET"/>
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Expense Amount"
+            android:inputType="numberDecimal"
+            android:layout_margin="10dp"
+            android:id="@+id/expenseAmountET"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add Date"
+                android:textAllCaps="false"
+                android:layout_marginRight="5dp"
+                android:id="@+id/expenseDateBTN"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add Time"
+                android:layout_marginLeft="5dp"
+                android:textAllCaps="false"
+                android:id="@+id/expenseTimeBTN"/>
+
+
+        </LinearLayout>
 
     </LinearLayout>
+
 
 </LinearLayout>
