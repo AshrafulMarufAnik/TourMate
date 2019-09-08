@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     android:background="@color/color_white"
     tools:context=".Activity.SignUpLocationMapActivity">
 
@@ -12,7 +13,7 @@
         android:layout_height="50dp"
         android:src="@drawable/ic_location_on_black_24dp"
         android:tint="@color/colorAccent"
-        android:elevation="10dp"
+        android:elevation="1dp"
         android:id="@+id/locationMarkerIV"
         android:visibility="gone"
         android:layout_centerInParent="true"/>
@@ -23,7 +24,7 @@
         app:cardUseCompatPadding="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="30dp"
         android:elevation="5dp"
         app:cardCornerRadius="5dp">
 

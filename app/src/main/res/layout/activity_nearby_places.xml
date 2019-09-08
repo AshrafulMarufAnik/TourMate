@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
+    android:fitsSystemWindows="false"
     tools:context=".Activity.NearbyPlacesActivity">
 
     <ImageView
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/nearbyLL"
         android:layout_margin="10dp"
+        android:elevation="1dp"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
@@ -95,7 +97,7 @@
                 app:cardUseCompatPadding="true"
                 app:cardCornerRadius="3dp"
                 android:layout_marginRight="5dp"
-                android:backgroundTint="@color/color_light_green">
+                android:backgroundTint="#994CAF50">
 
                 <LinearLayout
                     android:layout_width="wrap_content"

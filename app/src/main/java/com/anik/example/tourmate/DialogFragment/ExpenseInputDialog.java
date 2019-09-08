@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.anik.example.tourmate.R;
+import com.libizo.CustomEditText;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,7 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ExpenseInputDialog extends AppCompatDialogFragment {
-    private EditText expenseTypeET,expenseNoteET,expenseAmountET;
+    private CustomEditText expenseTypeET,expenseNoteET,expenseAmountET;
     private Button expenseDateBtn,expenseTimeBtn;
     private DialogListener dialogListener;
     private String note="";

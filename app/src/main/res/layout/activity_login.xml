@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white"
+    android:background="@drawable/background3"
     android:orientation="vertical"
     tools:context=".Activity.LoginActivity">
 
@@ -13,210 +13,205 @@
         android:layout_height="wrap_content"
         android:text="Tour Mate"
         android:textSize="30sp"
+        android:textColor="@color/color_white"
+        android:id="@+id/titleName"
         android:padding="10dp"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:textAlignment="center"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        app:cardUseCompatPadding="true"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="10dp"
+        android:elevation="3dp"
+        app:cardBackgroundColor="#BFFFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:layout_below="@id/titleName">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.libizo.CustomEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/loginEmailET"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    app:libIZO_clearIconTint="@color/color_blue"
+                    app:libIZO_setBorderColor="@color/color_darkGrey"
+                    app:libIZO_setBorderView="true"
+                    app:libIZO_setClearIconVisible="true"
+                    android:backgroundTint="@color/color_blue"
+                    app:libIZO_setCornerRadius="5dp"
+                    app:libIZO_setStrokeWidth="2dp"/>
+
+                <com.libizo.CustomEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/loginPasswordET"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    app:libIZO_clearIconTint="@color/color_blue"
+                    app:libIZO_setBorderColor="@color/color_darkGrey"
+                    app:libIZO_setBorderView="true"
+                    app:libIZO_setClearIconVisible="true"
+                    android:backgroundTint="@color/color_blue"
+                    app:libIZO_setCornerRadius="5dp"
+                    app:libIZO_setStrokeWidth="2dp"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginRight="80dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/custom_button_design"
+                    android:elevation="5dp"
+                    android:textSize="17sp"
+                    android:textAllCaps="false"
+                    android:id="@+id/logInBTN"
+                    android:text="Log in"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_blue"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="60dp"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="90dp"
+                        android:layout_weight="1"
+                        app:cardUseCompatPadding="true"
+                        android:layout_marginRight="5dp"
+                        app:cardBackgroundColor="#CBD1271B"
+                        app:cardCornerRadius="3dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_gravity="center"
+                            android:id="@+id/googleSignUpClick">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:id="@+id/googleIV"
+                                android:layout_margin="5dp"
+                                android:src="@drawable/google"
+                                android:tint="@color/color_white"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@id/googleIV"
+                                android:text="Sign in with Google"
+                                android:textColor="@color/color_white"
+                                android:textSize="15sp"
+                                android:padding="3dp"/>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="90dp"
+                        android:layout_weight="1"
+                        app:cardUseCompatPadding="true"
+                        android:layout_marginLeft="5dp"
+                        app:cardBackgroundColor="#CD0E75C9"
+                        app:cardCornerRadius="3dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_gravity="center"
+                            android:onClick="phoneLogInWithOTP">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:id="@+id/phoneIV"
+                                android:layout_margin="5dp"
+                                android:src="@drawable/phone"
+                                android:tint="@color/color_white"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@id/phoneIV"
+                                android:text="Sign in with Phone"
+                                android:textColor="@color/color_white"
+                                android:textSize="15sp"
+                                android:padding="3dp"/>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true"
+        android:padding="4dp"
+        android:layout_marginBottom="50dp"
+        android:orientation="horizontal">
 
-        <com.libizo.CustomEditText
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:id="@+id/loginEmailET"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            app:libIZO_clearIconTint="@color/color_blue"
-            app:libIZO_setBorderColor="@color/color_darkGrey"
-            app:libIZO_setBorderView="true"
-            app:libIZO_setClearIconVisible="true"
-            android:backgroundTint="@color/color_blue"
-            app:libIZO_setCornerRadius="5dp"
-            app:libIZO_setStrokeWidth="2dp"/>
-
-        <com.libizo.CustomEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:id="@+id/loginPasswordET"
-            android:hint="Password"
-            android:inputType="textPassword"
-            app:libIZO_clearIconTint="@color/color_blue"
-            app:libIZO_setBorderColor="@color/color_darkGrey"
-            app:libIZO_setBorderView="true"
-            app:libIZO_setClearIconVisible="true"
-            android:backgroundTint="@color/color_blue"
-            app:libIZO_setCornerRadius="5dp"
-            app:libIZO_setStrokeWidth="2dp"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/custom_button_design"
-            android:elegantTextHeight="true"
-            android:elevation="5dp"
-            android:textSize="17sp"
-            android:textAllCaps="false"
-            android:id="@+id/logInBTN"
-            android:text="Log in"
+            android:text="Dont Have Account? "
+            android:textColor="@color/color_white"
             android:textStyle="bold"
-            android:textColor="@color/color_blue"/>
+            android:textAlignment="center"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1.25"
-                android:layout_gravity="center_vertical"
-                android:background="@color/color_darkGrey">
-            </View>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:text="Or"
-                android:textSize="18sp"
-                android:textAlignment="center"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1.25"
-                android:layout_gravity="center_vertical"
-                android:background="@color/color_darkGrey">
-            </View>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="40dp"
-            android:weightSum="2"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="90dp"
-                android:layout_weight="1"
-                app:cardUseCompatPadding="true"
-                app:cardBackgroundColor="#E8D1271B"
-                app:cardCornerRadius="3dp"
-                app:cardElevation="6dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:id="@+id/googleSignUpClick">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:id="@+id/googleIV"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/google"
-                        android:tint="@color/color_white"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/googleIV"
-                        android:layout_centerVertical="true"
-                        android:text="Sign in with Google"
-                        android:textColor="@color/color_white"
-                        android:textSize="15sp"
-                        android:padding="3dp"/>
-
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="90dp"
-                android:layout_weight="1"
-                app:cardUseCompatPadding="true"
-                app:cardBackgroundColor="#0E75C9"
-                app:cardCornerRadius="3dp"
-                app:cardElevation="6dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:onClick="phoneLogInWithOTP">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:id="@+id/phoneIV"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/phone"
-                        android:tint="@color/color_white"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/phoneIV"
-                        android:layout_centerVertical="true"
-                        android:text="Sign in with Phone"
-                        android:textColor="@color/color_white"
-                        android:textSize="15sp"
-                        android:padding="3dp"/>
-
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dont Have Account? "
-                android:textAlignment="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="@string/sign_up"
-                android:onClick="goToSignUp"
-                android:textAlignment="center"/>
-
-        </LinearLayout>
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/color_white"
+            android:textStyle="bold"
+            android:text="@string/sign_up"
+            android:onClick="goToSignUp"
+            android:textAlignment="center"/>
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

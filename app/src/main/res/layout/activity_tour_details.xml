@@ -5,18 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
+    android:fitsSystemWindows="false"
     android:orientation="vertical"
     tools:context=".Activity.TourDetailsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="240dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="15dp"
             android:onClick="goBack"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="5dp"
             android:padding="2dp"
             android:src="@drawable/ic_arrow_back_black_24dp"
             android:tint="@color/color_white" />
@@ -27,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:elevation="10dp"
             android:padding="5dp"
             android:text="Tour Name"
@@ -38,7 +41,7 @@
         <ImageView
             android:id="@+id/detailsTourCoverPicIV"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="240dp"
             android:scaleType="fitXY"
             android:src="@drawable/sample_image" />
 
