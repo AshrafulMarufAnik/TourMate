@@ -290,6 +290,7 @@ public class LoginActivity extends AppCompatActivity implements PhoneNumberInput
     private void openDialog() {
         PhoneNumberInputDialog phoneNumberInputDialog = new PhoneNumberInputDialog();
         phoneNumberInputDialog.show(getSupportFragmentManager(), "PhoneNumber Input Dialog");
+        phoneNumberInputDialog.setCancelable(false);
     }
 
     @Override

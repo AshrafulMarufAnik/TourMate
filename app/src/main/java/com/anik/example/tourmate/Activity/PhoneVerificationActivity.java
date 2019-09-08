@@ -125,4 +125,8 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         tryAgain = findViewById(R.id.tryAgainTV);
     }
 
+    public void goToLogIn(View view) {
+        startActivity(new Intent(PhoneVerificationActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        finish();
+    }
 }

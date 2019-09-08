@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white"
+    android:background="@drawable/background4"
     android:orientation="vertical"
     tools:context=".Activity.SignUpActivity">
 
@@ -13,108 +13,121 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tour Mate"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:padding="10dp"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:textAlignment="center"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <com.libizo.CustomEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/phoneAuthUserNameET"
-            android:hint="Name"
-            android:inputType="text"
-            app:libIZO_clearIconTint="@color/color_blue"
-            app:libIZO_setBorderColor="@color/color_darkGrey"
-            app:libIZO_setBorderView="true"
-            app:libIZO_setClearIconVisible="true"
-            android:backgroundTint="@color/color_blue"
-            app:libIZO_setCornerRadius="5dp"
-            app:libIZO_setStrokeWidth="2dp"/>
-
-        <com.libizo.CustomEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="Email"
-            android:id="@+id/phoneAuthUserEmailET"
-            android:inputType="textEmailAddress"
-            app:libIZO_clearIconTint="@color/color_blue"
-            app:libIZO_setBorderColor="@color/color_darkGrey"
-            app:libIZO_setBorderView="true"
-            app:libIZO_setClearIconVisible="true"
-            android:backgroundTint="@color/color_blue"
-            app:libIZO_setCornerRadius="5dp"
-            app:libIZO_setStrokeWidth="2dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="#592196F3">
 
         <LinearLayout
-            android:id="@+id/phoneAuthUserLocationClick"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="19dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="19dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/custom_add_location_layout"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:weightSum="2">
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="0dp"
+            <com.libizo.CustomEditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:tint="@color/color_white"
-                android:src="@drawable/ic_location_on_black_24dp" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/phoneAuthUserNameET"
+                android:hint="Name"
+                android:inputType="text"
+                app:libIZO_setBorderView="true"
+                app:libIZO_setClearIconVisible="true"
+                app:libIZO_clearIconTint="@color/color_blue"
+                app:libIZO_setBorderColor="@color/color_white"
+                app:libIZO_setBackgroundColor="@color/color_white"
+                android:backgroundTint="@color/color_white"
+                app:libIZO_setCornerRadius="5dp"
+                app:libIZO_setStrokeWidth="2dp"/>
 
-            <TextView
-                android:layout_width="0dp"
+            <com.libizo.CustomEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Email"
+                android:id="@+id/phoneAuthUserEmailET"
+                android:inputType="textEmailAddress"
+                app:libIZO_setBorderView="true"
+                app:libIZO_setClearIconVisible="true"
+                app:libIZO_clearIconTint="@color/color_blue"
+                app:libIZO_setBorderColor="@color/color_white"
+                app:libIZO_setBackgroundColor="@color/color_white"
+                android:backgroundTint="@color/color_white"
+                app:libIZO_setCornerRadius="5dp"
+                app:libIZO_setStrokeWidth="2dp"/>
+
+            <LinearLayout
+                android:id="@+id/phoneAuthUserLocationClick"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="3dp"
-                android:layout_weight="1.75"
-                android:id="@+id/setLocationPhoneRegTV"
-                android:text="Add Location"
-                android:textColor="@color/color_white"/>
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_add_location_layout"
+                android:backgroundTint="#08638B"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:weightSum="2">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:tint="@color/color_white"
+                    android:src="@drawable/ic_location_on_black_24dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1.75"
+                    android:id="@+id/setLocationPhoneRegTV"
+                    android:text="Add Location"
+                    android:textColor="@color/color_white"/>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/custom_button_design"
+                android:elegantTextHeight="true"
+                android:textSize="17sp"
+                android:textAllCaps="false"
+                android:id="@+id/phoneAuthUserRegBTN"
+                android:text="Register"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textColor="@color/color_blue"/>
+
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/phoneAuthUserProgressBar"
+                android:padding="2dp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="75dp"
-            android:background="@drawable/custom_button_design"
-            android:elegantTextHeight="true"
-            android:elevation="5dp"
-            android:textSize="17sp"
-            android:textAllCaps="false"
-            android:id="@+id/phoneAuthUserRegBTN"
-            android:text="Register"
-            android:textStyle="bold"
-            android:padding="5dp"
-            android:textColor="@color/color_blue"/>
+    </androidx.cardview.widget.CardView>
 
-        <ProgressBar
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/phoneAuthUserProgressBar"
-            android:padding="2dp"
-            android:visibility="gone"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
