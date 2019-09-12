@@ -13,12 +13,12 @@
         android:layout_marginTop="5dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back_black_24dp"
-            android:padding="2dp"
-            android:layout_margin="2dp"
-            android:tint="@color/color_lightGrey"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="start"
+            android:layout_margin="10dp"
+            android:src="@drawable/leftarrow"
+            android:tint="@color/color_darkGrey"
             android:onClick="goToMain"/>
 
         <TextView
@@ -30,7 +30,8 @@
             android:textSize="18sp"
             android:id="@+id/TV"
             android:padding="2dp"
-            android:layout_margin="10dp"/>
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"/>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"

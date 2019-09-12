@@ -8,24 +8,24 @@
     tools:context=".Activity.TourHistoryActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_back_black_24dp"
-        android:padding="1dp"
-        android:layout_margin="1dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="start"
+        android:layout_margin="10dp"
+        android:src="@drawable/leftarrow"
         android:tint="@color/color_darkGrey"
         android:onClick="goBack"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:textSize="16sp"
         android:id="@+id/tv"
         android:textAlignment="center"
         android:text="Tour History"
         android:textStyle="bold"
-        android:layout_margin="11dp"
+        android:layout_marginTop="30dp"
         android:padding="3dp"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -34,18 +34,13 @@
         android:id="@+id/swiperefreshlayout_THA"
         android:layout_below="@id/tv">
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_below="@id/tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:id="@+id/tourHistoryRV">
 
         </androidx.recyclerview.widget.RecyclerView>
-
-
-
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

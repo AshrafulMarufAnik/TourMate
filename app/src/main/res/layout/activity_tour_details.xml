@@ -14,15 +14,15 @@
         android:layout_height="240dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/leftarrow"
+            android:tint="@color/color_white"
             android:elevation="15dp"
-            android:onClick="goBack"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="5dp"
-            android:padding="2dp"
-            android:src="@drawable/ic_arrow_back_black_24dp"
-            android:tint="@color/color_white" />
+            android:onClick="goBack" />
 
         <TextView
             android:id="@+id/detailsTourNameTV"
@@ -396,6 +396,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>

@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background4"
+    android:background="@color/color_white"
     tools:context=".Activity.AddTourActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="start"
-        android:layout_margin="4dp"
-        android:onClick="goBack"
-        android:padding="2dp"
-        android:src="@drawable/ic_arrow_back_black_24dp"
-        android:tint="@color/color_white" />
+        android:layout_margin="10dp"
+        android:src="@drawable/leftarrow"
+        android:tint="@color/color_darkGrey"
+        android:onClick="goBack"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,13 +33,15 @@
             android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="350dp"
-            android:layout_height="400dp"
+            android:layout_width="360dp"
+            android:layout_height="420dp"
             android:layout_marginTop="50dp"
             android:layout_below="@id/a1TV"
             android:layout_centerInParent="true"
-            app:cardCornerRadius="10dp"
-            app:cardBackgroundColor="#592196F3">
+            app:cardCornerRadius="22dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="5dp"
+            app:cardPreventCornerOverlap="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -69,9 +70,7 @@
                             android:hint="Tour Name"
                             android:inputType="text"
                             app:libIZO_clearIconTint="@color/color_blue"
-                            app:libIZO_setBorderColor="@color/color_white"
-                            app:libIZO_setBackgroundColor="@color/color_white"
-                            android:backgroundTint="@color/color_white"
+                            app:libIZO_setBorderColor="@color/color_darkGrey"
                             app:libIZO_setBorderView="true"
                             app:libIZO_setClearIconVisible="true"
                             app:libIZO_setCornerRadius="5dp"
@@ -113,35 +112,35 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="35dp"
+                            android:layout_height="95dp"
+                            android:layout_marginLeft="30dp"
                             android:layout_marginTop="5dp"
-                            android:layout_marginRight="35dp"
+                            android:layout_marginRight="30dp"
                             android:layout_marginBottom="5dp"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
                             <androidx.cardview.widget.CardView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                app:cardBackgroundColor="@color/color_white"
-                                app:cardCornerRadius="5dp">
+                                app:cardBackgroundColor="@color/color_light_red"
+                                app:cardCornerRadius="10dp">
 
                                 <LinearLayout
                                     android:id="@+id/addDepartureDateClick"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_margin="10dp"
+                                    android:layout_margin="8dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
                                     android:orientation="vertical">
 
                                     <ImageView
-                                        android:layout_width="50dp"
-                                        android:layout_height="50dp"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
                                         android:src="@drawable/calender"
-                                        android:tint="#0C84B9" />
+                                        android:tint="@color/color_white" />
 
                                     <TextView
                                         android:id="@+id/addDateTV"
@@ -151,7 +150,8 @@
                                         android:hint="Departure Date"
                                         android:padding="5dp"
                                         android:textAlignment="center"
-                                        android:textColorHint="#0C84B9"
+                                        android:textColor="@color/color_white"
+                                        android:textColorHint="@color/color_white"
                                         android:textStyle="bold" />
 
                                 </LinearLayout>
@@ -160,26 +160,26 @@
 
                             <androidx.cardview.widget.CardView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
-                                app:cardBackgroundColor="@color/color_white"
-                                app:cardCornerRadius="5dp">
+                                app:cardBackgroundColor="@color/color_light_red"
+                                app:cardCornerRadius="10dp">
 
                                 <LinearLayout
                                     android:id="@+id/addDepartureTimeClick"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_margin="10dp"
+                                    android:layout_margin="8dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
                                     android:orientation="vertical">
 
                                     <ImageView
-                                        android:layout_width="50dp"
-                                        android:layout_height="50dp"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
                                         android:src="@drawable/clock"
-                                        android:tint="#0C84B9" />
+                                        android:tint="@color/color_white" />
 
                                     <TextView
                                         android:id="@+id/addTimeTV"
@@ -189,7 +189,8 @@
                                         android:hint="Departure Time"
                                         android:padding="5dp"
                                         android:textAlignment="center"
-                                        android:textColorHint="#0C84B9"
+                                        android:textColor="@color/color_white"
+                                        android:textColorHint="@color/color_white"
                                         android:textStyle="bold" />
 
                                 </LinearLayout>
@@ -207,12 +208,10 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        app:libIZO_setBackgroundColor="@color/color_white"
-                        android:backgroundTint="@color/color_white"
                         android:hint="Tour Budget"
                         android:inputType="number"
                         app:libIZO_clearIconTint="@color/color_blue"
-                        app:libIZO_setBorderColor="@color/color_white"
+                        app:libIZO_setBorderColor="@color/color_darkGrey"
                         app:libIZO_setBorderView="true"
                         app:libIZO_setClearIconVisible="true"
                         app:libIZO_setCornerRadius="5dp"
@@ -264,17 +263,17 @@
             android:id="@+id/saveNewTourBTN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="90dp"
+            android:layout_marginLeft="110dp"
             android:layout_marginBottom="80dp"
-            android:layout_marginRight="90dp"
+            android:layout_marginRight="110dp"
             android:layout_alignParentBottom="true"
             android:background="@drawable/custom_button_design"
-            android:elevation="2dp"
+            android:backgroundTint="#592196F3"
             android:padding="5dp"
             android:text="Save"
             android:textAllCaps="false"
-            android:textColor="@color/color_blue"
-            android:textSize="17sp"
+            android:textColor="@color/color_white"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
