@@ -13,4 +13,5 @@
     <color name="color_light_blue">#2F2196F3</color>
     <color name="color_light_green">#91B992</color>
     <color name="light_green">#C94CAF50</color>
+    <color name="button_text_grey">#D7525151</color>
 </resources>

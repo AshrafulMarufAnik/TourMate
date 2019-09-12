@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background4"
+    android:background="@drawable/backgroundnew"
     android:orientation="vertical"
     tools:context=".Activity.LoginActivity">
 
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tour Mate"
-        android:textSize="20sp"
+        android:textSize="23sp"
         android:id="@+id/titleName"
         android:padding="10dp"
         android:textStyle="bold"
@@ -21,11 +21,14 @@
         android:textAlignment="center"/>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="400dp"
+        android:layout_width="360dp"
+        android:layout_height="370dp"
         android:layout_centerInParent="true"
-        app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="#592196F3">
+        app:cardCornerRadius="22dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="1dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardBackgroundColor="#8CFFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,38 +75,37 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="80dp"
-                    android:layout_marginRight="80dp"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginRight="100dp"
                     android:layout_marginTop="30dp"
                     android:background="@drawable/custom_button_design"
-                    android:textSize="17sp"
+                    android:textSize="14sp"
                     android:textAllCaps="false"
                     android:id="@+id/logInBTN"
                     android:text="Log in"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_blue"/>
+                    android:textColor="@color/button_text_grey"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="58dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="65dp"
                     android:weightSum="2"
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:layout_marginRight="5dp"
-                        app:cardBackgroundColor="#B3FFFFFF"
-                        app:cardCornerRadius="3dp">
+                        app:cardPreventCornerOverlap="true"
+                        app:cardBackgroundColor="#D9FFFFFF"
+                        app:cardCornerRadius="15dp">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:id="@+id/googleSignUpClick">
 
@@ -111,17 +113,17 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:id="@+id/googleIV"
-                                android:layout_margin="5dp"
+                                android:layout_centerVertical="true"
+                                android:layout_margin="8dp"
                                 android:src="@drawable/google"/>
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@id/googleIV"
                                 android:text="Sign in with Google"
-                                android:textStyle="bold"
-                                android:textSize="15sp"
-                                android:padding="3dp"/>
+                                android:layout_centerVertical="true"
+                                android:textSize="15sp"/>
 
                         </RelativeLayout>
 
@@ -129,16 +131,16 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:layout_marginLeft="5dp"
-                        app:cardBackgroundColor="#B3FFFFFF"
-                        app:cardCornerRadius="3dp">
+                        app:cardBackgroundColor="#D9FFFFFF"
+                        app:cardPreventCornerOverlap="true"
+                        app:cardCornerRadius="15dp">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
                             android:layout_gravity="center"
                             android:onClick="phoneLogInWithOTP">
 
@@ -146,7 +148,8 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:id="@+id/phoneIV"
-                                android:layout_margin="5dp"
+                                android:layout_margin="8dp"
+                                android:layout_centerVertical="true"
                                 android:src="@drawable/phone"
                                 android:tint="@color/color_blue"/>
 
@@ -155,9 +158,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@id/phoneIV"
                                 android:text="Sign in with Phone"
-                                android:textStyle="bold"
-                                android:textSize="15sp"
-                                android:padding="3dp"/>
+                                android:layout_centerVertical="true"
+                                android:textSize="15sp"/>
 
                         </RelativeLayout>
 
@@ -183,6 +185,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dont Have Account? "
+            android:textColor="@color/color_white"
             android:textStyle="bold"
             android:textAlignment="center"/>
 
@@ -191,6 +194,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:textStyle="bold"
+            android:textColor="@color/color_white"
             android:text="@string/sign_up"
             android:onClick="goToSignUp"
             android:textAlignment="center"/>

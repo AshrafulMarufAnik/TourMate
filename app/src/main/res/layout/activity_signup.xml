@@ -5,24 +5,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background4"
+    android:background="@drawable/backgroundnew"
     tools:context=".Activity.SignUpActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tour Mate"
-        android:textSize="20sp"
+        android:textSize="23sp"
         android:padding="10dp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:textAlignment="center"/>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="400dp"
-        app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="#592196F3"
+        android:layout_width="360dp"
+        android:layout_height="380dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="#8CFFFFFF"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="1dp"
+        app:cardPreventCornerOverlap="true"
         android:layout_centerInParent="true">
 
             <LinearLayout
@@ -123,18 +126,17 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginRight="60dp"
+                    android:layout_marginLeft="90dp"
+                    android:layout_marginRight="90dp"
                     android:layout_marginTop="30dp"
                     android:background="@drawable/custom_button_design"
                     android:elegantTextHeight="true"
-                    android:textSize="17sp"
+                    android:textSize="14sp"
                     android:textAllCaps="false"
                     android:id="@+id/signUpBTN"
                     android:text="Sign Up"
-                    android:textStyle="bold"
                     android:padding="5dp"
-                    android:textColor="@color/color_blue"/>
+                    android:textColor="@color/button_text_grey"/>
 
                 <ProgressBar
                     android:layout_width="50dp"
@@ -162,6 +164,7 @@
             android:layout_height="wrap_content"
             android:text="Already Have Account? "
             android:textStyle="bold"
+            android:textColor="@color/color_white"
             android:textAlignment="center"/>
 
         <TextView
@@ -170,6 +173,7 @@
             android:layout_marginLeft="2dp"
             android:text="@string/log_in"
             android:textStyle="bold"
+            android:textColor="@color/color_white"
             android:onClick="goToLogIn"
             android:textAlignment="center"/>
 

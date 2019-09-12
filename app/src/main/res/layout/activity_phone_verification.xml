@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background4"
+    android:background="@drawable/backgroundnew"
     android:orientation="vertical"
     tools:context=".Activity.PhoneVerificationActivity">
 
@@ -14,16 +14,19 @@
         android:text="Phone Verification"
         android:padding="5dp"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textAlignment="center"
         android:layout_margin="20dp"/>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="300dp"
+        android:layout_width="360dp"
+        android:layout_height="270dp"
         android:layout_centerInParent="true"
-        app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="#592196F3">
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="1dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardBackgroundColor="#8CFFFFFF">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,18 +56,17 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="90dp"
-                android:layout_marginRight="90dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="30dp"
                 android:onClick="phoneLogIn"
                 android:background="@drawable/custom_button_design"
                 android:elegantTextHeight="true"
-                android:textSize="17sp"
+                android:textSize="14sp"
                 android:textAllCaps="false"
                 android:id="@+id/phoneLogInBTN"
                 android:text="Verify"
-                android:textStyle="bold"
-                android:textColor="@color/color_blue"/>
+                android:textColor="@color/button_text_grey"/>
 
         </LinearLayout>
 
@@ -86,26 +88,26 @@
             android:id="@+id/tryAgainTV"
             android:padding="5dp"
             android:layout_marginRight="5dp"
-            android:textSize="18sp"
+            android:textColor="@color/color_white"
             android:textStyle="bold"/>
 
         <View
             android:layout_width="2dp"
             android:layout_height="20dp"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="6dp"
             android:layout_marginLeft="5dp"
-            android:background="#000000">
+            android:background="#FFFFFF">
         </View>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel?"
+            android:textColor="@color/color_white"
             android:padding="5dp"
             android:layout_marginLeft="5dp"
             android:onClick="goToLogIn"
-            android:textSize="18sp"
             android:textStyle="bold"/>
 
     </LinearLayout>
