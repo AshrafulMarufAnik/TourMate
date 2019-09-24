@@ -50,7 +50,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class AddTourActivity extends AppCompatActivity {
-    private Button addNewTourBTn,updateTourBTN;
+    private Button addNewTourBTn, updateTourBTN;
     private EditText tourNameET, tourBudgetET;
     private LinearLayout addTourReturnDateClick;
     private LinearLayout tourLocationClick;
@@ -61,11 +61,11 @@ public class AddTourActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private long dateInMS;
     private String intentLocation;
-    private int updateIntent=0,updateMapReturn;
+    private int updateIntent=0, updateMapReturn;
     private String name, budget, returnDate, date, time;
     private String updateTID;
     private String uid;
-    private int updateMapSource=0;
+    private int updateMapSource = 0;
     private ArrayList<Route> routeList = new ArrayList<>();
     private ArrayList<Expense> expenseList = new ArrayList<>();
     private GoogleSignInClient mGoogleSignInClient;
@@ -85,18 +85,18 @@ public class AddTourActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(AddTourActivity.this, gso);
         account = GoogleSignIn.getLastSignedInAccount(this);
 
-        if(account != null){
+        if (account != null) {
             uid = account.getId();
-        }
-        else {
+        } else {
             uid = firebaseAuth.getCurrentUser().getUid();
         }
 
-        if(getIntent().getExtras() != null){
-            intentSourceFromTourPlaceSearch = getIntent().getIntExtra("fromTourPlaceSearch",0);
+        if (getIntent().getExtras() != null) {
+            intentSourceFromTourPlaceSearch = getIntent().getIntExtra("fromTourPlaceSearch", 0);
+            updateIntent = getIntent().getIntExtra("updateIntent", 0);
         }
 
-        if(intentSourceFromTourPlaceSearch == 1){
+        if (intentSourceFromTourPlaceSearch == 1) {
             intentLocation = getIntent().getStringExtra("tourLocation");
             String name = getIntent().getStringExtra("intentTourName");
             String budget = getIntent().getStringExtra("intentTourBudget");
@@ -113,65 +113,46 @@ public class AddTourActivity extends AppCompatActivity {
 
         }
 
-        //updateIntent = getIntent().getIntExtra("updateIntent", 0);
-        //updateMapReturn = getIntent().getIntExtra("updateMapReturn",0);
+        if (updateIntent == 1) {
+            titleTV.setText("Update Tour");
+            addNewTourBTn.setText("Update");
 
-        /*
-        if (getIntent().getExtras() != null) {
-            if (updateIntent == 1) {
-                titleTV.setText("Update Tour");
-                addNewTourBTn.setText("Update");
-                updateTID = getIntent().getStringExtra("updateTourID");
-                String tName = getIntent().getStringExtra("updateTourName");
-                String tLocation = getIntent().getStringExtra("updateTourLocation");
-                double tBudget = Double.parseDouble(getIntent().getStringExtra("updateTourBudget"));
-                String tReturnDate = getIntent().getStringExtra("updateTourReturnDate");
-                String tDate = getIntent().getStringExtra("updateTourDate");
-                String tTime = getIntent().getStringExtra("updateTourTime");
+            sharedPreferences = getSharedPreferences("updateTourInfoSP",MODE_PRIVATE);
+            updateTID = sharedPreferences.getString("SPUpdateTourId",null);
+            String tName = sharedPreferences.getString("SPUpdateTourName",null);
+            String tLocation = sharedPreferences.getString("SPUpdateTourLocation",null);
+            double tBudget = Double.parseDouble(sharedPreferences.getString("SPUpdateTourBudget",null));
+            String tReturnDate = sharedPreferences.getString("SPUpdateTourReturnDate",null);
+            String tDate = sharedPreferences.getString("SPUpdateTourDate",null);
+            String tTime = sharedPreferences.getString("SPUpdateTourTime",null);
 
-                setLocationTV.setText(tLocation);
-                tourNameET.setText(tName);
-                tourBudgetET.setText(String.valueOf(tBudget));
-                setReturnDateTV.setText(tReturnDate);
-                dateTV.setText(tDate);
-                timeTV.setText(tTime);
-                updateIntent = 1;
-                updateMapSource = 1;
-            }
-            else if(updateMapReturn == 1){
-                addNewTourBTn.setText("Update");
-                updateIntent = 1;
-                intentLocation = getIntent().getStringExtra("location");
-                updateTID = getIntent().getStringExtra("updateTourIDReturn");
-                name = getIntent().getStringExtra("intentName");
-                budget = getIntent().getStringExtra("intentBudget");
-                returnDate = getIntent().getStringExtra("intentReturnDate");
-                date = getIntent().getStringExtra("intentDate");
-                time = getIntent().getStringExtra("intentTime");
+            setLocationTV.setText(tLocation);
+            tourNameET.setText(tName);
+            tourBudgetET.setText(String.valueOf(tBudget));
+            setReturnDateTV.setText(tReturnDate);
+            dateTV.setText(tDate);
+            timeTV.setText(tTime);
+        }
+        else if(updateIntent == 2){
+            titleTV.setText("Update Tour");
+            addNewTourBTn.setText("Update");
 
-                setLocationTV.setText(intentLocation);
-                tourNameET.setText(name);
-                tourBudgetET.setText(budget);
-                setReturnDateTV.setText(returnDate);
-                dateTV.setText(date);
-                timeTV.setText(time);
-            }
-            else {
-                intentLocation = getIntent().getStringExtra("location");
-                name = getIntent().getStringExtra("intentName");
-                budget = getIntent().getStringExtra("intentBudget");
-                returnDate = getIntent().getStringExtra("intentReturnDate");
-                date = getIntent().getStringExtra("intentDate");
-                time = getIntent().getStringExtra("intentTime");
+            sharedPreferences = getSharedPreferences("updateTourInfoSP",MODE_PRIVATE);
+            updateTID = sharedPreferences.getString("SPUpdateTourId",null);
+            String tName = sharedPreferences.getString("SPUpdateTourName",null);
+            String tLocation = getIntent().getStringExtra("tourLocation");
+            double tBudget = Double.parseDouble(sharedPreferences.getString("SPUpdateTourBudget",null));
+            String tReturnDate = sharedPreferences.getString("SPUpdateTourReturnDate",null);
+            String tDate = sharedPreferences.getString("SPUpdateTourDate",null);
+            String tTime = sharedPreferences.getString("SPUpdateTourTime",null);
 
-                setLocationTV.setText(intentLocation);
-                tourNameET.setText(name);
-                tourBudgetET.setText(budget);
-                setReturnDateTV.setText(returnDate);
-                dateTV.setText(date);
-                timeTV.setText(time);
-            }
-        } */
+            setLocationTV.setText(tLocation);
+            tourNameET.setText(tName);
+            tourBudgetET.setText(String.valueOf(tBudget));
+            setReturnDateTV.setText(tReturnDate);
+            dateTV.setText(tDate);
+            timeTV.setText(tTime);
+        }
 
         departureDateClick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,51 +171,57 @@ public class AddTourActivity extends AppCompatActivity {
         tourLocationClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tourNameET.getText().toString() != null || tourBudgetET.getText().toString() != null || setReturnDateTV.getText().toString() != null || dateTV.getText().toString() != null || timeTV.getText().toString() != null) {
-                    String name = tourNameET.getText().toString();
-                    String budget = tourBudgetET.getText().toString();
-                    String returnDate = setReturnDateTV.getText().toString();
-                    String date = dateTV.getText().toString();
-                    String time = timeTV.getText().toString();
-
-                    storeNewTourInfoAsSharedPref(name,budget,date,time,returnDate);
+                if(updateIntent == 1){
                     Intent intent = new Intent(AddTourActivity.this, TourLocationSearchActivity.class);
                     startActivity(intent);
                 }
                 else {
-                    Intent intent = new Intent(AddTourActivity.this, TourLocationSearchActivity.class);
-                    startActivity(intent);
+                    if (tourNameET.getText().toString() != null || tourBudgetET.getText().toString() != null || setReturnDateTV.getText().toString() != null || dateTV.getText().toString() != null || timeTV.getText().toString() != null) {
+                        String name = tourNameET.getText().toString();
+                        String budget = tourBudgetET.getText().toString();
+                        String returnDate = setReturnDateTV.getText().toString();
+                        String date = dateTV.getText().toString();
+                        String time = timeTV.getText().toString();
+
+                        storeNewTourInfoAsSharedPref(name, budget, date, time, returnDate);
+                        Intent intent = new Intent(AddTourActivity.this, TourLocationSearchActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Intent intent = new Intent(AddTourActivity.this, TourLocationSearchActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
 
         addTourReturnDateClick.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { returnDatePicker();
+            public void onClick(View view) {
+                returnDatePicker();
             }
         });
 
         addNewTourBTn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(updateIntent == 1){
-                   updateTourData(updateTID);
-                }
-                else {
+                if (updateIntent == 1) {
+                    updateTourData(updateTID);
+                } else {
                     addNewTour();
                 }
             }
         });
     }
 
-    public void storeNewTourInfoAsSharedPref(String name,String budget,String date,String time,String returnDate) {
-        sharedPreferences = getSharedPreferences("NewTourInfoSP",MODE_PRIVATE);
+    public void storeNewTourInfoAsSharedPref(String name, String budget, String date, String time, String returnDate) {
+        sharedPreferences = getSharedPreferences("NewTourInfoSP", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        editor.putString("tourName",name);
-        editor.putString("tourBudget",budget);
-        editor.putString("tourDate",date);
-        editor.putString("tourTime",time);
-        editor.putString("tourReturnDate",returnDate);
+        editor.putString("tourName", name);
+        editor.putString("tourBudget", budget);
+        editor.putString("tourDate", date);
+        editor.putString("tourTime", time);
+        editor.putString("tourReturnDate", returnDate);
         editor.commit();
         editor.apply();
     }
@@ -242,8 +229,7 @@ public class AddTourActivity extends AppCompatActivity {
     private void addNewTour() {
         if (intentLocation == null || tourNameET.getText().toString().isEmpty() || tourBudgetET.getText().toString().isEmpty() || setReturnDateTV.getText().toString().isEmpty() || dateTV.getText().toString().isEmpty() || timeTV.getText().toString().isEmpty()) {
             Toast.makeText(AddTourActivity.this, "Fill up all fields", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             final String name = tourNameET.getText().toString();
             final String location = setLocationTV.getText().toString();
             final double budget = Double.parseDouble(tourBudgetET.getText().toString());
@@ -256,7 +242,7 @@ public class AddTourActivity extends AppCompatActivity {
             DatabaseReference tourInfoRef = databaseReference.child("User(TourMateApp)").child(uid).child("Tour information");
             final String tourID = tourInfoRef.push().getKey();
 
-            Tour newTour = new Tour(tourID,name,location,returnDate,date,time,budget);
+            Tour newTour = new Tour(tourID, name, location, returnDate, date, time, budget);
             tourInfoRef.child(tourID).setValue(newTour).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -281,8 +267,7 @@ public class AddTourActivity extends AppCompatActivity {
     private void updateTourData(final String updateTID) {
         if (setLocationTV.getText().toString() == null || tourNameET.getText().toString().isEmpty() || tourBudgetET.getText().toString().isEmpty() || setReturnDateTV.getText().toString().isEmpty()) {
             Toast.makeText(AddTourActivity.this, "Insert new data to update", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             String uName = tourNameET.getText().toString();
             String uLocation = setLocationTV.getText().toString();
             double uBudget = Double.parseDouble(tourBudgetET.getText().toString());
@@ -297,39 +282,41 @@ public class AddTourActivity extends AppCompatActivity {
             tourInfoRef.child("Route points Lists").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
+                    if (dataSnapshot.exists()) {
                         routeList.clear();
-                        for(DataSnapshot routeListData: dataSnapshot.getChildren()){
+                        for (DataSnapshot routeListData : dataSnapshot.getChildren()) {
                             Route newRoute = routeListData.getValue(Route.class);
                             routeList.add(newRoute);
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(AddTourActivity.this,databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddTourActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 
             tourInfoRef.child("Expense Lists").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
+                    if (dataSnapshot.exists()) {
                         expenseList.clear();
-                        for(DataSnapshot expenseListData: dataSnapshot.getChildren()){
+                        for (DataSnapshot expenseListData : dataSnapshot.getChildren()) {
                             Expense newExpense = expenseListData.getValue(Expense.class);
                             expenseList.add(newExpense);
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(AddTourActivity.this,databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddTourActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 
             //Tour updateTour = new Tour(updateTID,uName,uLocation,uReturnDate,uDate,uTime,uBudget);
-            Tour updateTour = new Tour(updateTID,uName,uLocation,uReturnDate,uDate,uTime,uBudget,routeList,expenseList);
+            Tour updateTour = new Tour(updateTID, uName, uLocation, uReturnDate, uDate, uTime, uBudget, routeList, expenseList);
 
             tourInfoRef.setValue(updateTour).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -338,7 +325,7 @@ public class AddTourActivity extends AppCompatActivity {
                         Toast.makeText(AddTourActivity.this, "Tour updated", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddTourActivity.this, TourDetailsActivity.class);
                         intent.putExtra("uTourID", updateTID);
-                        intent.putExtra("intentSource",1);
+                        intent.putExtra("intentSource", 1);
                         startActivity(intent);
                         finish();
                     }

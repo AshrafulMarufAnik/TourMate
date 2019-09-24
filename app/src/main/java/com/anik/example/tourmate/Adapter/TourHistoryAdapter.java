@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.ViewHolder> {
     private ArrayList<Tour> tourList;
     private Context context;
@@ -38,6 +41,8 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInAccount account;
     private String uid;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     public TourHistoryAdapter(ArrayList<Tour> tourList, Context context) {
         this.tourList = tourList;
@@ -85,15 +90,19 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
         holder.updateClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                storeUpdateTourInfoAsSharedPref(currentTour.getTourID(),currentTour.getTourName(),
+                        currentTour.getTourLocation(),String.valueOf(currentTour.getTourBudget()),currentTour.getTourDate(),
+                        currentTour.getTourTime(),currentTour.getTourReturnDate());
+
                 Intent intent = new Intent(context, AddTourActivity.class);
                 intent.putExtra("updateIntent",1);
-                intent.putExtra("updateTourName",currentTour.getTourName());
-                intent.putExtra("updateTourID",currentTour.getTourID());
-                intent.putExtra("updateTourLocation",currentTour.getTourLocation());
-                intent.putExtra("updateTourDate",currentTour.getTourDate());
-                intent.putExtra("updateTourTime",currentTour.getTourTime());
-                intent.putExtra("updateTourReturnDate",currentTour.getTourReturnDate());
-                intent.putExtra("updateTourBudget",String.valueOf(currentTour.getTourBudget()));
+                //intent.putExtra("updateTourName",currentTour.getTourName());
+                //intent.putExtra("updateTourID",currentTour.getTourID());
+                //intent.putExtra("updateTourLocation",currentTour.getTourLocation());
+                //intent.putExtra("updateTourDate",currentTour.getTourDate());
+               //intent.putExtra("updateTourTime",currentTour.getTourTime());
+               //intent.putExtra("updateTourReturnDate",currentTour.getTourReturnDate());
+               //intent.putExtra("updateTourBudget",String.valueOf(currentTour.getTourBudget()));
                 context.startActivity(intent);
             }
         });
@@ -157,5 +166,19 @@ public class TourHistoryAdapter extends RecyclerView.Adapter<TourHistoryAdapter.
             updateClick = itemView.findViewById(R.id.itemUpdateClick);
             deleteClick = itemView.findViewById(R.id.itemDeleteClick);
         }
+    }
+
+    public void storeUpdateTourInfoAsSharedPref(String tid, String name, String location, String budget, String date, String time, String returnDate) {
+        sharedPreferences = context.getSharedPreferences("updateTourInfoSP", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString("SPUpdateTourId", tid);
+        editor.putString("SPUpdateTourName", name);
+        editor.putString("SPUpdateTourLocation", location);
+        editor.putString("SPUpdateTourBudget", budget);
+        editor.putString("SPUpdateTourDate", date);
+        editor.putString("SPUpdateTourTime", time);
+        editor.putString("SPUpdateTourReturnDate", returnDate);
+        editor.commit();
+        editor.apply();
     }
 }

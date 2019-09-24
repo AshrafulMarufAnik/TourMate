@@ -66,6 +66,7 @@ public class TourPlacesAutoComplete extends RecyclerView.Adapter<TourPlacesAutoC
 
                     String location = prediction.getDescription();
                     Intent intent = new Intent(context, AddTourActivity.class);
+                    intent.putExtra("updateIntent",2);
                     intent.putExtra("fromTourPlaceSearch",1);
                     intent.putExtra("tourLocation",location);
                     intent.putExtra("intentTourName",newTourName);
